@@ -19,7 +19,7 @@ const Primarynavbar = () => {
   return (
     <nav
 
-      className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-700 text-white text-sm relative"
+      className=" fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-700 text-white text-sm shadow"
 
 
       role="navigation"

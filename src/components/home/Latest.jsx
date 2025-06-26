@@ -19,14 +19,41 @@ export default function LatestUpdates() {
       const res = await axios.get(NOTICE_API);
       const json = res.data;
       setData(json);
-
-      // Get unique categories from fetched data
       const uniqueCategories = [...new Set(json.map(item => item.category))];
       setCategories(uniqueCategories);
     } catch (err) {
       console.error('Error fetching notices:', err);
     }
   };
+
+  useEffect(() => {
+    const intervals = [];
+
+    setTimeout(() => {
+      categories.forEach((_, index) => {
+        const container = document.getElementById(`scroll-container-${index}`);
+        if (!container) return;
+
+        let scrollAmount = 0;
+        const scrollStep = 1;
+        const scrollDelay = 50;
+
+        const interval = setInterval(() => {
+          if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+            container.scrollTop = 0;
+            scrollAmount = 0;
+          } else {
+            scrollAmount += scrollStep;
+            container.scrollTop = scrollAmount;
+          }
+        }, scrollDelay);
+
+        intervals.push(interval);
+      });
+    }, 1500); // allow DOM to render
+
+    return () => intervals.forEach(clearInterval);
+  }, [categories]);
 
   const getPriorityIndicator = (priority = 'low') => {
     if (priority === 'high') return 'bg-red-500 animate-pulse';
@@ -89,9 +116,15 @@ export default function LatestUpdates() {
             transform: translateY(0);
           }
         }
-
         .animate-slide-in {
           animation: slide-in 0.6s ease-out forwards;
+        }
+        .auto-scroll::-webkit-scrollbar {
+          display: none;
+        }
+        .auto-scroll {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
 
@@ -113,14 +146,20 @@ export default function LatestUpdates() {
               <div className="p-4 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white">
                 <h3 className="text-lg font-semibold">{category}</h3>
               </div>
-              <div className="p-4 space-y-3">
-                {filtered.length > 0 ? (
-                  filtered.map((item, i) => (
-                    <NoticeCard key={item.id} item={item} index={i} category={category} />
-                  ))
-                ) : (
-                  <p className="text-sm text-gray-500">No updates in this category.</p>
-                )}
+              <div className="relative overflow-hidden">
+                <div
+                  className="auto-scroll space-y-3 max-h-[600px] overflow-y-auto pr-2"
+                  id={`scroll-container-${catIndex}`}
+                  style={{ scrollBehavior: 'smooth' }}
+                >
+                  {filtered.length > 0 ? (
+                    filtered.map((item, i) => (
+                      <NoticeCard key={item.id} item={item} index={i} category={category} />
+                    ))
+                  ) : (
+                    <p className="text-sm text-gray-500">No updates in this category.</p>
+                  )}
+                </div>
               </div>
             </div>
           );

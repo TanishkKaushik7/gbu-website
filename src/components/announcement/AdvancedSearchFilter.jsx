@@ -90,7 +90,23 @@ const Badge = ({ children, variant = "default", className = '', ...props }) => {
 };
 import { CalendarIcon, Search, Filter, X, SlidersHorizontal } from 'lucide-react';
 import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
+// Utility function to join class names conditionally
+function cn(...args) {
+  return args
+    .flatMap(arg => {
+      if (!arg) return [];
+      if (typeof arg === 'string') return [arg];
+      if (Array.isArray(arg)) return arg;
+      if (typeof arg === 'object') {
+        return Object.entries(arg)
+          .filter(([_, value]) => Boolean(value))
+          .map(([key]) => key);
+      }
+      return [];
+    })
+    .filter(Boolean)
+    .join(' ');
+}
 
 // PropTypes will be used for prop validation below
 

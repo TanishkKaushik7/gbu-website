@@ -287,10 +287,12 @@ const qualifications = [
                   <div className="p-6">
                     <div className="flex flex-col items-center text-center">
                       <img
-                        src={faculty.image}
-                        alt={faculty.name}
-                        className="w-24 h-24 rounded-full object-cover mb-4 border-4 border-blue-100 group-hover:border-blue-200 transition-colors"
-                      />
+  src={`https://meow.tilchattaas.com/media/${faculty.image}`}
+  alt={faculty.name}
+  className="w-24 h-24 rounded-full object-cover mb-4 border-4 border-blue-100 group-hover:border-blue-200 transition-colors"
+/>
+
+                      <h1>{faculty.image}</h1>
                       <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">{faculty.name}</h3>
                       <p className="text-blue-600 font-semibold mb-4">{faculty.designation}</p>
                       
