@@ -1,441 +1,377 @@
 
-// import type React from "react";
+import { useState, useMemo } from 'react';
+import Header from '../../components/announcement/Header';
+import SearchFilter from '../../components/announcement/SearchFilter';
+import SocialShare from '../../components/announcement/SocialShare';
+import Pagination from '../../components/announcement/Pagination';
+// Minimal UI components for this page only, styled with Tailwind CSS
 
-// import { useState } from "react"
-// import { Button } from "@/components/ui/button"
-// import { Input } from "@/components/ui/input"
-// import { Badge } from "@/components/ui/badge"
-// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-// import {
-//   Search,
-//   Calendar,
-//   Users,
-//   BookOpen,
-//   Award,
-//   TrendingUp,
-//   Mail,
-//   ArrowRight,
-//   Filter,
-//   Star,
-//   Eye,
-//   Download,
-// } from "lucide-react"
+// Card Component
+const Card = ({ children, className = "" }) => (
+  <div className={`bg-white rounded-lg shadow-md overflow-hidden ${className}`}>
+    {children}
+  </div>
+);
 
-import  React from "react";
+const CardHeader = ({ children }) => (
+  <div className="p-4 border-b border-gray-100 border-solid">{children}</div>
+);
 
-import { useState } from "react"
- 
-import { Button, buttonVariants } from "../../components/ui/button"
- 
-import { Input } from "../../components/ui/input"
-import { Badge } from "../../components/ui/badge"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar"
-import {
-  Search,
-  Calendar,
-  Users,
-  BookOpen,
-  Award,
-  TrendingUp,
-  Mail,
-  ArrowRight,
-  Filter,
-  Star,
-  Eye,
-  Download,
-} from "lucide-react"
+const CardTitle = ({ children, className = "" }) => (
+  <h3 className={`text-xl font-semibold text-gray-800 ${className}`}>{children}</h3>
+);
 
+const CardDescription = ({ children, className = "" }) => (
+  <p className={`text-gray-500 ${className}`}>{children}</p>
+);
 
-// function NewsLetter() {
-//   const [searchTerm, setSearchTerm] = useState("")
-//   const [selectedCategory, setSelectedCategory] = useState("all")
-//   const [email, setEmail] = useState("")
+const CardContent = ({ children }) => (
+  <div className="p-4">{children}</div>
+);
 
-//   const categories = [
-//     { id: "all", name: "All", icon: BookOpen },
-//     { id: "academics", name: "Academics", icon: Award },
-//     { id: "research", name: "Research", icon: TrendingUp },
-//     { id: "campus", name: "Campus Life", icon: Users },
-//     { id: "events", name: "Events", icon: Calendar },
-//   ]
+// Button Component
+const Button = ({
+  children,
+  type = "button",
+  variant = "primary",
+  size = "md",
+  className = "",
+  ...props
+}) => {
+  const base =
+    "inline-flex items-center justify-center font-medium rounded transition focus:outline-none focus:ring-2 focus:ring-blue-500";
+  const variants = {
+    primary: "bg-blue-600 text-white hover:bg-blue-700",
+    secondary: "bg-white text-blue-600 border border-blue-600 hover:bg-blue-50",
+    outline: "bg-white text-gray-700 border border-gray-300 hover:bg-gray-100",
+  };
+  const sizes = {
+    sm: "px-3 py-1.5 text-sm",
+    md: "px-4 py-2 text-base",
+  };
+  return (
+    <button
+      type={type}
+      className={`${base} ${variants[variant] || ""} ${sizes[size] || ""} ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
 
-//   const featuredNewsletter = {
-//     id: 1,
-//     title: "Innovation in Higher Education: AI and the Future of Learning",
-//     description:
-//       "Exploring how artificial intelligence is transforming educational experiences and preparing students for tomorrow's challenges.",
-//     date: "December 15, 2024",
-//     category: "Research",
-//     author: "Dr. Sarah Chen",
-//     authorImage: "/placeholder.svg?height=40&width=40",
-//     image: "/placeholder.svg?height=400&width=600",
-//     readTime: "8 min read",
-//     views: "2.4k",
-//     featured: true,
-//   }
+// Input Component
+const Input = ({
+  className = "",
+  ...props
+}) => (
+  <input
+    className={`block w-full rounded border border-gray-300 border-solid px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500${className}`}
+    {...props}
+  />
+);
 
-//   const newsletters = [
-//     {
-//       id: 2,
-//       title: "Student Success Stories: Celebrating Academic Excellence",
-//       description:
-//         "Highlighting outstanding achievements from our student body across various disciplines and programs.",
-//       date: "December 10, 2024",
-//       category: "Academics",
-//       author: "Prof. Michael Rodriguez",
-//       authorImage: "/placeholder.svg?height=32&width=32",
-//       image: "/placeholder.svg?height=200&width=300",
-//       readTime: "5 min read",
-//       views: "1.8k",
-//     },
-//     {
-//       id: 3,
-//       title: "Campus Sustainability Initiative: Going Green Together",
-//       description: "Our comprehensive approach to environmental responsibility and sustainable campus operations.",
-//       date: "December 8, 2024",
-//       category: "Campus Life",
-//       author: "Dr. Emily Watson",
-//       authorImage: "/placeholder.svg?height=32&width=32",
-//       image: "/placeholder.svg?height=200&width=300",
-//       readTime: "6 min read",
-//       views: "1.2k",
-//     },
-//     {
-//       id: 4,
-//       title: "Upcoming Research Symposium: Breakthrough Discoveries",
-//       description: "Join us for presentations on cutting-edge research from our faculty and graduate students.",
-//       date: "December 5, 2024",
-//       category: "Events",
-//       author: "Dr. James Liu",
-//       authorImage: "/placeholder.svg?height=32&width=32",
-//       image: "/placeholder.svg?height=200&width=300",
-//       readTime: "4 min read",
-//       views: "956",
-//     },
-//     {
-//       id: 5,
-//       title: "Digital Library Expansion: New Resources Available",
-//       description: "Discover the latest additions to our digital collection and enhanced research capabilities.",
-//       date: "December 3, 2024",
-//       category: "Academics",
-//       author: "Lisa Thompson",
-//       authorImage: "/placeholder.svg?height=32&width=32",
-//       image: "/placeholder.svg?height=200&width=300",
-//       readTime: "3 min read",
-//       views: "743",
-//     },
-//     {
-//       id: 6,
-//       title: "International Exchange Program Updates",
-//       description: "New partnerships and opportunities for global learning experiences.",
-//       date: "November 28, 2024",
-//       category: "Campus Life",
-//       author: "Dr. Anna Kowalski",
-//       authorImage: "/placeholder.svg?height=32&width=32",
-//       image: "/placeholder.svg?height=200&width=300",
-//       readTime: "7 min read",
-//       views: "1.5k",
-//     },
-//   ]
+// Badge Component
+const Badge = ({ children, variant = "outline", className = "" }) => {
+  const variants = {
+    outline: "border border-blue-600 text-blue-600 bg-white",
+    solid: "bg-blue-600 text-white",
+  };
+  return (
+    <span
+      className={`inline-block px-2 py-0.5 rounded text-xs font-semibold ${variants[variant] || ""} ${className}`}
+    >
+      {children}
+    </span>
+  );
+};
+import { Download, FileText, Mail } from 'lucide-react';
+// Mock newsletter data
+const mockNewsletters = [
+  {
+    id: 1,
+    title: "Spring 2024 Edition",
+    issueNumber: "Vol. 10, Issue 1",
+    date: "2024-03-15",
+    coverImage: "https://via.placeholder.com/400x600?text=Spring+2024",
+    excerpt: "Highlights from the spring semester, including major events and achievements.",
+  },
+  {
+    id: 2,
+    title: "Winter 2023 Edition",
+    issueNumber: "Vol. 9, Issue 4",
+    date: "2023-12-10",
+    coverImage: "https://via.placeholder.com/400x600?text=Winter+2023",
+    excerpt: "A look back at the winter term and university milestones.",
+  },
+  {
+    id: 3,
+    title: "Autumn 2023 Edition",
+    issueNumber: "Vol. 9, Issue 3",
+    date: "2023-09-20",
+    coverImage: "https://via.placeholder.com/400x600?text=Autumn+2023",
+    excerpt: "Autumn activities, research highlights, and student stories.",
+  },
+  {
+    id: 4,
+    title: "Summer 2023 Edition",
+    issueNumber: "Vol. 9, Issue 2",
+    date: "2023-06-18",
+    coverImage: "https://via.placeholder.com/400x600?text=Summer+2023",
+    excerpt: "Summer programs, workshops, and campus news.",
+  },
+  {
+    id: 5,
+    title: "Spring 2023 Edition",
+    issueNumber: "Vol. 9, Issue 1",
+    date: "2023-03-12",
+    coverImage: "https://via.placeholder.com/400x600?text=Spring+2023",
+    excerpt: "Spring semester recap and upcoming events.",
+  },
+  {
+    id: 6,
+    title: "Winter 2022 Edition",
+    issueNumber: "Vol. 8, Issue 4",
+    date: "2022-12-08",
+    coverImage: "https://via.placeholder.com/400x600?text=Winter+2022",
+    excerpt: "End-of-year highlights and alumni achievements.",
+  },
+  {
+    id: 7,
+    title: "Autumn 2022 Edition",
+    issueNumber: "Vol. 8, Issue 3",
+    date: "2022-09-22",
+    coverImage: "https://via.placeholder.com/400x600?text=Autumn+2022",
+    excerpt: "Autumn events and research breakthroughs.",
+  },
+  {
+    id: 8,
+    title: "Summer 2022 Edition",
+    issueNumber: "Vol. 8, Issue 2",
+    date: "2022-06-15",
+    coverImage: "https://via.placeholder.com/400x600?text=Summer+2022",
+    excerpt: "Summer activities and student spotlights.",
+  },
+  {
+    id: 9,
+    title: "Spring 2022 Edition",
+    issueNumber: "Vol. 8, Issue 1",
+    date: "2022-03-10",
+    coverImage: "https://via.placeholder.com/400x600?text=Spring+2022",
+    excerpt: "Spring semester news and upcoming plans.",
+  },
+  {
+    id: 10,
+    title: "Winter 2021 Edition",
+    issueNumber: "Vol. 7, Issue 4",
+    date: "2021-12-05",
+    coverImage: "https://via.placeholder.com/400x600?text=Winter+2021",
+    excerpt: "Year-end review and university achievements.",
+  },
+];
 
-//   const filteredNewsletters = newsletters.filter((newsletter) => {
-//     const matchesSearch =
-//       newsletter.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       newsletter.description.toLowerCase().includes(searchTerm.toLowerCase())
-//     const matchesCategory = selectedCategory === "all" || newsletter.category.toLowerCase() === selectedCategory
-//     return matchesSearch && matchesCategory
-//   })
+import { format } from 'date-fns';
+import { useToast } from '../../hooks/use-toast';
 
-//   const handleSubscribe = (e) => {
-//     e.preventDefault()
-//     // Handle subscription logic here
-//     console.log("Subscribing email:", email)
-//     setEmail("")
-//   }
+const NewsLetter = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [selectedYear, setSelectedYear] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [email, setEmail] = useState('');
+  const itemsPerPage = 6;
+  const { toast } = useToast();
 
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-//       {/* Header */}
-//       <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <div className="flex items-center justify-between h-16">
-//             <div className="flex items-center space-x-4">
-//               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-//                 <BookOpen className="w-6 h-6 text-white" />
-//               </div>
-//               <div>
-//                 <h1 className="text-xl font-bold text-slate-900">University Newsletter</h1>
-//                 <p className="text-sm text-slate-600">Stay informed, stay connected</p>
-//               </div>
-//             </div>
-//             <Button className="bg-blue-600 hover:bg-blue-700">
-//               <Mail className="w-4 h-4 mr-2" />
-//               Subscribe
-//             </Button>
-//           </div>
-//         </div>
-//       </header>
+  const allYears = Array.from(new Set(mockNewsletters.map(newsletter => new Date(newsletter.date).getFullYear().toString())));
 
-//       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-//         {/* Hero Section - Featured Newsletter */}
-//         <section className="mb-12">
-//           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-//             <div className="absolute inset-0 bg-black/20"></div>
-//             <div className="relative grid lg:grid-cols-2 gap-8 p-8 lg:p-12">
-//               <div className="space-y-6">
-//                 <div className="flex items-center space-x-2">
-//                   <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
-//                     <Star className="w-3 h-3 mr-1" />
-//                     Featured
-//                   </Badge>
-//                   <Badge variant="outline" className="border-white/30 text-white">
-//                     {featuredNewsletter.category}
-//                   </Badge>
-//                 </div>
-//                 <h2 className="text-3xl lg:text-4xl font-bold leading-tight">{featuredNewsletter.title}</h2>
-//                 <p className="text-lg text-blue-100 leading-relaxed">{featuredNewsletter.description}</p>
-//                 <div className="flex items-center space-x-6 text-sm text-blue-100">
-//                   <div className="flex items-center space-x-2">
-//                     <Avatar className="w-6 h-6">
-//                       <AvatarImage src={featuredNewsletter.authorImage || "/placeholder.svg"} />
-//                       <AvatarFallback>SC</AvatarFallback>
-//                     </Avatar>
-//                     <span>{featuredNewsletter.author}</span>
-//                   </div>
-//                   <div className="flex items-center space-x-1">
-//                     <Calendar className="w-4 h-4" />
-//                     <span>{featuredNewsletter.date}</span>
-//                   </div>
-//                   <div className="flex items-center space-x-1">
-//                     <Eye className="w-4 h-4" />
-//                     <span>{featuredNewsletter.views}</span>
-//                   </div>
-//                 </div>
-//                 <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
-//                   Read Full Article
-//                   <ArrowRight className="w-4 h-4 ml-2" />
-//                 </Button>
-//               </div>
-//               <div className="hidden lg:block">
-//                 <img
-//                   src={featuredNewsletter.image || "/placeholder.svg"}
-//                   alt={featuredNewsletter.title}
-//                   className="w-full h-full object-cover rounded-xl"
-//                 />
-//               </div>
-//             </div>
-//           </div>
-//         </section>
+  const filteredNewsletters = useMemo(() => {
+    return mockNewsletters.filter(newsletter => {
+      const matchesSearch = !searchQuery || 
+        newsletter.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        newsletter.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const newsletterDate = new Date(newsletter.date);
+      const matchesDateRange = (!startDate || newsletterDate >= startDate) && 
+        (!endDate || newsletterDate <= endDate);
+      
+      const matchesYear = selectedYear === 'all' || new Date(newsletter.date).getFullYear().toString() === selectedYear;
+      
+      return matchesSearch && matchesDateRange && matchesYear;
+    });
+  }, [searchQuery, startDate, endDate, selectedYear]);
 
-//         {/* Search and Filter Section */}
-//         <section className="mb-8">
-//           <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-//             <div className="relative flex-1 max-w-md">
-//               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
-//               <Input
-//                 placeholder="Search newsletters..."
-//                 value={searchTerm}
-//                 onChange={(e) => setSearchTerm(e.target.value)}
-//                 className="pl-10 bg-white/80 backdrop-blur-sm border-slate-200"
-//               />
-//             </div>
-//             <div className="flex items-center space-x-2">
-//               <Filter className="w-4 h-4 text-slate-600" />
-//               <div className="flex flex-wrap gap-2">
-//                 {categories.map((category) => {
-//                   const Icon = category.icon
-//                   return (
-//                     <Button
-//                       key={category.id}
-//                       variant={selectedCategory === category.id ? "default" : "outline"}
-//                       size="sm"
-//                       onClick={() => setSelectedCategory(category.id)}
-//                       className={selectedCategory === category.id ? "bg-blue-600 hover:bg-blue-700" : ""}
-//                     >
-//                       <Icon className="w-3 h-3 mr-1" />
-//                       {category.name}
-//                     </Button>
-//                   )
-//                 })}
-//               </div>
-//             </div>
-//           </div>
-//         </section>
+  const totalPages = Math.ceil(filteredNewsletters.length / itemsPerPage);
+  const currentNewsletters = filteredNewsletters.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
-//         {/* Newsletter Grid */}
-//         <section className="mb-12">
-//           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-//             {filteredNewsletters.map((newsletter) => (
-//               <Card
-//                 key={newsletter.id}
-//                 className="group hover:shadow-xl transition-all duration-300 bg-white/80 backdrop-blur-sm border-slate-200 hover:border-blue-200"
-//               >
-//                 <div className="relative overflow-hidden rounded-t-lg">
-//                   <img
-//                     src={newsletter.image || "/placeholder.svg"}
-//                     alt={newsletter.title}
-//                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-//                   />
-//                   <div className="absolute top-3 left-3">
-//                     <Badge variant="secondary" className="bg-white/90 text-slate-700">
-//                       {newsletter.category}
-//                     </Badge>
-//                   </div>
-//                 </div>
-//                 <CardHeader className="pb-3">
-//                   <CardTitle className="text-lg leading-tight group-hover:text-blue-600 transition-colors">
-//                     {newsletter.title}
-//                   </CardTitle>
-//                   <CardDescription className="text-sm text-slate-600 leading-relaxed">
-//                     {newsletter.description}
-//                   </CardDescription>
-//                 </CardHeader>
-//                 <CardContent className="pt-0">
-//                   <div className="flex items-center justify-between text-xs text-slate-500 mb-4">
-//                     <div className="flex items-center space-x-3">
-//                       <div className="flex items-center space-x-1">
-//                         <Avatar className="w-4 h-4">
-//                           <AvatarImage src={newsletter.authorImage || "/placeholder.svg"} />
-//                           <AvatarFallback>
-//                             {newsletter.author
-//                               .split(" ")
-//                               .map((n) => n[0])
-//                               .join("")}
-//                           </AvatarFallback>
-//                         </Avatar>
-//                         <span>{newsletter.author}</span>
-//                       </div>
-//                       <span>•</span>
-//                       <span>{newsletter.date}</span>
-//                     </div>
-//                     <div className="flex items-center space-x-2">
-//                       <div className="flex items-center space-x-1">
-//                         <Eye className="w-3 h-3" />
-//                         <span>{newsletter.views}</span>
-//                       </div>
-//                     </div>
-//                   </div>
-//                   <div className="flex items-center justify-between">
-//                     <span className="text-xs text-slate-500">{newsletter.readTime}</span>
-//                     <Button
-//                       size="sm"
-//                       variant="ghost"
-//                       className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-2"
-//                     >
-//                       <Download className="w-3 h-3 mr-1" />
-//                       Read
-//                     </Button>
-//                   </div>
-//                 </CardContent>
-//               </Card>
-//             ))}
-//           </div>
-//         </section>
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setCurrentPage(1);
+  };
 
-//         {/* Newsletter Subscription Section */}
-//         <section className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 lg:p-12 text-white">
-//           <div className="max-w-3xl mx-auto text-center">
-//             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-//               <Mail className="w-8 h-8" />
-//             </div>
-//             <h3 className="text-3xl font-bold mb-4">Stay Updated with Our Newsletter</h3>
-//             <p className="text-lg text-blue-100 mb-8 leading-relaxed">
-//               Get the latest news, research updates, and campus events delivered directly to your inbox. Join our
-//               community of informed students, faculty, and alumni.
-//             </p>
-//             <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-//               <Input
-//                 type="email"
-//                 placeholder="Enter your email address"
-//                 value={email}
-//                 onChange={(e) => setEmail(e.target.value)}
-//                 required
-//                 className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-blue-200 focus:bg-white/20"
-//               />
-//               <Button type="submit" size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-semibold">
-//                 Subscribe Now
-//               </Button>
-//             </form>
-//             <p className="text-sm text-blue-200 mt-4">No spam, unsubscribe at any time. We respect your privacy.</p>
-//           </div>
-//         </section>
-//       </main>
+  const handleDateFilter = (start, end) => {
+    setStartDate(start);
+    setEndDate(end);
+    setCurrentPage(1);
+  };
 
-//       {/* Footer */}
-//       <footer className="bg-slate-900 text-slate-300 py-12 mt-16">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <div className="grid md:grid-cols-4 gap-8">
-//             <div className="col-span-2">
-//               <div className="flex items-center space-x-3 mb-4">
-//                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-//                   <BookOpen className="w-5 h-5 text-white" />
-//                 </div>
-//                 <span className="text-xl font-bold text-white">University Newsletter</span>
-//               </div>
-//               <p className="text-slate-400 leading-relaxed">
-//                 Connecting our university community through timely news, research highlights, and campus updates. Stay
-//                 informed about what matters most.
-//               </p>
-//             </div>
-//             <div>
-//               <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-//               <ul className="space-y-2 text-sm">
-//                 <li>
-//                   <a href="#" className="hover:text-blue-400 transition-colors">
-//                     About Us
-//                   </a>
-//                 </li>
-//                 <li>
-//                   <a href="#" className="hover:text-blue-400 transition-colors">
-//                     Archive
-//                   </a>
-//                 </li>
-//                 <li>
-//                   <a href="#" className="hover:text-blue-400 transition-colors">
-//                     Contact
-//                   </a>
-//                 </li>
-//                 <li>
-//                   <a href="#" className="hover:text-blue-400 transition-colors">
-//                     Privacy Policy
-//                   </a>
-//                 </li>
-//               </ul>
-//             </div>
-//             <div>
-//               <h4 className="text-white font-semibold mb-4">Categories</h4>
-//               <ul className="space-y-2 text-sm">
-//                 <li>
-//                   <a href="#" className="hover:text-blue-400 transition-colors">
-//                     Academics
-//                   </a>
-//                 </li>
-//                 <li>
-//                   <a href="#" className="hover:text-blue-400 transition-colors">
-//                     Research
-//                   </a>
-//                 </li>
-//                 <li>
-//                   <a href="#" className="hover:text-blue-400 transition-colors">
-//                     Campus Life
-//                   </a>
-//                 </li>
-//                 <li>
-//                   <a href="#" className="hover:text-blue-400 transition-colors">
-//                     Events
-//                   </a>
-//                 </li>
-//               </ul>
-//             </div>
-//           </div>
-//           <div className="border-t border-slate-800 mt-8 pt-8 text-center text-sm text-slate-400">
-//             <p>&copy; 2024 University Newsletter. All rights reserved.</p>
-//           </div>
-//         </div>
-//       </footer>
-//     </div>
-//   )
-// }
-// export default NewsLetter;
+  const handleYearFilter = (year) => {
+    setSelectedYear(year);
+    setCurrentPage(1);
+  };
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (email) {
+      toast({
+        title: "Subscription Successful!",
+        description: "You've been subscribed to our newsletter.",
+      });
+      setEmail('');
+    }
+  };
+
+  const handleDownloadAll = () => {
+    toast({
+      title: "Download Started",
+      description: "All newsletter issues are being prepared for download.",
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">University Newsletter</h1>
+          <p className="text-gray-600 text-lg">Stay informed with our quarterly publications</p>
+        </div>
+
+        {/* Newsletter Subscription */}
+        <div className="bg-blue-600 text-white rounded-lg p-8 mb-8">
+          <div className="max-w-2xl mx-auto text-center">
+            <Mail size={48} className="mx-auto mb-4" />
+            <h2 className="text-2xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+            <p className="mb-6 opacity-90">
+              Get the latest updates, achievements, and events delivered straight to your inbox
+            </p>
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <Input
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="text-gray-800"
+                required
+              />
+              <Button type="submit" variant="secondary">
+                Subscribe
+              </Button>
+            </form>
+          </div>
+        </div>
+
+        <SearchFilter
+          onSearch={handleSearch}
+          onDateFilter={handleDateFilter}
+          onYearFilter={handleYearFilter}
+          years={allYears}
+          placeholder="Search newsletters..."
+        />
+
+        {/* Download All Button */}
+        <div className="flex justify-end mb-6">
+          <Button onClick={handleDownloadAll} variant="outline">
+            <Download size={16} className="mr-2" />
+            Download All Issues
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {currentNewsletters.map((newsletter) => (
+            <Card key={newsletter.id} className="hover:shadow-lg transition-shadow">
+              <div className="aspect-[3/4] w-full overflow-hidden rounded-t-lg">
+                <img 
+                  src={newsletter.coverImage} 
+                  alt={newsletter.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <Badge variant="outline">{newsletter.issueNumber}</Badge>
+                  <span className="text-sm text-gray-500">
+                    {format(new Date(newsletter.date), 'MMM yyyy')}
+                  </span>
+                </div>
+                <CardTitle className="text-lg font-semibold line-clamp-2">
+                  {newsletter.title}
+                </CardTitle>
+                <CardDescription className="text-sm text-gray-500">
+                  Published on {format(new Date(newsletter.date), 'MMMM dd, yyyy')}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 mb-4 line-clamp-3">
+                  {newsletter.excerpt}
+                </p>
+                <div className="flex flex-col gap-2">
+                  <Button size="sm" className="w-full">
+                    <FileText size={16} className="mr-2" />
+                    Read Online
+                  </Button>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline" className="flex-1">
+                      <Download size={16} className="mr-2" />
+                      Download PDF
+                    </Button>
+                    <SocialShare 
+                      url={`${window.location.origin}/newsletter#${newsletter.id}`}
+                      title={newsletter.title}
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {filteredNewsletters.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No newsletters found matching your criteria.</p>
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        )}
+
+        {/* Archive Section */}
+        <div className="mt-16 bg-white rounded-lg shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Newsletter Archive</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {allYears.map((year) => {
+              const yearCount = mockNewsletters.filter(n => new Date(n.date).getFullYear().toString() === year).length;
+              return (
+                <div key={year} className="text-center p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                  <div className="text-2xl font-bold text-blue-600">{year}</div>
+                  <div className="text-sm text-gray-600">{yearCount} Issues</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NewsLetter;

@@ -120,8 +120,8 @@ const ClubsCouncils = () => {
   const [selectedClubToJoin, setSelectedClubToJoin] = useState(null);
   const { toast } = useToast();
 
-<<<<<<< main
-=======
+
+
   const fetchClubs = async () => {
     try {
       const response = await axios.get(
@@ -137,7 +137,8 @@ const ClubsCouncils = () => {
     fetchClubs();
   }, []);
 
->>>>>>> main
+
+
   const handleClubClick = (club) => {
     setSelectedClub(club);
   };

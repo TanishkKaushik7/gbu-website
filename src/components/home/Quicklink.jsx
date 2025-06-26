@@ -5,6 +5,11 @@ import {
   FaBriefcase,
   FaBook,
   FaBuilding,
+  FaBatteryEmpty,
+  FaPersonBooth,
+  FaWordpress,
+  FaCreativeCommonsNcEu,
+  FaUser,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -18,12 +23,39 @@ const quickLinks = [
     external: false,
   },
  
+ 
   {
-    title: "Fees",
-    desc: "Fee structure and payment",
-    icon: <FaMoneyCheckAlt className="text-white text-2xl" />,
-    color: "bg-blue-800",
-    link: "https://preview--fee-wise-campus-pay.lovable.app/",
+    title: "Faculty",
+    desc: "Academic Leadership",
+    icon: <FaBook className="text-white text-2xl" />,
+    color: "bg-green-700",
+    link: "/admissions/courses-offered",
+    external: true,
+  },
+   {
+    title: "Exam",
+    desc: "Schedules, Results & Guideline",
+    icon: <FaUser className="text-white text-2xl" />,
+    color: "bg-blue-700",
+    link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
+    external: true,
+  },
+
+ 
+  {
+    title: "Library",
+    desc: "Beyond Classroom",
+    icon: <FaBook className="text-white text-2xl" />,
+    color: "bg-blue-700",
+    link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
+    external: true,
+  },
+ {
+    title: "NSS/NCC",
+    desc: "Capacity Building",
+    icon: <FaUser className="text-white text-2xl" />,
+    color: "bg-blue-700",
+    link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
     external: true,
   },
   {
@@ -34,22 +66,7 @@ const quickLinks = [
     link: "/placements/placement-process",
     external: true,
   },
-  {
-    title: "faculty",
-    desc: "Academic programs",
-    icon: <FaBook className="text-white text-2xl" />,
-    color: "bg-green-700",
-    link: "/admissions/courses-offered",
-    external: true,
-  },
-  {
-    title: "Infrastructure",
-    desc: "Campus facilities",
-    icon: <FaBuilding className="text-white text-2xl" />,
-    color: "bg-blue-700",
-    link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
-    external: true,
-  },
+  
 ];
 
 export default function QuickAccess() {
@@ -69,7 +86,7 @@ export default function QuickAccess() {
         {quickLinks.map((item, idx) => {
           const Card = (
             <div
-              className="w-72 sm:w-64 bg-white rounded-lg shadow-md p-6 text-center transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
+              className="w-70 sm:w-64 bg-white rounded-lg shadow-md p-6 text-center transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
             >
               <div
                 className={`w-14 h-14 mx-auto flex items-center justify-center rounded-full ${item.color} mb-4`}

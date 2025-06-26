@@ -15,6 +15,7 @@ import FeeStructure from "../pages/Admission/FeeStructure.jsx";
 import InternationalAdmissions from "../pages/Admission/InternationalAdmissions.jsx";
 import NewsNotifications from "../pages/Announcements/NewsNotifications.jsx";
 import EventsCalendar from "../pages/Announcements/EventsCalendar.jsx";
+import NewsLetter from "../pages/Announcements/NewsLetter.jsx";
 
 import AlumniNetwork from "../pages/Alumni/AlumniNetwork.jsx";
 import EventsReunions from "../pages/Alumni/EventsReunions.jsx";
@@ -285,7 +286,7 @@ export default function AppRouter() {
 
           <Route
             path="/announcements/newsletter"
-            element={<h1>koi elementnhi thaa iska</h1>}
+            element={<NewsLetter/>}
           />
 
           {/* Placements Routes */}

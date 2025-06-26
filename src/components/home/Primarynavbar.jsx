@@ -18,7 +18,10 @@ const Primarynavbar = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-green-600 via-teal-600 to-blue-700 text-white text-sm shadow"
+
+      className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-700 text-white text-sm relative"
+
+
       role="navigation"
       aria-label="Primary navigation"
     >
@@ -59,9 +62,6 @@ const Primarynavbar = () => {
             <a href="https://mygbu-faculty-smart-dashboard.lovable.app/" className="flex items-center gap-1 hover:underline">
               <LogIn size={14} /> Employee Login
             </a>
-            <a href="https://buddha-directory-glide-28.lovable.app" className="flex items-center gap-1 hover:underline">
-              <Map size={14} /> Directory
-            </a>
 
             <Link
               to="/grievance"
@@ -69,6 +69,10 @@ const Primarynavbar = () => {
             >
               <Map size={14} /> Grievance Portal
             </Link>
+            <a href="https://buddha-directory-glide-28.lovable.app" className="flex items-center gap-1 hover:underline">
+              <Map size={14} /> Directory
+            </a>
+
 
             <a href="http://gbu-contact-hub-banner.vercel.app" className="flex items-center gap-1 hover:underline">
               <Phone size={14} /> Contact Us

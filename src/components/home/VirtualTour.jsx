@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import gbuimage from '../../assets/gbu.jpg';
 
 const BASE = import.meta.env.VITE_HOST?.replace(/\/$/, '');
 const VIRTUAL_TOUR_API = `${BASE}/landing/virtual-experience/`;
@@ -35,8 +36,7 @@ function VirtualTour() {
     <section
       className="relative bg-cover bg-center text-white"
       style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80')",
+        backgroundImage: `url(${gbuimage})`,
         backgroundColor: data.background_color || '#000',
         minHeight: '80vh',
         display: 'flex',

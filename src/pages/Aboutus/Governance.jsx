@@ -65,6 +65,7 @@ const organizationalStructure = [
             color: 'bg-gradient-to-r from-pink-100 to-pink-200 border-pink-300',
             icon: <Building className="w-6 h-6 text-pink-600" />
           },
+      
           {
             name: 'Dean, ICT',
             person: 'Prof. V. Mehra',

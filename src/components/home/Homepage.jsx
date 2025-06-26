@@ -103,16 +103,12 @@ export default function WelcomePage() {
           style={{
             display: "inline-block",
             position: "absolute",
-            animation: "scrollText 25s linear infinite",
+            animation: "scrollText 10s linear infinite",
             whiteSpace: "nowrap",
-            zIndex: 9999,
+            zIndex: 0 ,
           }}
         >
-          📢 New admissions open for 2024-25 academic session | 🎓 Convocation
-          ceremony scheduled for March 2024 | 🔬 Research grant applications
-          deadline extended | 📚 Library renovation completed with
-          state-of-the-art facilities | 🏆 GBU ranked among top universities in
-          India
+          📢 Admissions open for 2025-26 academic session | Admissions open for 2025-26 academic session | Admissions open for 2025-26 academic session
         </div>
       </div>
 

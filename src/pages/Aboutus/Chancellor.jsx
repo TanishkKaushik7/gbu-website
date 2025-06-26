@@ -34,7 +34,7 @@ const Chancellor = () => {
               </div>
               <div className="text-center">
                 <h3 className="text-xl font-bold text-gray-800 mb-1">
-                  Yogi Adityanath
+                 Shri Yogi Adityanath
                 </h3>
                 <p className="text-sm text-gray-600 mb-1">
                   Hon'ble Chancellor
@@ -53,34 +53,37 @@ const Chancellor = () => {
 
             {/* Quote Text */}
             <div className="space-y-6 text-gray-700 leading-relaxed">
-              <p className="text-lg">
-                "Education is the most powerful weapon which can change the
+              <p className="text-lg text-justify">
+                Education is the most powerful weapon which can change the
                 world and transform society. At Gautam Buddha University, we are
                 committed to providing world-class education that nurtures both
-                intellectual growth and moral values."
+                intellectual growth and moral values.
               </p>
 
-              <p className="text-lg">
-                "Our vision extends beyond traditional education. We aim to
+              <p className="text-lg text-justify">
+                Our vision extends beyond traditional education. We aim to
                 create an ecosystem where innovation thrives, research
                 flourishes, and students emerge as global leaders equipped with
-                knowledge, skills, and ethical foundations."
+                knowledge, skills, and ethical foundations.
               </p>
 
-              <p className="text-lg">
-                "The university stands as a beacon of hope and progress,
+              <p className="text-lg text-justify">
+                The university stands as a beacon of hope and progress,
                 fostering an environment where diverse minds collaborate to
                 address contemporary challenges and build a sustainable future
-                for our nation and the world."
+                for our nation and the world.
               </p>
             </div>
+            <br />
+              <div className="text-6xl text-orange-500 font-serif mb-4 text-right">"</div>
+
 
             {/* Signature */}
             <div className="mt-8 text-right">
               <p className="text-xl font-semibold text-orange-600">
-                Yogi Adityanath
+                Shri Yogi Adityanath
               </p>
-              <p className="text-sm text-gray-600">Hon'ble Chancellor</p>
+
             </div>
           </div>
         </div>

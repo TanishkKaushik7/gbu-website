@@ -112,13 +112,13 @@ const ViceChancellor = () => {
                 {/* <span className="text-gray-600">Vice Chancellor's Photo</span> */}
                 <img
                   src="/assets/prof.jpeg"
-                  alt="Prof. R.K. Singh"
+                  alt="Prof. Rana Pratap Singh"
                   className="object-cover h-full w-full rounded-lg"
 />
 
               </div>
               <div className="text-center">
-                <h3 className="text-xl font-bold text-gray-800 mb-1">Prof. R.K. Singh</h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-1">Prof. Rana Pratap Singh</h3>
                 <p className="text-sm text-blue-600 mb-1">Vice Chancellor</p>
                 <p className="text-xs text-gray-500">Gautam Buddha University</p>
               </div>
@@ -128,50 +128,47 @@ const ViceChancellor = () => {
           {/* Content Section */}
           <div className="lg:w-2/3">
             {/* Quote Icon */}
-            <div className="text-6xl text-blue-500 font-serif mb-4">"</div>
-            
+            <div className="text-6xl text-blue-500 font-serif ">"</div>
+          
             {/* Quote Text */}
             <div className="space-y-6 text-gray-700 leading-relaxed">
-              <p className="text-lg">
-                "It is a great honour and privilege to work under the able leadership of hon'ble Chief Minister, 
-                Shri Yogi Adityanath Ji, the hon'ble Chancellor of Gautam Buddha University."
-              </p>
-              
-              <p className="text-lg">
-                "Gautam Buddha University stands as a beacon of knowledge, innovation, and inclusivity, 
+              <p className="text-lg text-justify">
+                It is a great honour and privilege to work under the able leadership of hon'ble Chief Minister, 
+                Shri Yogi Adityanath Ji, the hon'ble Chancellor of Gautam Buddha University.
+             
+                Gautam Buddha University stands as a beacon of knowledge, innovation, and inclusivity, 
                 committed to shaping the future of education, research, and societal transformation. 
                 Rooted in the values of wisdom, compassion, and excellence, our university fosters an 
-                environment where intellectual pursuits align with ethical responsibility and social commitment."
+                environment where intellectual pursuits align with ethical responsibility and social commitment.
               </p>
               
-              <p className="text-lg">
-                "In an era marked by rapid technological advancements and evolving global challenges, 
+              <p className="text-lg text-justify">
+                In an era marked by rapid technological advancements and evolving global challenges, 
                 we strive to equip our students with the skills, creativity, and moral compass necessary 
                 to lead with integrity. Our academic ecosystem nurtures a culture of inquiry, critical thinking, 
                 and interdisciplinary research, ensuring that our graduates emerge as thought leaders and 
-                change-makers who contribute meaningfully to society."
+                change-makers who contribute meaningfully to society.
               </p>
 
-              <p className="text-lg">
-                "With a steadfast focus on holistic development, Gautam Buddha University integrates 
+              <p className="text-lg text-justify">
+                With a steadfast focus on holistic development, Gautam Buddha University integrates 
                 tradition with modernity, blending the wisdom of ancient knowledge systems with 
                 contemporary scientific and technological advancements. We remain dedicated to fostering 
                 innovation, entrepreneurship, and sustainable solutions that address societal needs while 
-                upholding the values of equity, justice, and inclusivity."
+                upholding the values of equity, justice, and inclusivity.
               </p>
-
-              <p className="text-lg">
-                "As we continue our journey toward becoming a globally recognized university, I invite 
+              <p className="text-lg text-justify">
+                As we continue our journey toward becoming a globally recognized university, I invite 
                 faculty, students, scholars, and industry leaders to collaborate in our shared mission 
                 of academic excellence, cultivation of research and innovation, and transformative impact. 
-                Together, let us build a future that is enlightened, empowered, and enduring."
+                Together, let us build a future that is enlightened, empowered, and enduring.
               </p>
             </div>
-
+ <div className="text-6xl text-blue-500 font-serif mb-4 text-right">"</div>
             {/* Signature */}
             <div className="mt-8 text-right">
-              <p className="text-xl font-semibold text-blue-600">Prof. R.K. Singh</p>
-              <p className="text-sm text-gray-600">Vice Chancellor</p>
+              <p className="text-xl font-semibold text-blue-600">Prof. Rana Pratap Singh</p>
+
             </div>
           </div>
         </div>
