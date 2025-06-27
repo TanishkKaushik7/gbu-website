@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import SimpleLayout from '../../components/faculty/SimpleLayout';
 import { Link } from 'react-router-dom';
@@ -16,7 +15,6 @@ const Faculty = () => {
   const [selectedSchool, setSelectedSchool] = useState('All Schools');
   const [showFilters, setShowFilters] = useState(false);
 
-  // ✅ Fetch the data when component mounts
   useEffect(() => {
     const fetchFaculty = async () => {
       try {
@@ -27,65 +25,65 @@ const Faculty = () => {
         console.error('Failed to fetch faculty:', err);
       }
     };
-
     fetchFaculty();
   }, []);
 
   const schools = [
-  'All Schools',
-  'School of Information and Communication Technology',
-  'School of Biotechnology',
-  'School of Engineering',
-  'School of Management',
-  'School of Humanities',
-  'School of Law'
-];
+    'All Schools',
+    'School of Information and Communication Technology',
+    'School of Biotechnology',
+    'School of Engineering',
+    'School of Management',
+    'School of Humanities',
+    'School of Law'
+  ];
 
-const departments = [
-  'All Departments',
-  'Computer Science & Engineering',
-  'Electronics & Communication Engineering',
-  'Biotechnology',
-  'Management',
-  'Law',
-  'English',
-  'Political Science'
-];
+  const departments = [
+    'All Departments',
+    'Computer Science & Engineering',
+    'Electronics & Communication Engineering',
+    'Biotechnology',
+    'Management',
+    'Law',
+    'English',
+    'Political Science'
+  ];
 
-const experienceRanges = [
-  'All',
-  '0-5 years',
-  '6-10 years',
-  '11-15 years',
-  '16+ years'
-];
+  const experienceRanges = [
+    'All',
+    '0-5 years',
+    '6-10 years',
+    '11-15 years',
+    '16+ years'
+  ];
 
-const qualifications = [
-  'All',
-  'PhD',
-  'M.Tech',
-  'M.Sc',
-  'MBA',
-  'B.Tech'
-];
+  const qualifications = [
+    'All',
+    'PhD',
+    'M.Tech',
+    'M.Sc',
+    'MBA',
+    'B.Tech'
+  ];
 
-  // Filter faculty based on search term, filters, and selected school
   const filteredFaculty = facultyMembers.filter(faculty => {
     const matchesSearch = 
       faculty.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       faculty.designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
       faculty.specialization.toLowerCase().includes(searchTerm.toLowerCase()) ||
       faculty.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      faculty.researchAreas.some(area => area.toLowerCase().includes(searchTerm.toLowerCase()));
+      (faculty.researchAreas?.some?.(area =>
+        area.toLowerCase().includes(searchTerm.toLowerCase())
+      ) ?? false);
 
     const matchesDepartment = selectedDepartment === 'All Departments' || faculty.department === selectedDepartment;
     const matchesSchool = selectedSchool === 'All Schools' || faculty.school === selectedSchool;
 
     const matchesExperience = selectedExperience === 'All' || 
-      (selectedExperience === '0-5 years' && faculty.experienceYears <= 5) ||
-      (selectedExperience === '6-10 years' && faculty.experienceYears >= 6 && faculty.experienceYears <= 10) ||
-      (selectedExperience === '11-15 years' && faculty.experienceYears >= 11 && faculty.experienceYears <= 15) ||
-      (selectedExperience === '16+ years' && faculty.experienceYears >= 16);
+      (selectedExperience === '0-5 years' && faculty.experience_years <= 5) ||
+      (selectedExperience === '6-10 years' && faculty.experience_years >= 6 && faculty.experience_years <= 10) ||
+      (selectedExperience === '11-15 years' && faculty.experience_years >= 11 && faculty.experience_years <= 15) ||
+      (selectedExperience === '16+ years' && faculty.experience_years >= 16);
 
     const matchesQualification = selectedQualification === 'All' || faculty.qualification === selectedQualification;
 
@@ -149,11 +147,10 @@ const qualifications = [
         </div>
       </section>
 
-      {/* Search and Filter Section */}
+      {/* Search and Filters */}
       <section className="py-8 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto space-y-4">
-            {/* Search Bar */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -165,7 +162,6 @@ const qualifications = [
               />
             </div>
 
-            {/* School Tabs */}
             <div className="bg-white rounded-lg border border-gray-200 border-solid p-4">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">Schools</h3>
               <div className="flex flex-wrap gap-2">
@@ -185,7 +181,6 @@ const qualifications = [
               </div>
             </div>
 
-            {/* Filter Toggle Button */}
             <div className="flex justify-between items-center">
               <button
                 onClick={() => setShowFilters(!showFilters)}
@@ -194,7 +189,6 @@ const qualifications = [
                 <Filter className="w-4 h-4" />
                 <span>More Filters</span>
               </button>
-              
               {(selectedDepartment !== 'All Departments' || selectedExperience !== 'All' || selectedQualification !== 'All' || selectedSchool !== 'All Schools' || searchTerm) && (
                 <button
                   onClick={clearFilters}
@@ -206,11 +200,9 @@ const qualifications = [
               )}
             </div>
 
-            {/* Filter Options */}
             {showFilters && (
               <div className="bg-white p-6 rounded-lg border border-gray-200 border-solid space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {/* Department Filter */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Department</label>
                     <select
@@ -224,7 +216,6 @@ const qualifications = [
                     </select>
                   </div>
 
-                  {/* Experience Filter */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Experience</label>
                     <select
@@ -238,7 +229,6 @@ const qualifications = [
                     </select>
                   </div>
 
-                  {/* Qualification Filter */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Qualification</label>
                     <select
@@ -255,7 +245,6 @@ const qualifications = [
               </div>
             )}
 
-            {/* Results Count */}
             <div className="text-sm text-gray-600">
               Showing {filteredFaculty.length} of {facultyMembers.length} faculty members
               {selectedSchool !== 'All Schools' && ` in ${selectedSchool}`}
@@ -281,30 +270,27 @@ const qualifications = [
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredFaculty.map((faculty, index) => (
                 <Link to={`/academics/faculty/${faculty.id}`}
+                  key={faculty.id}
                   className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in group cursor-pointer"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="p-6">
                     <div className="flex flex-col items-center text-center">
                       <img
-  src={`https://meow.tilchattaas.com/media/${faculty.image}`}
-  alt={faculty.name}
-  className="w-24 h-24 rounded-full object-cover mb-4 border-4 border-blue-100 group-hover:border-blue-200 transition-colors"
-/>
-
-                      <h1>{faculty.image}</h1>
+                        src={`https://meow.tilchattaas.com/media/${faculty.image}`}
+                        alt={faculty.name}
+                        className="w-24 h-24 rounded-full object-cover mb-4 border-4 border-blue-100 group-hover:border-blue-200 transition-colors"
+                      />
                       <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">{faculty.name}</h3>
                       <p className="text-blue-600 font-semibold mb-4">{faculty.designation}</p>
-                      
                       <div className="w-full space-y-3 mb-6">
                         <div className="bg-gray-50 rounded-lg p-3">
                           <p className="text-sm font-semibold text-gray-600 mb-1">Specialization</p>
                           <p className="text-gray-800">{faculty.specialization}</p>
                         </div>
-                        
                         <div className="grid grid-cols-2 gap-3">
                           <div className="bg-blue-50 rounded-lg p-3 text-center">
-                            <p className="text-lg font-bold text-blue-600">{faculty.experience}</p>
+                            <p className="text-lg font-bold text-blue-600">{faculty.experience_years} years</p>
                             <p className="text-xs text-gray-600">Experience</p>
                           </div>
                           <div className="bg-green-50 rounded-lg p-3 text-center">
@@ -312,13 +298,11 @@ const qualifications = [
                             <p className="text-xs text-gray-600">Publications</p>
                           </div>
                         </div>
-                        
                         <div className="bg-gray-50 rounded-lg p-3">
                           <p className="text-sm font-semibold text-gray-600 mb-1">Education</p>
                           <p className="text-sm text-gray-800">{faculty.education}</p>
                         </div>
                       </div>
-                      
                       <div className="w-full space-y-2">
                         <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
                           <Mail className="w-4 h-4" />

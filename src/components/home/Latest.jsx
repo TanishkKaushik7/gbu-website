@@ -9,52 +9,99 @@ export default function LatestUpdates() {
   const BASE = import.meta.env.VITE_HOST?.replace(/\/$/, '');
   const NOTICE_API = `${BASE}/landing/news-and-events/`;
 
-  const scrollRefs = useRef([]);
+  // ✅ New: fallback mock data, realistic
+  const mockData = [
+    {
+      id: 1,
+      content_text: 'Orientation Program for First-Year Students will commence from 10th July.',
+      category: 'Latest News',
+      priority: 'high',
+      date: '2025-06-25',
+      url: '#'
+    },
+    {
+      id: 2,
+      content_text: 'Notice: University will remain closed on account of Diwali on 29th October.',
+      category: 'Notice/Circulars ',
+      priority: 'medium',
+      date: '2025-06-20',
+      url: '#'
+    },
+    {
+      id: 3,
+      content_text: 'Annual Tech Fest “TechZenith 2025” registrations are now open for all branches.',
+      category: 'Upcoming Events ',
+      priority: 'high',
+      date: '2025-06-22',
+      url: '#'
+    },
+    {
+      id: 4,
+      content_text: 'Guest Lecture on Artificial Intelligence by Dr. Rajeev Kumar, IIT Delhi.',
+      category: 'Latest News',
+      priority: 'medium',
+      date: '2025-06-24',
+      url: '#'
+    },
+    {
+      id: 5,
+      content_text: 'Blood Donation Camp organized by NSS Unit at University Auditorium.',
+      category: 'Upcoming Events ',
+      priority: 'high',
+      date: '2025-06-21',
+      url: '#'
+    },
+    {
+      id: 6,
+      content_text: 'Library timing extended till 10 PM during the examination period.',
+      category: 'Notice/Circulars ',
+      priority: 'low',
+      date: '2025-06-18',
+      url: '#'
+    },
+    {
+      id: 7,
+      content_text: 'Annual Sports Meet 2025 – Registration for track events and games open till 5th July.',
+      category: 'Upcoming Events ',
+      priority: 'medium',
+      date: '2025-06-27',
+      url: '#'
+    },
+    {
+      id: 8,
+      content_text: 'MoU signed with IIT Delhi for collaborative research in Data Science.',
+      category: 'Latest News',
+      priority: 'high',
+      date: '2025-06-26',
+      url: '#'
+    }
+  ];
 
   useEffect(() => {
     setIsVisible(true);
     fetchNotices();
   }, []);
 
- const fetchNotices = async () => {
-  try {
-    const res = await axios.get(NOTICE_API);
-    const json = res.data;
-    console.log('Notice API response:', json); // Add this line
-
-    // Try to find the array in the response
-    const items = Array.isArray(json) ? json : json.data || json.results || [];
-
-    setData(items);
-    const uniqueCategories = [...new Map(items.map(item => [item.category, item])).values()];
-    setCategories(uniqueCategories);
-  } catch (err) {
-    console.error('Error fetching notices:', err);
-  }
-};
-
-  useEffect(() => {
-    const intervals = [];
-
-    scrollRefs.current.forEach((container) => {
-      if (!container) return;
-
-      const scrollStep = 1;
-      const scrollDelay = 50;
-
-      const interval = setInterval(() => {
-        if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
-          container.scrollTop = 0;
-        } else {
-          container.scrollTop += scrollStep;
-        }
-      }, scrollDelay);
-
-      intervals.push(interval);
-    });
-
-    return () => intervals.forEach(clearInterval);
-  }, [categories]);
+  const fetchNotices = async () => {
+    try {
+      const res = await axios.get(NOTICE_API);
+      const json = res.data;
+      if (Array.isArray(json) && json.length > 0) {
+        setData(json);
+        const uniqueCategories = [...new Map(json.map(item => [item.category, item])).values()];
+        setCategories(uniqueCategories);
+      } else {
+        setData(mockData);
+        const uniqueCategories = [...new Map(mockData.map(item => [item.category, item])).values()];
+        setCategories(uniqueCategories);
+      }
+    } catch (err) {
+      console.error('Error fetching notices:', err);
+      setData(mockData);
+      const uniqueCategories = [...new Map(mockData.map(item => [item.category, item])).values()];
+      setCategories(uniqueCategories);
+    }
+  };
 
   const getPriorityIndicator = (priority = 'low') => {
     if (priority === 'high') return 'bg-red-500 animate-pulse';
@@ -107,24 +154,25 @@ export default function LatestUpdates() {
     <section className="px-4 md:px-8 lg:px-16 py-12 bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/30 min-h-screen">
       <style jsx>{`
         @keyframes slide-in {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
         .animate-slide-in {
           animation: slide-in 0.6s ease-out forwards;
         }
-        .auto-scroll::-webkit-scrollbar {
-          display: none;
+        .marquee-wrapper {
+          overflow: hidden;
+          height: 350px;
+          position: relative;
         }
-        .auto-scroll {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
+        .marquee-content {
+          display: flex;
+          flex-direction: column;
+          animation: scroll-up linear infinite;
+        }
+        @keyframes scroll-up {
+          0% { transform: translateY(0%); }
+          100% { transform: translateY(-50%); }
         }
       `}</style>
 
@@ -142,37 +190,37 @@ export default function LatestUpdates() {
         {categories.map((catItem, catIndex) => {
           const category = catItem.category;
           const filtered = data.filter(item => item.category === category);
+
           return (
-            <div key={catIndex} className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden flex flex-col">
+            <div key={catIndex} className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden flex flex-col relative">
               <div className="p-4 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white">
                 <h3 className="text-lg font-semibold">{category}</h3>
               </div>
-              <div className="relative overflow-hidden flex-1">
-                <div
-                  className="auto-scroll space-y-3 max-h-[350px] overflow-y-auto pr-2"
-                  ref={el => (scrollRefs.current[catIndex] = el)}
-                  style={{ scrollBehavior: 'smooth' }}
-                >
-                  {filtered.length > 0 ? (
-                    filtered.map((item, i) => (
-                      <NoticeCard key={item.id} item={item} index={i} category={category} />
-                    ))
-                  ) : (
-                    <p className="text-sm text-gray-500 p-4">No updates in this category.</p>
-                  )}
+
+              <div className="relative flex-1 flex flex-col">
+                <div className="marquee-wrapper">
+                  <div
+                    className="marquee-content space-y-3"
+                    style={{ animationDuration: `${filtered.length * 5}s` }}
+                  >
+                    {filtered.concat(filtered).map((item, i) => (
+                      <NoticeCard key={`${item.id}-${i}`} item={item} index={i} category={category} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex align-middle justify-end z-10 mt-8 h-12">
+                  <button
+                    onClick={() => {
+                      const url = catItem.view_more_url || '/news-and-events';
+                      window.location.href = url;
+                    }}
+                    className="px-4 py-2 border border-blue-500 text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-200 bg-transparent shadow"
+                  >
+                    View More
+                  </button>
                 </div>
               </div>
-              <button
-                onClick={() => {
-                  const url = catItem.view_more_url || '/news-and-events';
-                  window.location.href = url;
-                }}
-                className="absolute right-4 bottom-4 z-10 px-4 py-2 border border-blue-500 text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-200 bg-transparent shadow"
-                style={{ background: 'none' }}
-              >
-                View More
-              </button>
-
             </div>
           );
         })}

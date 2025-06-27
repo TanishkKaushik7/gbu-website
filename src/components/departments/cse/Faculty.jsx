@@ -43,7 +43,7 @@ import { Mail, BookOpen, Award } from "lucide-react";
 const Faculty = () => {
   const facultyMembers = [
     {
-      name: "Dr. Priya Sharma",
+      name: "Dr. Aarti Gautam Dinker",
       position: "Professor & Research Head",
       specialization: "Artificial Intelligence, Machine Learning",
       email: "priya.sharma@cse.edu",
@@ -52,7 +52,7 @@ const Faculty = () => {
       color: "from-blue-500 to-blue-600"
     },
     {
-      name: "Dr. Amit Kumar",
+      name: "Dr. Anurag Baghel",
       position: "Associate Professor",
       specialization: "Cybersecurity, Network Security",
       email: "amit.kumar@cse.edu",

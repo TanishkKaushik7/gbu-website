@@ -134,7 +134,7 @@ const IT = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-foreground mb-4">
-                Academic Leadership
+              FROM THE DESK OF HOD, IT
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-emerald-600 to-teal-600 mx-auto"></div>
             </div>
@@ -143,40 +143,45 @@ const IT = () => {
               <div className="md:col-span-1 flex flex-col items-center">
                 <div className="relative w-56 h-56 rounded-full overflow-hidden mb-6 shadow-2xl border-4 border-white">
                   <img
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80"
-                    alt="Dr. Vikram Gupta - Head of Department"
+                    src="https://www.gbu.ac.in/USICT/media/img/Neeta.jpg"
+                    alt="Dr. Neeta Singh - Head of Department"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/30 to-transparent"></div>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground">Dr. Vikram Gupta</h3>
+                <h3 className="text-2xl font-bold text-foreground">Dr. Neeta Singh</h3>
                 <p className="text-emerald-600 font-semibold text-lg">Head of Department</p>
-                <p className="text-sm text-muted-foreground">PhD Information Technology, NIT Delhi</p>
-                <p className="text-sm text-muted-foreground">20+ Years of Experience</p>
+                {/* <p className="text-sm text-muted-foreground">PhD Information Technology, NIT Delhi</p>
+                <p className="text-sm text-muted-foreground">20+ Years of Experience</p> */}
               </div>
 
               <div className="md:col-span-2 space-y-6 text-muted-foreground bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
                 <div className="text-6xl text-emerald-200 font-serif">"</div>
+                  <p className="leading-relaxed">
+                    Greeting from the Department of Information Technology!!
+                  </p>
                 <p className="text-lg leading-relaxed -mt-4">
-                  Welcome to the Department of Information Technology. In today's digital era, IT professionals
-                  are the architects of our connected world, driving innovation and enabling digital transformation
-                  across every sector of society.
+                  Information technology, one of the fastest-growing technologies, has become a strategic function in every organization and lands its foot in every walk of our life. At the undergraduate level, we offer a four-year B. Tech. IT Programme and BCA. At the postgraduate level, we offer two areas of specialization for a two-year M.C.A (i) Data Science and (ii) Artificial. From the academic Session, 2022-23 Department is starting M. Tech.. IT and M. Tech.. -Information and Cyberwarfare at post graduate level. We also offer Ph.D. There are programs for full-time and working professional mode in all areas where our faculty members are currently conducting research.
                 </p>
 
                 <p className="leading-relaxed">
-                  Our curriculum emphasizes hands-on learning through project-based approaches, covering full-stack
-                  development, mobile applications, cloud computing, data science, and emerging technologies like
-                  artificial intelligence and blockchain.
+                 
+                The Department has well-qualified professional faculty members along with the non-teaching staff. Faculty members are not only contributing toward the holistic development of students but also works as resource person at the national and international level. Department has Approved Swyam Local Chapter since 2020.
                 </p>
 
                 <p className="leading-relaxed">
-                  With strong industry connections, modern infrastructure, and research opportunities, we prepare
-                  students for leadership roles in software companies, IT consultancies, startups, and tech giants.
-                  Our graduates are well-equipped to meet the dynamic challenges of the IT industry.
+                 We also encourage students to organize events, participate in various technical and co-curricular events organized by other colleges, and get involved in activities of social relevance. Furthermore, to promote co-curricular activities among students and faculties, the department has organized various events, completion, and courses sponsored by NITTTR, DRDO, CSIR, etc. Most of our alumni found employment in companies of high repute in India and abroad.
+                </p>
+
+                <p className="leading-relaxed">
+                  Dr. Neeta Singh
+                  Head, Department of Information Technology Department
+                  neeta@gbu.ac.in
+                  Phone: 0120-2346080 (Ext.6080)
                 </p>
 
                 <div className="pt-6 border-t border-emerald-200">
-                  <p className="font-bold text-foreground text-lg">Dr. Vikram Gupta</p>
+                  <p className="font-bold text-foreground text-lg">Dr. Neeta Singh</p>
                   <p className="text-emerald-600 font-medium">Head of Department - IT</p>
                 </div>
               </div>

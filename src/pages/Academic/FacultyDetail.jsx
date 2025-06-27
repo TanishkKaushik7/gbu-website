@@ -97,7 +97,8 @@ const FacultyDetail = () => {
   return (
     <SimpleLayout>
       <FacultyHeader faculty={faculty} />
-      <SummaryDashboard summaryStats={summaryStats} />
+
+      
       <FacultyTabs tabItems={tabItems} activeTab={activeTab} onTabChange={setActiveTab} />
       <TabContent activeTab={activeTab} faculty={faculty} />
     </SimpleLayout>

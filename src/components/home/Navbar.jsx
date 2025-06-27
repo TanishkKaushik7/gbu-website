@@ -78,7 +78,7 @@ const Navbar = () => {
         ["centers-of-excellence", "Centers of Excellence"],
         ["international-collaboration", "International Collaboration"],
         ["reports-publications", "Reports & Publications"],
-        ["schools", "Schools & Departments"],
+
       ].map(([slug, text]) => (
         <Link to={`/academics/${slug}`} key={slug}>
           {text}

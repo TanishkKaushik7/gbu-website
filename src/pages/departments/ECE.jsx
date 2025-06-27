@@ -261,7 +261,7 @@ const ECE = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-foreground mb-4">
-                Academic Leadership
+                FROM THE DESK OF HOD, ECE
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto"></div>
             </div>
@@ -270,40 +270,47 @@ const ECE = () => {
               <div className="md:col-span-1 flex flex-col items-center">
                 <div className="relative w-56 h-56 rounded-full overflow-hidden mb-6 shadow-2xl border-4 border-white">
                   <img
-                    src="https://images.unsplash.com/photo-1494790108755-2616b612b8cc?auto=format&fit=crop&w=300&q=80"
-                    alt="Dr. Priya Singh - Head of Department"
+                    src="https://www.gbu.ac.in/USICT/media/img/vidushii.jpg"
+                    alt="Dr. Vidushi Sharma - Head of Department"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-transparent"></div>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground">Dr. Priya Singh</h3>
+                <h3 className="text-2xl font-bold text-foreground">Dr. Vidushi Sharma</h3>
                 <p className="text-blue-600 font-semibold text-lg">Head of Department</p>
-                <p className="text-sm text-muted-foreground">PhD Electronics Engineering, IIT Bombay</p>
-                <p className="text-sm text-muted-foreground">25+ Years of Experience</p>
+                {/* <p className="text-sm text-muted-foreground">PhD Electronics Engineering, IIT Bombay</p>
+                <p className="text-sm text-muted-foreground">25+ Years of Experience</p> */}
               </div>
 
               <div className="md:col-span-2 space-y-6 text-muted-foreground bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
                 <div className="text-6xl text-blue-200 font-serif">"</div>
+
+                <p className="leading-relaxed">
+                Greeting from the Department of Electronics and Communication Engineering!!
+                </p>
+
                 <p className="text-lg leading-relaxed -mt-4">
-                  Welcome to the Department of Electronics & Communication Engineering. Our department stands as a beacon of
-                  innovation in electronics and communication technology, preparing students for leadership roles in the
-                  rapidly evolving technological landscape.
+                  I warmly welcome you to the Department of Electronics and Communication Engineering, Gautam Buddha University. Over all these years, we have made progress in imparting technical education to our students and bring them at par with the ever-expanding horizons of Electronics and Communication Engineering and its application areas. At the under graduate level, we offer four-year B. Tech. Programme, and four-year B. Tech. (Engineering Design) Programme. At post graduate level, we offer three areas of specialization for two-year M. Tech.. Programmes: (i) Wireless Communication and Networks, (ii) VLSI Design (iii) Railway Signalling Telecommunication and RAMS. We also offer Ph.D. Programmes for full time and working professional mode in all areas where research is being currently conducted by our faculty members.
+
                 </p>
 
                 <p className="leading-relaxed">
-                  We pride ourselves on offering cutting-edge education in VLSI design, embedded systems, wireless communication,
-                  and digital signal processing. Our state-of-the-art laboratories, industry partnerships, and research
-                  collaborations ensure that students gain both theoretical knowledge and practical experience.
+                 The Electronics and Communication Engineering department has always placed prime emphasis on excellence in teaching and research. Faculty members have very good academic credentials, and are highly motivated towards imparting the best of education, and also pioneering research and development. Our courses are frequently updated in terms of depth as well as the subjects themselves, so that our students always remain on the forefront of technological advancement. Well-equipped Laboratories and encouragement to pursue research has increased our students’ productivity in terms of placements, higher studies and research contributions. It has been observed that student research contribution has increased tremendously during last few years. We regularly organize seminars/workshops/conferences/faculty development programmes/skill enhancement programmes/expert talks/invited lectures etc. that benefits our students as well as the staff members of our school.
                 </p>
 
                 <p className="leading-relaxed">
-                  Our graduates excel in telecommunications, semiconductor industries, consumer electronics, and emerging
-                  fields like IoT and 5G technology. Join us to be part of the next generation of innovators who will
-                  shape the future of communication and electronics.
+                  Thank you for visiting us. If you require any information, or wish to get in touch, please feel free to reach me via email.
                 </p>
+
+                 <p className="leading-relaxed">
+                  Dr. Vidushi Sharma
+                  Head, Department of Electronics and Communication Engineering
+                  vidushi@gbu.ac.in
+                  Phone: 0120-2346080 (Ext.6080)
+                 </p>
 
                 <div className="pt-6 border-t border-blue-200">
-                  <p className="font-bold text-foreground text-lg">Dr. Priya Singh</p>
+                  <p className="font-bold text-foreground text-lg">Dr. Vidushi Sharma</p>
                   <p className="text-blue-600 font-medium">Head of Department - ECE</p>
                 </div>
               </div>

@@ -63,7 +63,7 @@ export default function CampusLifeSection() {
                 <p className="italic text-gray-700 leading-tight text-xs sm:text-sm transform transition-transform duration-300 group-hover:translate-x-1 overflow-hidden">
                   "{quote.length > 500 ? quote.slice(0, 500) + '...' : quote}"
                 </p>
-                <p className="text-blue-800 font-semibold text-xs sm:text-sm transform transition-all duration-300 group-hover:text-indigo-600 group-hover:translate-x-1 mt-2">
+                <p className="text-white font-semibold text-xs sm:text-sm transform transition-all duration-300 group-hover:text-white group-hover:translate-x-1 mt-2">
                   {item.name}
                   <br />
                   <span className="italic text-xs">{item.course}</span>

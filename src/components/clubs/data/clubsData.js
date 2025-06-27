@@ -1,13 +1,14 @@
 // TypeScript interfaces removed for JS compatibility
-
+ import tcclogo from "../../../assets/tcclogo.png";
+ import musiclogo from "../../../assets/musiclogo.png";
 export const clubsData = [
   {
     id: 'tech-innovators',
     name: 'Tech Innovators Club',
     tagline: "Building Tomorrow's Technology Today",
     category: 'Technical',
-    logo: '/placeholder.svg',
-    banner: '/placeholder.svg',
+    logo: tcclogo,
+    banner: 'https://www.gbu.ac.in/Content/img/club/techno.jpg',
     memberCount: 156,
     description: 'A vibrant community of tech enthusiasts dedicated to exploring cutting-edge technologies, fostering innovation, and building solutions that matter. We bridge the gap between academic learning and real-world application.',
     objectives: [
@@ -145,8 +146,8 @@ export const clubsData = [
     name: 'Cultural Society',
     tagline: 'Celebrating Art, Music, and Heritage',
     category: 'Cultural',
-    logo: '/placeholder.svg',
-    banner: '/placeholder.svg',
+    logo: musiclogo,
+    banner: 'https://www.gbu.ac.in/Content/img/indexpageimg.jpg',
     memberCount: 203,
     description: 'A vibrant platform for artistic expression, cultural preservation, and creative collaboration. We celebrate diversity through music, dance, drama, literature, and visual arts.',
     objectives: [

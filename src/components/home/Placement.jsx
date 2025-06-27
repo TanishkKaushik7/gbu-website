@@ -152,13 +152,13 @@ const HiringSection = () => {
       <div className="w-[90vw] max-w-4xl mx-auto mt-24 sm:mt-28 bg-white shadow-xl rounded-2xl p-6 sm:p-8">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center">
           <StatItem
-            icon={first?.logo}
+            icon="https://cdn.iconscout.com/icon/free/png-256/free-infosys-logo-icon-download-in-svg-png-gif-file-formats--multinational-company-brand-logos-icons-2370783.png"
             end={parseInt(first?.Companies_hiring?.replace(/\D/g, "") || 0)}
             duration={2}
             text="Companies hiring worldwide"
           />
           <StatItem
-            icon={first?.logo}
+            icon="https://www.logo.wine/a/logo/Microsoft_Store/Microsoft_Store-Logo.wine.svg"
             end={parseInt(first?.alumini_count?.replace(/\D/g, "") || 0)}
             duration={3}
             separator=","

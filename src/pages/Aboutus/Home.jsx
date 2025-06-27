@@ -2,7 +2,7 @@ import Footer from "../../components/home/Footer.jsx";
 import Navbar from "../../components/home/Navbar.jsx";
 import Primarynavbar from "../../components/home/Primarynavbar.jsx";
 import WelcomePage from "../../components/home/Homepage.jsx";
-import QuickAccess from "../../components/home/Quicklink.jsx";
+import QuickAccess from "../../components/home/QuickLink.jsx";
 import AboutSection from "../../components/home/Aboutsection.jsx";
 import Glance from "../../components/home/Glance.jsx";
 import VisionaryLeadership from "../../components/home/Visionary.jsx";

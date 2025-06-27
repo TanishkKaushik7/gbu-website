@@ -12,43 +12,55 @@ const HodMessage = () => {
             <div className="md:col-span-1 flex flex-col items-center">
               <div className="relative w-48 h-48 rounded-full overflow-hidden mb-4 shadow-xl">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80"
-                  alt="Dr. Rajesh Kumar - Head of Department"
+                  src="https://www.gbu.ac.in/USICT/media/img/Arun%20Solanki.jpeg"
+                  alt="Dr. Arun Solanki - Head of Department"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
               </div>
-              <h3 className="text-xl font-bold text-foreground">Dr. Rajesh Kumar</h3>
+              <h3 className="text-xl font-bold text-foreground">Dr. Arun Solanki</h3>
               <p className="text-blue-600 font-medium">Head of Department</p>
-              <p className="text-sm text-muted-foreground">PhD Computer Science, IIT Delhi</p>
             </div>
 
             <div className="md:col-span-2 space-y-4 text-muted-foreground bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg">
               <p className="text-lg leading-relaxed">
-                Welcome to the Department of Computer Science and Engineering. As we stand at the forefront of
-                technological innovation, our department is committed to nurturing the next generation of computer
-                scientists and engineers who will shape our digital future.
+                Greetings!
+              </p>
+             
+              <p className="text-lg leading-relaxed">
+                Welcome to the Department of Computer Science and Engineering! The field of Computer Science and Engineering (CSE) has consistently been at the forefront of innovation, transforming the landscape of nearly every discipline by providing computing as a foundational tool for inquiry and discovery. From artificial intelligence applications, intelligent game design, and smart robots to cloud computing, big data analytics, cybersecurity, and social networks, our department offers students the opportunity to explore and excel in exciting, intellectually stimulating, and fast-growing career fields.
               </p>
 
               <p className="leading-relaxed">
-                Our curriculum is designed to provide students with a strong foundation in computer science
-                fundamentals while exposing them to cutting-edge technologies in artificial intelligence,
-                machine learning, cybersecurity, and software engineering. We believe in hands-on learning
-                and encourage our students to participate in research projects, internships, and industry
-                collaborations.
+                We take immense pride in our Teaching-Learning process, which is the cornerstone of our commitment to providing a high-quality technical education. Our department employs innovative teaching aids and methodologies to continuously enhance student learning and outcomes. This commitment is reflected in our consistently excellent academic results over the years.
               </p>
 
               <p className="leading-relaxed">
-                With state-of-the-art laboratories, experienced faculty, and strong industry partnerships,
-                we ensure that our graduates are well-prepared to meet the challenges of the rapidly evolving
-                technology landscape. Our alumni have gone on to successful careers in leading technology
-                companies, research institutions, and have founded innovative startups.
+                To foster continuous growth and development, we regularly organize Student Development Programs, Short-Term Training Programs, Conferences, Seminars, Webinars, Workshops, and Expert Lecture Series aimed at enhancing both the technical and professional skills of our students. Furthermore, our Faculty Development Programs ensure that our educators remain at the cutting edge of their fields, promoting high standards in technical education.
               </p>
 
               <p className="leading-relaxed">
-                I invite you to explore our programs and discover how the Department of Computer Science and
-                Engineering can help you achieve your academic and professional goals.
+                At the Department of Computer Science and Engineering, we strive to create an environment that encourages learning, exploration, and innovation. We look forward to collaborating with students, faculty, industry partners, and stakeholders to create a successful and fulfilling experience for all.
               </p>
+
+              
+              <p className="leading-relaxed">
+                If you have any questions or require further assistance, please feel free to reach out. We are here to support you on your journey.
+              </p>
+
+               <p className="leading-relaxed">
+                If you have any questions or require further assistance, please feel free to reach out. We are here to support you on your journey.
+               </p>
+
+               <p className="leading-relaxed">
+                Dr. Arun Solanki
+                Head, Department of Computer Science and Engineering
+               </p>
+
+               <p className="leading-relaxed">
+                Email: arunk@gbu.ac.in
+                Phone: 0120-2346080 (Ext.6080)
+               </p>
 
               <div className="pt-4">
                 <p className="font-semibold text-foreground">Dr. Rajesh Kumar</p>
