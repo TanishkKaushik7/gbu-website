@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
 const Footer = () => {
   return (
     <footer
-      className="bg-[#0e1626] text-white px-6 md:px-20 py-10"
+      className="bg-[#0e1626] text-white px-4 sm:px-6 lg:px-20 py-10"
       role="contentinfo"
       aria-label="Footer"
     >
-      <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Logo and About */}
         <div>
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-3">
             <img
               src="https://images.unsplash.com/photo-1562774053-701939374585?w=60&h=60&fit=crop&crop=center"
               alt="GBU Logo"
@@ -21,16 +21,15 @@ const Footer = () => {
               <p className="text-sm text-gray-300">Excellence in Education</p>
             </div>
           </div>
-          <p className="text-gray-400 text-sm mt-4">
+          <p className="text-gray-400 text-sm mt-3">
             Gautam Buddha University, Greater Noida, is committed to providing
             world-class education and fostering innovation for a better
             tomorrow.
           </p>
-          <div className="flex gap-4 mt-4 text-xl" aria-label="Social media links">
-            {/* Replace these with actual links & icons later */}
+          <div className="flex gap-3 mt-4 text-xl" aria-label="Social media links">
             <span role="img" aria-label="Facebook">🟦</span>
             <span role="img" aria-label="Instagram">🦩</span>
-            <span role="img" aria-label="Instagram">📷</span>
+            <span role="img" aria-label="Camera">📷</span>
             <span role="img" aria-label="LinkedIn">💼</span>
             <span role="img" aria-label="YouTube">📺</span>
           </div>
@@ -80,23 +79,32 @@ const Footer = () => {
             PIN: 201312
           </address>
           <p className="mt-2 text-sm text-gray-300">
-            <strong>Phone:</strong> <a href="tel:+911202344000" className="hover:text-orange-500">+91-120-234-4000</a><br />
-            <strong>Email:</strong> <a href="mailto:info@gbu.ac.in" className="hover:text-orange-500">info@gbu.ac.in</a>
+            <strong>Phone:</strong>{" "}
+            <a href="tel:+911202344000" className="hover:text-orange-500">
+              +91-120-234-4000
+            </a>
+            <br />
+            <strong>Email:</strong>{" "}
+            <a href="mailto:info@gbu.ac.in" className="hover:text-orange-500">
+              info@gbu.ac.in
+            </a>
           </p>
           <div className="mt-4">
-            <label htmlFor="newsletter-email" className="font-semibold text-sm block mb-1">Subscribe to Newsletter</label>
-            <form className="flex" onSubmit={(e) => e.preventDefault()}>
+            <label htmlFor="newsletter-email" className="font-semibold text-sm block mb-1">
+              Subscribe to Newsletter
+            </label>
+            <form className="flex flex-col sm:flex-row" onSubmit={(e) => e.preventDefault()}>
               <input
                 id="newsletter-email"
                 type="email"
                 placeholder="Your email"
-                className="w-full px-3 py-2 text-white bg-[#1a202c] rounded-l-md outline-none focus:ring-2 focus:ring-orange-500"
+                className="px-3 py-2 text-white bg-[#1a202c] rounded-md sm:rounded-l-md sm:rounded-r-none mb-2 sm:mb-0 sm:w-auto flex-grow outline-none focus:ring-2 focus:ring-orange-500"
                 required
                 aria-label="Email address"
               />
               <button
                 type="submit"
-                className="bg-orange-600 text-white px-4 rounded-r-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="bg-orange-600 text-white px-4 py-2 rounded-md sm:rounded-l-none sm:rounded-r-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
               >
                 Subscribe
               </button>
@@ -106,9 +114,9 @@ const Footer = () => {
       </div>
 
       {/* Bottom Line */}
-      <div className="mt-6 border-t border-gray-700 pt-4 text-sm text-gray-400 flex flex-col md:flex-row justify-between">
+      <div className="mt-10 border-t border-gray-700 pt-4 text-sm text-gray-400 flex flex-col md:flex-row justify-between items-center gap-3">
         <p>© 2025 Gautam Buddha University. All rights reserved.</p>
-        <div className="flex gap-4 mt-2 md:mt-0">
+        <div className="flex gap-4">
           {['Privacy Policy', 'Terms of Use', 'Sitemap'].map((link) => (
             <a
               key={link}

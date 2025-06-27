@@ -16,17 +16,22 @@ export default function LatestUpdates() {
     fetchNotices();
   }, []);
 
-  const fetchNotices = async () => {
-    try {
-      const res = await axios.get(NOTICE_API);
-      const json = res.data;
-      setData(json);
-      const uniqueCategories = [...new Map(json.map(item => [item.category, item])).values()];
-      setCategories(uniqueCategories);
-    } catch (err) {
-      console.error('Error fetching notices:', err);
-    }
-  };
+ const fetchNotices = async () => {
+  try {
+    const res = await axios.get(NOTICE_API);
+    const json = res.data;
+    console.log('Notice API response:', json); // Add this line
+
+    // Try to find the array in the response
+    const items = Array.isArray(json) ? json : json.data || json.results || [];
+
+    setData(items);
+    const uniqueCategories = [...new Map(items.map(item => [item.category, item])).values()];
+    setCategories(uniqueCategories);
+  } catch (err) {
+    console.error('Error fetching notices:', err);
+  }
+};
 
   useEffect(() => {
     const intervals = [];

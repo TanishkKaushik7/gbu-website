@@ -34,38 +34,43 @@ export default function ExcellenceSection() {
   useEffect(() => {
     setIsVisible(true);
 
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(EXCELLENCE_API);
-        const json = res.data;
+    // ...existing code...
+const fetchData = async () => {
+  try {
+    const res = await axios.get(EXCELLENCE_API);
+    const json = res.data;
+    console.log('Excellence API response:', json); // Add this line
 
-        const grouped = {
-          'Centers of Excellence': [],
-          'Research Labs': [],
-          'Infrastructure': [],
-        };
+    // Try to find the array in the response
+    const items = Array.isArray(json) ? json : json.data || json.results || [];
 
-        json.forEach(item => {
-          const category = item.category?.toLowerCase().trim();
-
-          for (const [label, key] of Object.entries(categoryMap)) {
-            if (category === key.toLowerCase().trim()) {
-              grouped[label].push({
-                ...item,
-                gradient: gradientMap[key] || 'from-gray-500 to-gray-600',
-                icon: iconMap[key] || '📌',
-              });
-              break;
-            }
-          }
-        });
-
-        setGroupedData(grouped);
-      } catch (err) {
-        console.error('Failed to fetch excellence data:', err);
-      }
+    const grouped = {
+      'Centers of Excellence': [],
+      'Research Labs': [],
+      'Infrastructure': [],
     };
 
+    items.forEach(item => {
+      const category = item.category?.toLowerCase().trim();
+
+      for (const [label, key] of Object.entries(categoryMap)) {
+        if (category === key.toLowerCase().trim()) {
+          grouped[label].push({
+            ...item,
+            gradient: gradientMap[key] || 'from-gray-500 to-gray-600',
+            icon: iconMap[key] || '📌',
+          });
+          break;
+        }
+      }
+    });
+
+    setGroupedData(grouped);
+  } catch (err) {
+    console.error('Failed to fetch excellence data:', err);
+  }
+};
+// ...existing code...
     fetchData();
   }, []);
 

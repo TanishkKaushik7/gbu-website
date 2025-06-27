@@ -23,10 +23,11 @@ export default function AboutSection() {
 
   if (!aboutData) return <div className="text-center py-10">Loading...</div>;
 
-  const imageSrc = aboutData.image?.includes("http")
-    ? aboutData.image
-    : `${BASE_URL}/${aboutData.image.startsWith("media") ? "" : "media/"}${aboutData.image}`;
-
+ const imageSrc = aboutData.image
+  ? (aboutData.image.includes("http")
+      ? aboutData.image
+      : `${BASE_URL}/${aboutData.image.startsWith("media") ? "" : "media/"}${aboutData.image}`)
+  : "https://www.shikshahub.com/uploads/blogs/1705923654.webp";
   return (
     <div className="bg-white py-12 px-6 sm:py-16 sm:px-10 md:px-20">
       <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
