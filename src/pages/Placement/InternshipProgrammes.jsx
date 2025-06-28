@@ -98,7 +98,7 @@ const InternshipProgrammes = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-100 to-gray-200">
+    <div className="min-h-screen bg-white">
 
 
 
@@ -106,7 +106,7 @@ const InternshipProgrammes = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6 animate-fade-in">
+            <h1 className="text-3xl font-bold text-gray-900 mb-6 animate-fade-in">
               Internship Opportunities
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
@@ -179,7 +179,7 @@ const InternshipProgrammes = () => {
 
           {/* Top Internship Providers */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Top Internship Providers</h2>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">Top Internship Providers</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {topProviders.map((provider, index) => (
                 <Card key={index} className="bg-white/80 backdrop-blur-sm border-0 shadow-xl pt-5 transition-all duration-300 hover-scale text-center">
@@ -204,7 +204,7 @@ const InternshipProgrammes = () => {
 
           {/* Application Process */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Application Process</h2>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">Application Process</h2>
             <div className="max-w-4xl mx-auto">
               <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-4">
                 {applicationSteps.map((step, index) => (
@@ -227,7 +227,7 @@ const InternshipProgrammes = () => {
           <div className="text-center">
             <Card className=" bg-white mt-5 rounded-2xl w-4/5 backdrop-blur-sm border-0 shadow-xl inline-block">
               <CardContent className="p-8 pt-5">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Start Your Internship Journey?</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Start Your Internship Journey?</h2>
                 <p className="text-gray-600 mb-6">Join thousands of students who have gained valuable industry experience</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-3 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover-scale">

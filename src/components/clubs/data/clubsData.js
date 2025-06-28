@@ -243,7 +243,7 @@ export const clubsData = [
         title: 'Spring Cultural Festival',
         date: '2024-03-15',
         description: 'Annual cultural extravaganza featuring music, dance, drama, and art exhibitions',
-        image: '/placeholder.svg',
+        image: 'https://www.gbu.ac.in/Content/clubs/img/music/music1.jpg',
         type: 'cultural',
         registrationLink: '#'
       },
@@ -252,7 +252,7 @@ export const clubsData = [
         title: 'Poetry Evening',
         date: '2024-01-30',
         description: 'An intimate evening of poetry recitation and spoken word performances',
-        image: '/placeholder.svg',
+        image: 'https://www.gbu.ac.in/Content/clubs/img/music/IMG_0591.jpg',
         type: 'cultural'
       }
     ],

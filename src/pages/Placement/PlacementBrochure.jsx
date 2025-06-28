@@ -3,12 +3,12 @@ import { Award, BookOpen, Download, TrendingUp, Users } from 'lucide-react'
 
 function PlacementBrochure() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="py-16 ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-3xl font-bold text-gray-900 mb-6">
               Download Our Latest Placement Brochure
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">

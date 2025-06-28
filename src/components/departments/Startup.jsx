@@ -5,62 +5,26 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 const StudentStartup = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const startups = [
-    {
-      name: 'StudyMate AI',
-      founder: 'Arjun Patel (3rd Year CSE)',
-      description: 'AI-powered study companion that creates personalized learning paths and quizzes',
-      funding: '₹3 Lakhs',
-      status: 'Bootstrapped',
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop',
-      year: '2024',
-    },
-    {
-      name: 'Campus Connect',
-      founder: 'Sneha Agarwal (4th Year IT)',
-      description: 'Social platform connecting students across universities for collaboration',
-      funding: '₹2.5 Lakhs',
-      status: 'Pre-Seed',
-      image: 'https://images.unsplash.com/photo-1515378791036-0648a814c963?w=800&h=500&fit=crop',
-      year: '2024',
-    },
-    {
-      name: 'EcoWaste Tracker',
-      founder: 'Vikram Sharma (2nd Year ECE)',
-      description: 'Mobile app to track and reduce campus waste with gamification elements',
-      funding: '₹1.8 Lakhs',
-      status: 'MVP Ready',
-      image: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&h=500&fit=crop',
-      year: '2024',
-    },
-    {
-      name: 'SkillSwap University',
-      founder: 'Ananya Singh (3rd Year BBA)',
-      description: 'Peer-to-peer skill exchange platform for students to teach and learn',
-      funding: '₹4 Lakhs',
-      status: 'Angel Funded',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=500&fit=crop',
-      year: '2023',
-    },
-    {
-      name: 'QuickTutor',
-      founder: 'Rohit Kumar (4th Year CSE)',
-      description: 'On-demand tutoring service connecting students with senior peers',
-      funding: '₹6 Lakhs',
-      status: 'Seed Funded',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop',
-      year: '2023',
-    },
-    {
-      name: 'FoodieShare',
-      founder: 'Meera Joshi (2nd Year MBA)',
-      description: 'Food sharing app to reduce waste in college hostels and cafeterias',
-      funding: '₹2 Lakhs',
-      status: 'Prototype',
-      image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=500&fit=crop',
-      year: '2024',
-    },
-  ];
+  // Simulated dynamic data (replace with API later)
+  const startupData = {
+    startups: [
+      {
+        name: 'KOYAL FM',
+        founder: 'GBU Incubation Team',
+        description: 'Campus-based community radio initiative by students',
+        funding: 'University Supported',
+        status: 'Incubated',
+        image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop',
+        year: '2020',
+      },
+    ],
+    stats: {
+      totalFunding: '₹19.3L+',
+      totalDepartments: 4,
+    }
+  };
+
+  const { startups, stats } = startupData;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -88,6 +52,8 @@ const StudentStartup = () => {
         return 'bg-orange-500 text-white';
       case 'Bootstrapped':
         return 'bg-indigo-500 text-white';
+      case 'Incubated':
+        return 'bg-pink-500 text-white';
       default:
         return 'bg-gray-500 text-white';
     }
@@ -104,14 +70,30 @@ const StudentStartup = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 mx-auto mt-4 rounded-full" />
         </div>
 
+        {/* Dynamic Stats Section */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
+            <div className="text-3xl font-bold text-blue-600 mb-2">{startups.length}</div>
+            <div className="text-gray-600">Active Student Startups</div>
+          </div>
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
+            <div className="text-3xl font-bold text-green-600 mb-2">{stats.totalFunding}</div>
+            <div className="text-gray-600">Total Funding Raised</div>
+          </div>
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
+            <div className="text-3xl font-bold text-purple-600 mb-2">{stats.totalDepartments}</div>
+            <div className="text-gray-600">Departments Represented</div>
+          </div>
+        </div>
+
+
         <div className="relative shadow-2xl border-0 bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden">
           <div className="relative h-96">
             {startups.map((startup, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                  index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-                }`}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                  }`}
               >
                 <div className="grid md:grid-cols-2 h-full">
                   <div className="p-8 flex flex-col justify-center bg-gradient-to-br from-white to-blue-50">
@@ -147,41 +129,22 @@ const StudentStartup = () => {
                 </div>
               </div>
             ))}
-
-
           </div>
-
-          {/* Indicators */}
-          <div className="flex justify-center py-6 space-x-2 bg-gradient-to-r from-gray-50 to-blue-50">
-            {startups.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide
-                    ? 'bg-blue-600 shadow-lg scale-125'
-                    : 'bg-gray-300 hover:bg-gray-400'
+        </div>
+        {/* Indicators */}
+        <div className="flex justify-center mt-6 space-x-2 bg-gradient-to-r from-gray-50 to-blue-50">
+          {startups.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
+                  ? 'bg-blue-600 shadow-lg scale-125'
+                  : 'bg-gray-300 hover:bg-gray-400'
                 }`}
-              />
-            ))}
-          </div>
+            />
+          ))}
         </div>
 
-        {/* Additional Stats Section */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
-            <div className="text-3xl font-bold text-blue-600 mb-2">{startups.length}</div>
-            <div className="text-gray-600">Active Student Startups</div>
-          </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
-            <div className="text-3xl font-bold text-green-600 mb-2">₹19.3L+</div>
-            <div className="text-gray-600">Total Funding Raised</div>
-          </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
-            <div className="text-3xl font-bold text-purple-600 mb-2">4</div>
-            <div className="text-gray-600">Departments Represented</div>
-          </div>
-        </div>
       </div>
     </section>
   );

@@ -4,98 +4,127 @@ import { Facebook, Instagram, Twitter, Linkedin, Mail } from "lucide-react";
 const ClubsAchievements = () => {
   const clubs = [
     {
-      name: "Robotics Club",
-      description:
-        "Building autonomous systems and competing in national robotics competitions",
-      members: 45,
+      name: "Techno Cultural Club",
+      description: "Runs coding contests, hackathons, robotics, quizzes, poster-making & cultural events.",
+      members: 150,
+      category: "Technical & Cultural",
+      facultyAdvisor: "Dr. Vimlesh Kumar Ray",
+      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=200&fit=crop",
+      socialLinks: {
+        instagram: "https://instagram.com/technoculture_gbu",
+        linkedin: "https://linkedin.com/company/techno-club-gbu",
+        email: "techno.ict.gbu@gmail.com"
+      }
+    },
+    {
+      name: "GDSC – Google Developer Student Club",
+      description: "Peer-run community for workshops in Web Dev, Cloud, ML under GDSC umbrella.",
+      members: 500,
       category: "Technical",
-      facultyAdvisor: "Dr. Rajesh Kumar",
-      image:
-        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=200&fit=crop",
+      facultyAdvisor: "Dr. Rajesh Mishra",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=200&fit=crop",
       socialLinks: {
-        instagram: "https://instagram.com/roboticsclub",
-        twitter: "https://twitter.com/roboticsclub",
-        linkedin: "https://linkedin.com/company/roboticsclub",
-        email: "robotics@college.edu"
-      }
-    },
-    {
-      name: "Coding Club",
-      description:
-        "Programming contests, hackathons, and software development projects",
-      members: 120,
-      category: "Technical",
-      facultyAdvisor: "Prof. Priya Sharma",
-      image:
-        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=200&fit=crop",
-      socialLinks: {
-        facebook: "https://facebook.com/codingclub",
-        instagram: "https://instagram.com/codingclub",
-        twitter: "https://twitter.com/codingclub",
-        email: "coding@college.edu"
-      }
-    },
-    {
-      name: "Innovation Cell",
-      description: "Fostering entrepreneurship and supporting startup ideas",
-      members: 35,
-      category: "Entrepreneurship",
-      facultyAdvisor: "Dr. Amit Patel",
-      image:
-        "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=400&h=200&fit=crop",
-      socialLinks: {
-        linkedin: "https://linkedin.com/company/innovationcell",
-        twitter: "https://twitter.com/innovationcell",
-        instagram: "https://instagram.com/innovationcell",
-        email: "innovation@college.edu"
-      }
-    },
-    {
-      name: "Cultural Society",
-      description: "Music, dance, drama, and organizing cultural events",
-      members: 80,
-      category: "Cultural",
-      facultyAdvisor: "Dr. Sunita Gupta",
-      image:
-        "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&h=200&fit=crop",
-      socialLinks: {
-        facebook: "https://facebook.com/culturalsociety",
-        instagram: "https://instagram.com/culturalsociety",
-        twitter: "https://twitter.com/culturalsociety",
-        email: "cultural@college.edu"
+        instagram: "https://instagram.com/gdsc_gbu",
+        linkedin: "https://linkedin.com/company/gdsc-gautam-buddha-university",
+        email: "gdsc@gbu.ac.in"
       }
     },
     {
       name: "IEEE Student Branch",
-      description: "Professional development and technical paper presentations",
+      description: "Professional branch organizing tech talks, paper contests & networking.",
       members: 60,
       category: "Professional",
       facultyAdvisor: "Dr. Vikram Singh",
-      image:
-        "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=200&fit=crop",
       socialLinks: {
         linkedin: "https://linkedin.com/company/ieeestudentbranch",
         twitter: "https://twitter.com/ieeestudents",
-        instagram: "https://instagram.com/ieeestudentbranch",
-        email: "ieee@college.edu"
+        email: "ieee@gbu.ac.in"
       }
     },
     {
-      name: "Sports Committee",
-      description:
-        "Organizing sports events and representing college in tournaments",
-      members: 90,
-      category: "Sports",
-      facultyAdvisor: "Coach Ravi Mehta",
-      image:
-        "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=200&fit=crop",
+      name: "Programming / CodeChef Chapter",
+      description: "Competitive coding community hosting Code Matrix, Learn to Code & hackathons.",
+      members: 200,
+      category: "Technical",
+      facultyAdvisor: "Dr. Anurag Singh Baghel",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=200&fit=crop",
       socialLinks: {
-        facebook: "https://facebook.com/sportscommittee",
-        instagram: "https://instagram.com/sportscommittee",
-        twitter: "https://twitter.com/sportscommittee",
-        email: "sports@college.edu"
+        instagram: "https://instagram.com/codechef_gbu",
+        email: "codechef@gbu.ac.in"
       }
     },
+    {
+      name: "Robotics Club",
+      description: "Builds autonomous systems & competes in national robotics events.",
+      members: 45,
+      category: "Technical",
+      facultyAdvisor: "Dr. Vimlesh Kumar Ray",
+      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=200&fit=crop",
+      socialLinks: {
+        twitter: "https://twitter.com/robiotics_gbu",
+        email: "robotics@gbu.ac.in"
+      }
+    },
+    {
+      name: "Dhrishtikon – Debate Society",
+      description: "Promotes free discussion, public speaking & debate competitions.",
+      members: 80,
+      category: "Cultural",
+      facultyAdvisor: "Dr. Manjari Suman",
+      image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&h=200&fit=crop",
+      socialLinks: {
+        linkedin: "https://linkedin.com/company/drishtikon-gbu",
+        email: "drishtikon@gbu.ac.in"
+      }
+    },
+    {
+      name: "Cultural Council",
+      description: "Oversees Drama, Dance, Music, Painting, Photography, Literature, Adventure clubs.",
+      members: 300,
+      category: "Cultural",
+      facultyAdvisor: "Dr. Anand Pratap Singh",
+      image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&h=200&fit=crop",
+      socialLinks: {
+        facebook: "https://facebook.com/abhivyanjana",
+        instagram: "https://instagram.com/abhivyanjana_gbu",
+        email: "cultural@gbu.ac.in"
+      }
+    },
+    {
+      name: "Adventure Club",
+      description: "Organizes trekking, camping and outdoor adventure activities.",
+      members: 60,
+      category: "Adventure",
+      facultyAdvisor: "Dr. Sunita Gupta",
+      image: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=200&fit=crop",
+      socialLinks: {
+        email: "adventure@gbu.ac.in"
+      }
+    },
+    {
+      name: "Photography Club",
+      description: "Encourages campus photography exhibitions & workshops.",
+      members: 50,
+      category: "Creative",
+      facultyAdvisor: "Dr. Vidushi Sharma",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=200&fit=crop",
+      socialLinks: {
+        instagram: "https://instagram.com/photoclub_gbu",
+        email: "photography@gbu.ac.in"
+      }
+    },
+    {
+      name: "Art & Painting Club",
+      description: "Hosts workshops & exhibitions to nurture visual arts on campus.",
+      members: 40,
+      category: "Creative",
+      facultyAdvisor: "Dr. Anand Pratap Singh",
+      image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&h=200&fit=crop",
+      socialLinks: {
+        email: "art@gbu.ac.in"
+      }
+    }
   ];
 
   const renderSocialIcon = (platform, url) => {

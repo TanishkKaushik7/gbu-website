@@ -45,12 +45,12 @@ const CampusRecruiters = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-100 to-gray-300">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-3xl font-bold text-gray-900 mb-6">
               Our Esteemed Campus Recruiters
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
@@ -59,8 +59,8 @@ const CampusRecruiters = () => {
           </div>
 
           {/* Past Recruitment Highlights */}
-          <div className="mt-20 bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">2024 Recruitment Highlights</h2>
+          <div className="mt-20 bg-white/80 backdrop-blur-sm border border-gray-300 rounded-2xl p-8 shadow-xl">
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">2024 Recruitment Highlights</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="text-4xl font-bold text-blue-600 mb-2">45+</div>
@@ -157,7 +157,7 @@ const CampusRecruiters = () => {
 
           {/* Recruiter Testimonials */}
           <div className="mt-20">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">What Our Recruiters Say</h2>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">What Our Recruiters Say</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-white/80 backdrop-blur-sm pt-4 border-0 shadow-xl rounded-lg">
                 <div className="p-6">

@@ -140,7 +140,7 @@ const TrainingCareerServices = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50">
+    <div className="min-h-screen bg-white">
       {/* Navigation */}
 
 
@@ -148,7 +148,7 @@ const TrainingCareerServices = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6 animate-fade-in">
+            <h1 className="text-3xl font-bold text-gray-900 mb-6 animate-fade-in">
               Training & Career Support
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
@@ -175,7 +175,7 @@ const TrainingCareerServices = () => {
 
           {/* Training Programs */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Training Programs Offered</h2>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">Training Programs Offered</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {trainingPrograms.map((program, index) => (
                 <Card key={index} className="bg-white/80 backdrop-blur-sm border-0 rounded-2xl  shadow-xl hover:shadow-2xl transition-all duration-300 hover-scale group pt-5">
@@ -216,7 +216,7 @@ const TrainingCareerServices = () => {
 
           {/* Career Services */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Career Services Offered</h2>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">Career Services Offered</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {careerServices.map((service, index) => (
                 <Card key={index} className="bg-white/80 backdrop-blur-sm border-0 shadow-xl rounded-2xl pt-6 hover:shadow-2xl transition-all duration-300 hover-scale">
@@ -246,7 +246,7 @@ const TrainingCareerServices = () => {
 
           {/* Upcoming Workshops */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Upcoming Workshops</h2>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">Upcoming Workshops</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {upcomingWorkshops.map((workshop, index) => (
                 <Card key={index} className="bg-white backdrop-blur-sm border-0 shadow-xl rounded-2xl pt-5 hover:shadow-2xl transition-all duration-300 hover-scale">
@@ -293,7 +293,7 @@ const TrainingCareerServices = () => {
           <div className="text-center">
             <Card className="bg-white rounded-2xl w-4/5 pt-5 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl inline-block">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Enhance Your Skills?</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Enhance Your Skills?</h2>
                 <p className="text-gray-900 my-6">Join our training programs and career services to accelerate your professional growth</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-3 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover-scale">

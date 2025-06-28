@@ -5,22 +5,20 @@ const RecruitersShowcase = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const recruiters = [
-    { name: "TCS", logo: "https://logo.clearbit.com/tcs.com" },
-    { name: "Infosys", logo: "https://logo.clearbit.com/infosys.com" },
-    { name: "Wipro", logo: "https://logo.clearbit.com/wipro.com" },
     { name: "Microsoft", logo: "https://logo.clearbit.com/microsoft.com" },
-    { name: "Google", logo: "https://logo.clearbit.com/google.com" },
-    { name: "Amazon", logo: "https://logo.clearbit.com/amazon.com" },
-    { name: "IBM", logo: "https://logo.clearbit.com/ibm.com" },
-    { name: "Accenture", logo: "https://logo.clearbit.com/accenture.com" },
-    { name: "Cognizant", logo: "https://logo.clearbit.com/cognizant.com" },
+    { name: "TCS", logo: "https://logo.clearbit.com/tcs.com" },
     { name: "HCL", logo: "https://logo.clearbit.com/hcltech.com" },
     { name: "Tech Mahindra", logo: "https://logo.clearbit.com/techmahindra.com" },
-    { name: "Oracle", logo: "https://logo.clearbit.com/oracle.com" },
-    { name: "Intel", logo: "https://logo.clearbit.com/intel.com" },
-    { name: "Qualcomm", logo: "https://logo.clearbit.com/qualcomm.com" },
-    { name: "Samsung", logo: "https://logo.clearbit.com/samsung.com" },
     { name: "Adobe", logo: "https://logo.clearbit.com/adobe.com" },
+    { name: "Amazon", logo: "https://logo.clearbit.com/amazon.com" },
+    { name: "Wipro", logo: "https://logo.clearbit.com/wipro.com" },
+    { name: "Infosys", logo: "https://logo.clearbit.com/infosys.com" },
+    { name: "Samsung", logo: "https://logo.clearbit.com/samsung.com" },
+    { name: "Intel", logo: "https://logo.clearbit.com/intel.com" },
+    { name: "Byju's", logo: "https://logo.clearbit.com/byjus.com" },
+    { name: "Axis Bank", logo: "https://logo.clearbit.com/axisbank.com" },
+    { name: "S&P Global", logo: "https://logo.clearbit.com/spglobal.com" },
+    { name: "Freecharge", logo: "https://logo.clearbit.com/freecharge.in" },
   ];
 
   const itemsPerSlide = 8;
