@@ -51,7 +51,7 @@ const Navbar = () => {
       label: "About Us",
       icon: <User size={16} />,
       items: [
-        "vision-mission",
+        "About GBU",
         "chancellor-message",
         "vice-chancellor-message",
         "governance-committees",
@@ -127,8 +127,8 @@ const Navbar = () => {
         ["sports-fitness", "Sports"],
         ["clubs-societies", "Clubs and Societies"],
         ["meditation-center", "Meditation Centre"],
-        ["NSS", "National Service Scheme (NSS)"],
-        ["NCC", "National Cadet Corps (NCC)"],
+        ["https://mygbu-nss-ncc.lovable.app/", "National Service Scheme (NSS)"],
+        ["https://mygbu-nss-ncc.lovable.app/", "National Cadet Corps (NCC)"],
       ].map(([slug, text]) => (
         <Link to={`/campus-life/${slug}`} key={slug}>
           {text}

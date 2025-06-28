@@ -11,9 +11,6 @@ function App() {
     return localStorage.getItem("preloadComplete") === "true";
   });
 
-  const location = useLocation();
-  const hideNavbarRoutes = ["/schools/ict"];
-
   useEffect(() => {
     if (isPreloadComplete) {
       localStorage.setItem("preloadComplete", "true");
@@ -23,22 +20,19 @@ function App() {
   return (
     <div className="App">
       <Suspense fallback={<div>Loading...</div>}>
-        {!isPreloadComplete ? (
-          <PreLoad onComplete={() => setIsPreloadComplete(true)} />
-        ) : (
-          <>
-            <Primarynavbar />
-            {!hideNavbarRoutes.includes(location.pathname) && (
-              <>
-                <Navbar />
-              </>
-            )}
-            <div className="pt-[110px]">
-              <AppRouter />
-            </div>
-            <Footer />
-          </>
-        )}
+      {!isPreloadComplete ? (
+        <PreLoad onComplete={() => setIsPreloadComplete(true)} />
+      ) : (
+        <>
+          <Primarynavbar />
+          <Navbar />
+          <div className="pt-[110px]">
+          <AppRouter />
+          </div>
+          <Footer />
+
+        </>
+      )}
       </Suspense>
     </div>
   );

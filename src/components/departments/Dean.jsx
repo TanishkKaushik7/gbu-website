@@ -2,18 +2,18 @@ import React from "react";
 
 const LeadershipCard = () => {
   const leader = {
-    name: "Dr. Rajesh Kumar",
-    title: "Head of Department - CSE",
+    name: "Dr. Arpit Bhardwaj",
+    title: "Dean (I/C) – School of ICT, GBU",
     description:
-      "Dr. Kumar is a distinguished academician with extensive experience in Computer Science and Engineering. He leads the CSE department with a focus on innovative curriculum design, research excellence, and industry collaboration to prepare students for the evolving tech landscape.",
+      "Dr. Arpit Bhardwaj is the current Dean‑in‑Charge of USICT, joining GBU in 2008. He holds a Ph.D. from IIT Indore and has published over 50 papers in IEEE, Elsevier & Springer. His research spans Genetic Programming, EEG‑signal classification, and AI‑driven emotion recognition. As Dean, he oversees academic programs (B.Tech, M.Tech, Ph.D.), enhances industry collaborations, and actively promotes student‑faculty innovation initiatives.",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face",
+      "https://www.gbu.ac.in/USICT/media/img/arpit%20bhardwaj.jpg",
   };
 
   return (
     <section className="py-12 sm:py-16 bg-gradient-to-br from-blue-100 via-white to-green-100">
       <h2 className="text-3xl sm:text-4xl font-bold text-center text-blue-800 mb-10 sm:mb-12">
-        Department <span className="text-blue-800">Leadership</span>
+        Dean's <span className="text-blue-800">Message</span>
         <div className="w-20 sm:w-24 h-1 bg-green-500 mx-auto mt-2 rounded-full"></div>
       </h2>
 

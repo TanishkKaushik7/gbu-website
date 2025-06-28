@@ -139,16 +139,16 @@ const ClubsAchievements = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-college-navy mb-4">
-            Student Life
+            SOICT Clubs
           </h2>
           <p className="text-xl text-gray-600">Excellence beyond academics</p>
         </div>
 
         {/* Student Clubs */}
         <div className="mb-16">
-          <h3 className="text-3xl font-bold text-college-navy mb-8 text-center">
+          {/* <h3 className="text-3xl font-bold text-college-navy mb-8 text-center">
             Student Clubs
-          </h3>
+          </h3> */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {clubs.map((club, index) => (
               <div

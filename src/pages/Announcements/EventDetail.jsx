@@ -172,7 +172,7 @@ const EventDetail = () => {
         {/* <Header /> */}
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="text-3xl font-extrabold text-blue-700 mb-6">Event not found</h1>
-          <Link to="/events">
+          <Link to="/events-calendar">
             <Button>Back to Events</Button>
           </Link>
         </div>
@@ -231,7 +231,7 @@ const EventDetail = () => {
 
       <div className="container mx-auto px-2 md:px-8 py-10">
         <div className="mb-8">
-          <Link to="/events">
+          <Link to="/events-calendar">
             <Button variant="outline" size="sm">
               <ArrowLeft size={16} className="mr-2" />
               Back to Events

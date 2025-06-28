@@ -58,59 +58,63 @@ const Badge = ({ children, className = "", ...props }) => {
 const NoticeEvents = () => {
   const notices = [
     {
-      title: "Semester Exam Schedule Released",
-      date: "2024-01-15",
+      title: "Back Paper Examination Date Sheet – Even Semester 2024–25",
+      date: "2025-05-16",
       type: "Important",
     },
-    { title: "Placement Drive - TCS", date: "2024-01-20", type: "Placement" },
     {
-      title: "Research Paper Submission Deadline",
-      date: "2024-01-25",
-      type: "Academic",
+      title: "Notice for Aadhaar e‑kyc through UPDESCO",
+      date: "2025-06-03",
+      type: "Administrative",
     },
     {
-      title: "Annual Tech Fest Registration",
-      date: "2024-02-01",
-      type: "Event",
+      title: "Tablet Distribution Program Scheduled",
+      date: "2025-05-24",
+      type: "General",
+    },
+    {
+      title: "Office Order for Hostel & Mess Exemption (Married PG/PhD Students)",
+      date: "2025-05-13",
+      type: "Administrative",
     },
   ];
 
   const events = [
     {
-      title: "National Engineering Day Celebration",
-      date: "2024-01-28",
-      image: "https://source.unsplash.com/featured/?engineering",
-      description: "Celebrating innovation and engineering excellence",
+      title: "Online National Article Writing Competition (GST)",
+      date: "2025-06-30",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK2NnCSPRdgMAEkEafMhZojs0fdgEv6hFY0A&s",
+      description: "Organized by School of Law, extended submission date.",
     },
     {
-      title: "Industry Expert Lecture Series",
-      date: "2024-02-05",
-      image: "https://source.unsplash.com/featured/?lecture",
-      description: "Leading industry professionals share insights",
+      title: "Six‑Day Residential Vipassana Program",
+      date: "2025-06-09",
+      image: "https://data.gbu.ac.in/Events/1714148988_FIVE%20DAY%20VIPASSANA%20COURSE%20FEB2024_page-0001.jpg", 
+      description: "Well‑being retreat by School of Buddhist Studies.",
     },
     {
-      title: "Annual Sports Festival",
-      date: "2024-02-12",
-      image: "https://source.unsplash.com/featured/?sports,stadium",
-      description: "Inter-departmental sports competition",
+      title: "World Environment Day Report",
+      date: "2025-06-05",
+      image: "https://images.timesnownews.com/thumb/msid-151788925,thumbsize-1151391,width-1280,height-720,resizemode-75/151788925.jpg",
+      description: "Activities report by Department of Environmental Science.",
     },
     {
-      title: "Research Symposium 2024",
-      date: "2024-02-18",
-      image: "https://source.unsplash.com/featured/?research,conference",
-      description: "Showcasing student and faculty research",
+      title: "SOBSC Vesak Day Celebrations",
+      date: "2025-05-03",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCwXCDOopXvx7WxXSEcJJJ86SzCi_HjeITTQ&s", 
+      description: "Celebration at School of Buddhist Studies & Civilization.",
     },
     {
-      title: "Cultural Night",
-      date: "2024-02-25",
-      image: "https://source.unsplash.com/featured/?concert,dance",
-      description: "Musical and dance performances by students",
+      title: "ICSSR‑Sponsored AI Research Methodology Course",
+      date: "2024-12-03",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvQud5sjoe92WQkeO2ddUOccbSRysoFo6K5GvgRZzSeMy1a2DsromFso3Hp7ctE8W-e94&usqp=CAU",
+      description: "10‑day course on integrating AI in research, sponsored by ICSSR.",
     },
     {
-      title: "Innovation Challenge",
-      date: "2024-03-02",
-      image: "https://source.unsplash.com/featured/?technology,startup",
-      description: "Students present innovative project solutions",
+      title: "Digital India Talk Show",
+      date: "2024-11-20",
+      image: "https://negd.gov.in/wp-content/uploads/2025/01/gatishakti.jpeg", 
+      description: "Awareness session on e‑governance chaired by VC Prof. R.K. Sinha.",
     },
   ];
 
@@ -120,7 +124,7 @@ const NoticeEvents = () => {
         {/* Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-blue-900 mb-3">
-            Campus Life
+            SOICT Campus Life
           </h2>
           <p className="text-xl text-gray-600">
             Stay updated with latest notices and events
@@ -174,7 +178,7 @@ const NoticeEvents = () => {
                         className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded-lg" />
+                      {/* <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded-lg" /> */}
                     </div>
                     <h4 className="font-semibold text-blue-900 text-sm mb-1">
                       {event.title}

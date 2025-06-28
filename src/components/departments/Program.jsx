@@ -22,30 +22,136 @@ const Button = ({ children, className = '', variant = 'default', ...props }) => 
 const ProgramsShowcase = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const programs = [
+ const programs = [
     {
-      name: 'Computer Science Engineering',
+      name: 'B.Tech. Computer Science & Engineering',
       code: 'CSE',
       duration: '4 Years',
-      specializations: ['AI & ML', 'Data Science', 'Cybersecurity', 'Full Stack Development'],
+      specializations: [
+        'AI & Robotics',
+        'Data Science',
+        'Cyber Security',
+        'Software Engineering',
+      ],
       image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
-      description: 'Comprehensive program covering algorithms, programming, and emerging technologies',
+      description:
+        'UG program in CSE with specializations in AI & Robotics, Data Science, Cyber Security and Software Engineering.' ,
     },
     {
-      name: 'Electronics & Communication',
-      code: 'ECE',
-      duration: '4 Years',
-      specializations: ['VLSI Design', 'Embedded Systems', 'Signal Processing', 'IoT'],
-      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop',
-      description: 'Focus on electronic circuits, communication systems, and modern technologies',
+      name: 'Integrated B.Tech.–M.Tech. (CSE)',
+      code: 'CSE–Dual',
+      duration: '5 Years',
+      specializations: [
+        'AI & Robotics',
+        'Data Science',
+        'Software Engineering',
+      ],
+      image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop',
+      description:
+        '5‑year integrated CSE dual‑degree granting B.Tech + M.Tech in AI, Data Science or Software Engineering.' ,
     },
     {
-      name: 'Information Technology',
+      name: 'M.Tech. CSE',
+      code: 'M.Tech CSE',
+      duration: '2 Years',
+      specializations: [
+        'AI & Robotics',
+        'Data Science',
+        'Software Engineering',
+      ],
+      image: 'https://images.unsplash.com/photo-1581091870639-8e2c3a0b5c3c?w=600&h=400&fit=crop',
+      description:
+        'Postgraduate program in CSE offering specializations in AI & Robotics, Data Science, Software Engineering.' ,
+    },
+    {
+      name: 'Ph.D. CSE',
+      code: 'Ph.D CSE',
+      duration: 'Varies',
+      specializations: [
+        'Computer Science & Engineering Research',
+      ],
+      image: 'https://images.unsplash.com/photo-1537432376769-00a3a0ba71a4?w=600&h=400&fit=crop',
+      description:
+        'Doctoral research in CSE across AI, ML, Cybersecurity, IoT and related areas.' ,
+    },
+    {
+      name: 'B.Tech. Information Technology',
       code: 'IT',
       duration: '4 Years',
-      specializations: ['Web Development', 'Mobile Apps', 'Cloud Computing', 'Database Systems'],
+      specializations: [
+        'AI & ML',
+        'Data Science & ML',
+      ],
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop',
-      description: 'Comprehensive IT education with focus on software and system development',
+      description:
+        'UG IT program with specializations in AI & ML, Data Science & Machine Learning.' ,
+    },
+    {
+      name: 'M.Tech. IT / ICT',
+      code: 'M.Tech IT',
+      duration: '2 Years',
+      specializations: [
+        'Data Science & ML',
+      ],
+      image: 'https://images.unsplash.com/photo-1558655146-c0141db644a3?w=600&h=400&fit=crop',
+      description:
+        'Postgraduate ICT/IT program focused on Data Science and Machine Learning.' ,
+    },
+    {
+      name: 'Ph.D. ICT/IT',
+      code: 'Ph.D IT',
+      duration: 'Varies',
+      specializations: ['Information & Communication Technology Research'],
+      image: 'https://images.unsplash.com/photo-1526379095098-7021f4cd1d10?w=600&h=400&fit=crop',
+      description:
+        'Doctoral research in Information & Communication Technology.' ,
+    },
+    {
+      name: 'B.Tech. Electronics & Communication Engineering',
+      code: 'ECE',
+      duration: '4 Years',
+      specializations: [
+        'AI & ML',
+        'VLSI & Embedded Systems',
+        'Wireless Comm & Networks',
+      ],
+      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop',
+      description:
+        'UG ECE program with focus areas in AI/ML, VLSI & Embedded, Wireless Communication & Networks.' ,
+    },
+    {
+      name: 'Integrated B.Tech.–M.Tech. (ECE)',
+      code: 'ECE–Dual',
+      duration: '5 Years',
+      specializations: [
+        'Wireless Networks',
+        'VLSI & Embedded Systems',
+      ],
+      image: 'https://images.unsplash.com/photo-1542751110-97427bbecf20?w=600&h=400&fit=crop',
+      description:
+        '5‑year integrated ECE dual‑degree programs in Wireless Communication, VLSI & Embedded Systems.' ,
+    },
+    {
+      name: 'M.Tech. ECE',
+      code: 'M.Tech ECE',
+      duration: '2 Years',
+      specializations: [
+        'Wireless Comm & Networks',
+        'VLSI Design',
+        'Railway Signalling & RAMS',
+      ],
+      image: 'https://images.unsplash.com/photo-1554168155-4cd745fe2b3e?w=600&h=400&fit=crop',
+      description:
+        'Postgraduate ECE specializing in Wireless Networks, VLSI Design, Railway Signalling & RAMS.' ,
+    },
+    {
+      name: 'Ph.D. ECE',
+      code: 'Ph.D ECE',
+      duration: 'Varies',
+      specializations: ['Electronics & Communication Engineering Research'],
+      image: 'https://images.unsplash.com/photo-1573497491208-6b1acb260507?w=600&h=400&fit=crop',
+      description:
+        'Doctoral research in ECE areas including signal processing, VLSI, comm networks.' ,
     },
   ];
 

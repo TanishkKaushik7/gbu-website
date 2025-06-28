@@ -84,97 +84,81 @@ const EventCard = ({ event, isPastEvent = false }) => {
   };
 
   return (
-    <Card className={`hover:shadow-2xl transition-shadow duration-300 ${isPastEvent ? 'opacity-80 grayscale' : ''}`}>
-      {event.images && event.images.length > 0 ? (
-        <div className="aspect-video w-full overflow-hidden relative group">
-          <img
-            src={event.images[0]}
-            alt={event.title}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-        </div>
-      ) : (
-        <div className={`aspect-video w-full ${shimmer} rounded-t-2xl`} />
-      )}
-      <CardHeader>
-        <div className="flex flex-wrap gap-2 mb-3">
-          <Badge className={getTypeColor(event.type)}>
-            {event.type}
-          </Badge>
-          <Badge className={getModeColor(event.mode)}>
-            {event.mode}
-          </Badge>
-          {isPastEvent && <Badge variant="outline">Completed</Badge>}
-        </div>
-        <CardTitle className="line-clamp-2">
-          {event.title}
-        </CardTitle>
-        <div className="space-y-1 text-sm text-gray-600 mt-2">
-          <div className="flex items-center gap-2">
-            <Calendar size={16} className="text-blue-500" />
-            <span>
-              {format(new Date(event.date), 'MMM dd, yyyy')}
-              {event.endDate && ` - ${format(new Date(event.endDate), 'MMM dd, yyyy')}`}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <MapPin size={16} className="text-rose-500" />
-            <span>{event.venue}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Users size={16} className="text-green-500" />
-            <span>{event.organizer}</span>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <p className="text-gray-700 mb-5 line-clamp-4 leading-relaxed">
-          {event.description}
-        </p>
-        <div className="flex flex-wrap gap-3 items-center">
-          <Link to={`/announcements/event-calendar/${event.id}`}>
-            <Button>View Details</Button>
-          </Link>
-
-          {event.registrationUrl && !isPastEvent && (
-            <Button size="sm" variant="outline" asChild>
-              <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink size={16} className="mr-2" />
-                Register
-              </a>
-            </Button>
-          )}
-
-          <div className="ml-auto">
-            <SocialShare
-              url={`${window.location.origin}/events/${event.id}`}
-              title={event.title}
-              className="!ml-0"
+    <Link to={`/announcements/event-calendar/${event.id}`} className="block">
+      <Card className={`hover:shadow-2xl transition-shadow duration-300 ${isPastEvent ? 'opacity-80 grayscale' : ''}`}>
+        {event.images && event.images.length > 0 ? (
+          <div className="aspect-video w-full overflow-hidden relative group">
+            <img
+              src={event.images[0]}
+              alt={event.title}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
           </div>
-        </div>
+        ) : (
+          <div className={`aspect-video w-full ${shimmer} rounded-t-2xl`} />
+        )}
 
-      </CardContent>
-    </Card>
+        <CardHeader>
+          <div className="flex flex-wrap gap-2 mb-3">
+            <Badge className={getTypeColor(event.type)}>
+              {event.type}
+            </Badge>
+            <Badge className={getModeColor(event.mode)}>
+              {event.mode}
+            </Badge>
+            {isPastEvent && <Badge variant="outline">Completed</Badge>}
+          </div>
+          <CardTitle className="line-clamp-2">
+            {event.title}
+          </CardTitle>
+          <div className="space-y-1 text-sm text-gray-600 mt-2">
+            <div className="flex items-center gap-2">
+              <Calendar size={16} className="text-blue-500" />
+              <span>
+                {format(new Date(event.date), 'MMM dd, yyyy')}
+                {event.endDate && ` - ${format(new Date(event.endDate), 'MMM dd, yyyy')}`}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin size={16} className="text-rose-500" />
+              <span>{event.venue}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Users size={16} className="text-green-500" />
+              <span>{event.organizer}</span>
+            </div>
+          </div>
+        </CardHeader>
+
+        <CardContent>
+          <p className="text-gray-700 mb-5 line-clamp-4 leading-relaxed">
+            {event.description}
+          </p>
+          <div className="flex flex-wrap gap-3 items-center">
+            <Button>View Details</Button>
+
+            {event.registrationUrl && !isPastEvent && (
+              <Button size="sm" variant="outline" asChild>
+                <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink size={16} className="mr-2" />
+                  Register
+                </a>
+              </Button>
+            )}
+
+            <div className="ml-auto">
+              <SocialShare
+                url={`${window.location.origin}/events/${event.id}`}
+                title={event.title}
+                className="!ml-0"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
   );
 };
 
 export default EventCard;
-
-EventCard.propTypes = {
-  event: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    images: PropTypes.arrayOf(PropTypes.string),
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    mode: PropTypes.string.isRequired,
-    date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
-    endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-    venue: PropTypes.string.isRequired,
-    organizer: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    registrationUrl: PropTypes.string,
-  }).isRequired,
-  isPastEvent: PropTypes.bool,
-};

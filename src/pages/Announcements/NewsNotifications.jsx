@@ -181,7 +181,7 @@ const NewsNotifications = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
 
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto pb-5">
         <section className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-extrabold text-white mb-3 drop-shadow-lg tracking-tight">
@@ -245,11 +245,11 @@ const NewsNotifications = () => {
                   {news.excerpt}
                 </p>
                 <div className="flex justify-between items-center">
-                  <Link to={`/news/${news.id}`}>
-                    <Button size="sm" className="shadow hover:scale-105">
-                      Read More
-                    </Button>
-                  </Link>
+                   <Link to={`/announcements/news-notifications/${news.id}`}>
+          <Button size="sm" className="shadow hover:scale-105">
+            Read More
+          </Button>
+        </Link>
                   <SocialShare
                     url={`${window.location.origin}/news/${news.id}`}
                     title={news.title}

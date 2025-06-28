@@ -47,7 +47,7 @@ export default function CampusLifeSection() {
               className="bg-white rounded-lg shadow hover:shadow-xl focus:shadow-xl transition-all duration-300 transform hover:scale-105 focus:scale-105 hover:-translate-y-2 outline-none cursor-pointer overflow-hidden group w-full h-[25rem] max-w-sm mx-auto"
               style={{ aspectRatio: '1/1' }}
             >
-              <div className="relative h-2/5">
+              <div className="relative h-3/5">
                 <img
                   src={item.image}
                   alt={category}
@@ -59,7 +59,7 @@ export default function CampusLifeSection() {
                   {category}
                 </span>
               </div>
-              <div className="p-3 sm:p-4 h-3/5 flex flex-col justify-between">
+              <div className="p-3 sm:p-4 flex flex-col justify-between">
                 <p className="italic text-gray-700 leading-tight text-xs sm:text-sm transform transition-transform duration-300 group-hover:translate-x-1 overflow-hidden">
                   "{quote.length > 500 ? quote.slice(0, 500) + '...' : quote}"
                 </p>

@@ -5,86 +5,112 @@ const ViceChancellor = () => {
 
   const tabs = ['Overview', 'Education', 'Research', 'Vision'];
 
-  const tabContent = {
-    Overview: {
-      title: "Experience",
-      content: "Over 30 years in academic, administration, and research excellence across multiple disciplines."
-    },
-    Education: {
-      title: "Educational Background",
-      content: (
-        <div className="space-y-4">
-          <div>
-            <h4 className="font-semibold text-gray-800">Ph.D. in Computer Science & Engineering</h4>
-            <p className="text-sm text-gray-600">Indian Institute of Technology (IIT) Delhi, 1995</p>
-            <p className="text-xs text-gray-500">Thesis: "Advanced Machine Learning Algorithms for Pattern Recognition"</p>
-          </div>
-          <div>
-            <h4 className="font-semibold text-gray-800">M.Tech in Computer Science</h4>
-            <p className="text-sm text-gray-600">Indian Institute of Science (IISc) Bangalore, 1990</p>
-            <p className="text-xs text-gray-500">Specialization: Artificial Intelligence and Data Structures</p>
-          </div>
-          <div>
-            <h4 className="font-semibold text-gray-800">B.Tech in Electronics & Communication</h4>
-            <p className="text-sm text-gray-600">Delhi College of Engineering, 1988</p>
-            <p className="text-xs text-gray-500">First Class with Distinction, Gold Medalist</p>
-          </div>
-        </div>
-      )
-    },
-    Research: {
-      title: "Research Contributions",
-      content: (
-        <div className="space-y-6">
-          <div>
-            <h4 className="font-semibold text-gray-800 mb-2">Internet of Things (IoT) & Smart Cities</h4>
-            <p className="text-sm text-gray-700 mb-2">Leading research in IoT infrastructure for smart city development, focusing on sensor networks and data analytics.</p>
-            <div className="space-y-1">
-              <a href="https://doi.org/10.1109/IoT.2023.001" className="text-blue-600 hover:underline text-xs block">
-                "IoT-Based Smart Infrastructure for Urban Development" - IEEE IoT Journal (2023)
-              </a>
-              <a href="https://doi.org/10.1016/j.iot.2023.100567" className="text-blue-600 hover:underline text-xs block">
-                "Sustainable Smart Cities using IoT: A Comprehensive Framework" - Internet of Things Journal (2023)
-              </a>
-            </div>
-          </div>
-          
-          <div>
-            <h4 className="font-semibold text-gray-800 mb-2">Artificial Intelligence & Machine Learning</h4>
-            <p className="text-sm text-gray-700 mb-2">Pioneering work in AI applications for education, healthcare, and industrial automation.</p>
-            <div className="space-y-1">
-              <a href="https://doi.org/10.1007/s10462-023-10234-x" className="text-blue-600 hover:underline text-xs block">
-                "Deep Learning Models for Educational Assessment" - Artificial Intelligence Review (2023)
-              </a>
-              <a href="https://doi.org/10.1016/j.artint.2023.103887" className="text-blue-600 hover:underline text-xs block">
-                "AI-Driven Healthcare Diagnostics: A Multi-Modal Approach" - Artificial Intelligence (2023)
-              </a>
-            </div>
-          </div>
+const tabContent = {
+  Overview: {
+    title: "Experience",
 
-          <div>
-            <h4 className="font-semibold text-gray-800 mb-2">Cybersecurity & Blockchain</h4>
-            <p className="text-sm text-gray-700 mb-2">Advanced research in blockchain technology for secure academic credential verification.</p>
-            <div className="space-y-1">
-              <a href="https://doi.org/10.1109/TDSC.2023.3245678" className="text-blue-600 hover:underline text-xs block">
-                "Blockchain-Based Academic Credential System" - IEEE Trans. Dependable and Secure Computing (2023)
-              </a>
-            </div>
-          </div>
+    content:
+      "Over 25 years of academic, research, and leadership experience in cancer biology and molecular oncology, with significant contributions to chemoprevention and angiogenesis research."
 
-          <div className="bg-gray-50 p-3 rounded-lg mt-4">
-            <p className="text-sm"><strong>Publications:</strong> 180+ peer-reviewed papers, H-index: 42</p>
-            <p className="text-sm"><strong>Citations:</strong> 3,500+ citations, Google Scholar verified</p>
-            <p className="text-sm"><strong>Research Grants:</strong> ₹15+ Crores from DST, SERB, and industry partners</p>
-          </div>
+  },
+  Education: {
+    title: "Educational Background",
+    content: (
+      <div className="space-y-4">
+        <div>
+
+          <h4 className="font-semibold text-gray-800">
+            Ph.D. in Cancer Biology
+          </h4>
+          <p className="text-sm text-gray-600">
+            Jawaharlal Nehru University, New Delhi, India
+          </p>
+          <p className="text-xs text-gray-500">
+            Thesis: "Mechanisms of Carcinogenesis and Chemopreventive Strategies"
+          </p>
         </div>
-      )
-    },
-    Vision: {
-      title: "Leadership Vision",
-      content: "Pioneered interdisciplinary innovation at Gautam Buddha University, fostering academic excellence and industry-academia collaboration."
-    }
-  };
+        <div>
+          <h4 className="font-semibold text-gray-800">
+            M.Sc. in Life Sciences
+          </h4>
+          <p className="text-sm text-gray-600">
+            Jawaharlal Nehru University, New Delhi, India
+          </p>
+          <p className="text-xs text-gray-500">
+            Specialization: Molecular Biology and Biochemistry
+          </p>
+
+        </div>
+      </div>
+    )
+  },
+  Research: {
+    title: "Research Contributions",
+    content: (
+      <div className="space-y-6">
+        <div>
+
+          <h4 className="font-semibold text-gray-800 mb-2">
+            Cancer Chemoprevention & Angiogenesis
+          </h4>
+          <p className="text-sm text-gray-700 mb-2">
+            Discovering and evaluating anticancer activities of phytochemicals and providing mechanistic insights for their use in cancer prevention and therapy. Significant work in studying natural compounds with anti-angiogenic efficacies.
+          </p>
+        </div>
+
+        <div>
+          <h4 className="font-semibold text-gray-800 mb-2">
+            Environmental Carcinogens & DNA Damage
+          </h4>
+          <p className="text-sm text-gray-700 mb-2">
+            Research on deregulated biological processes during cancer development, including apoptosis, mitogenic signaling, and DNA repair pathways affected by environmental carcinogens such as insecticides, pesticides, and UV radiation.
+          </p>
+        </div>
+
+        <div>
+          <h4 className="font-semibold text-gray-800 mb-2">
+            Microgravity Effects
+          </h4>
+          <p className="text-sm text-gray-700 mb-2">
+            Exploring molecular and biological effects of microgravity on cells and animal models to understand cancer development.
+          </p>
+        </div>
+
+        <div>
+          <h4 className="font-semibold text-gray-800 mb-2">
+            Model Systems
+          </h4>
+          <p className="text-sm text-gray-700 mb-2">
+            Established in vitro, in vivo, ex vivo, 3D spheroid, and organoid models to study tumor angiogenesis and cancer therapeutics.
+          </p>
+        </div>
+
+        <div className="bg-gray-50 p-3 rounded-lg mt-4">
+          <p className="text-sm">
+            <strong>Publications:</strong> 150+ peer-reviewed papers
+          </p>
+          <p className="text-sm">
+            <strong>h-index:</strong> 78
+          </p>
+          <p className="text-sm">
+            <strong>i10-index:</strong> 154
+          </p>
+          <p className="text-sm">
+            <strong>Citations:</strong> 16,539 total (5,266 since 2020)
+          </p>
+
+        </div>
+      </div>
+    )
+  },
+  Vision: {
+
+    title: "Research Vision",
+    content:
+      "Committed to advancing non-toxic mechanism-based anticancer therapies and developing integrative models for understanding cancer progression, prevention, and treatment."
+
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-50">

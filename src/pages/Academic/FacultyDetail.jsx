@@ -97,10 +97,8 @@ const FacultyDetail = () => {
   return (
     <SimpleLayout>
       <FacultyHeader faculty={faculty} />
-
-      
       <FacultyTabs tabItems={tabItems} activeTab={activeTab} onTabChange={setActiveTab} />
-      <TabContent activeTab={activeTab} faculty={faculty} />
+      <TabContent activeTab={activeTab} profile={faculty} />
     </SimpleLayout>
   );
 };

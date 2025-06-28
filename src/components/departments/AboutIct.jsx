@@ -5,8 +5,9 @@ const AboutUs = () => {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-foreground mb-6">About Us</h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            The Department of Computer Science and Engineering is dedicated to fostering innovation, research, and excellence in education.
-            With expert faculty, modern labs, and a dynamic curriculum, we prepare students to lead in the world of technology and contribute meaningfully to society.
+            The Department of Information and Communication Technology (ICT) at Gautam Buddha University offers cutting-edge education and research in Computer Science, IT, and emerging tech domains.
+            With expert faculty, modern labs, and active research in AI, Data Science, and IoT, the department focuses on innovation, hands-on learning, and industry exposure.
+            Students benefit from internships, hackathons, expert talks, and strong placement support, preparing them to excel in the evolving tech landscape.
           </p>
         </div>
       </div>

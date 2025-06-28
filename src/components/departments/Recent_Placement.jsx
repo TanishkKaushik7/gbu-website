@@ -6,55 +6,50 @@ const RecentPlacements = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const recentPlacements = [
-    {
-      name: "Priya Sharma",
-      company: "Microsoft",
-      package: "₹42 LPA",
-      department: "CSE",
-      photo:
-        "https://images.unsplash.com/photo-1494790108755-2616b332c2c2?w=200&h=200&fit=crop&crop=face",
-    },
-    {
-      name: "Rahul Kumar",
-      company: "Google",
-      package: "₹38 LPA",
-      department: "IT",
-      photo:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
-    },
-    {
-      name: "Anita Singh",
-      company: "Amazon",
-      package: "₹35 LPA",
-      department: "ECE",
-      photo:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
-    },
-    {
-      name: "Vikash Gupta",
-      company: "Adobe",
-      package: "₹32 LPA",
-      department: "CSE",
-      photo:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
-    },
-    {
-      name: "Sneha Reddy",
-      company: "Oracle",
-      package: "₹28 LPA",
-      department: "IT",
-      photo:
-        "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=200&h=200&fit=crop&crop=face",
-    },
-    {
-      name: "Arjun Patel",
-      company: "Intel",
-      package: "₹30 LPA",
-      department: "ECE",
-      photo:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face",
-    },
-  ];
+  {
+    name: "Om Sharma",
+    company: "Microsoft",
+    package: "₹51 LPA",
+    department: "CSE",
+    photo: "https://images.unsplash.com/photo-1494790108755-2616b332c2c2?w=200&h=200&fit=crop&crop=face",
+  },
+  {
+    name: "Groww Placed Student",
+    company: "Groww",
+    package: "₹6 LPA",
+    department: "IT",
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+  },
+  {
+    name: "Mayukhi Shaikia",
+    company: "Child Welfare Organization",
+    package: "₹4 LPA",
+    department: "MSW",
+    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
+  },
+  {
+    name: "B.Tech (IT) Student",
+    company: "Tech Recruiter (generic)",
+    package: "₹5‑6 LPA",
+    department: "IT",
+    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
+  },
+  {
+    name: "Anonymous B.Tech Student",
+    company: "TCS / Infosys",
+    package: "₹4‑6 LPA",
+    department: "CSE",
+    photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=200&h=200&fit=crop&crop=face",
+  },
+  {
+    name: "Anonymous MBA Student",
+    company: "MSW Child Welfare Org",
+    package: "₹4 LPA",
+    department: "MSW",
+    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face",
+  },
+];
+
 
   useEffect(() => {
     const timer = setInterval(() => {

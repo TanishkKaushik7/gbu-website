@@ -59,7 +59,7 @@ const Badge = ({
 // Mock news data
 const mockNews = [
   {
-    id: "1",
+    id: 1,
     title: "University Launches New Research Center",
     date: "2024-06-01",
     author: "Admin",
@@ -68,7 +68,7 @@ const mockNews = [
     content: "The university has inaugurated a state-of-the-art research center focused on interdisciplinary studies and innovation.",
   },
   {
-    id: "2",
+    id: 2,
     title: "Annual Sports Meet Concludes Successfully",
     date: "2024-05-20",
     author: "Sports Desk",
@@ -77,7 +77,7 @@ const mockNews = [
     content: "The annual sports meet witnessed enthusiastic participation from students and faculty, making it a grand success.",
   },
   {
-    id: "3",
+    id: 3,
     title: "Guest Lecture on Artificial Intelligence",
     date: "2024-05-10",
     author: "Faculty",
@@ -86,6 +86,7 @@ const mockNews = [
     content: "A renowned expert delivered an insightful lecture on the latest trends in Artificial Intelligence.",
   },
 ];
+
 
 // Simple date formatting function (similar to date-fns format)
 function format(date, formatStr) {
@@ -100,15 +101,18 @@ function format(date, formatStr) {
 
 const NewsDetail = () => {
   const { id } = useParams();
-  const news = mockNews.find(item => item.id === id);
+const news = mockNews.find(item => item.id === Number(id));
+
+
+
 
   if (!news) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
-        <Header />
+        {/* <Header /> */}
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="text-3xl font-extrabold text-blue-800 mb-4">News not found</h1>
-          <Link to="/news">
+          <Link to="/announcements/news-notifications">
             <Button size="lg" variant="primary" className="mt-4">
               <ArrowLeft size={18} className="mr-2" />
               Back to News
@@ -119,17 +123,19 @@ const NewsDetail = () => {
     );
   }
 
-  const currentIndex = mockNews.findIndex(item => item.id === id);
-  const previousNews = currentIndex > 0 ? mockNews[currentIndex - 1] : null;
-  const nextNews = currentIndex < mockNews.length - 1 ? mockNews[currentIndex + 1] : null;
+ 
+const currentIndex = mockNews.findIndex(item => item.id === Number(id));
+const previousNews = currentIndex > 0 ? mockNews[currentIndex - 1] : null;
+const nextNews = currentIndex < mockNews.length - 1 ? mockNews[currentIndex + 1] : null;
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
-      <Header />
+      {/* <Header />/ */}
 
       <div className="container mx-auto px-4 py-10 max-w-3xl">
         <div className="mb-8">
-          <Link to="/news">
+          <Link to="/announcements/news-notifications">
             <Button variant="outline" size="sm" className="group">
               <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition" />
               Back to News
@@ -191,7 +197,9 @@ const NewsDetail = () => {
         {/* Navigation */}
         <div className="flex flex-col sm:flex-row justify-between items-stretch mt-10 gap-4">
           {previousNews ? (
-            <Link to={`/news/${previousNews.id}`} className="flex-1">
+            <Link to={`/announcements/news-notifications/${previousNews.id}`} className='flex-1'>
+
+
               <Button
                 variant="outline"
                 className="w-full text-left flex items-center gap-3 border-blue-200 hover:border-blue-400 group"
@@ -206,7 +214,7 @@ const NewsDetail = () => {
           ) : <div className="flex-1" />}
 
           {nextNews ? (
-            <Link to={`/news/${nextNews.id}`} className="flex-1">
+            <Link to={`/announcements/news-notifications/${nextNews.id}`} className="flex-1">
               <Button
                 variant="outline"
                 className="w-full text-right flex items-center gap-3 justify-end border-blue-200 hover:border-blue-400 group"

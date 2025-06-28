@@ -138,7 +138,7 @@ export default function AppRouter() {
         <Routes>
           {/* About Us Routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/about-us/vision-mission" element={<Vision />} />
+        <Route path="/about-us/About GBU" element={<Vision />} />
           <Route path="/about-us/chancellor-message" element={<Chancellor />} />
           <Route
             path="/about-us/vice-chancellor-message"

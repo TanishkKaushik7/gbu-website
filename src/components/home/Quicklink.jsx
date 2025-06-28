@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   FaUniversity,
   FaMoneyCheckAlt,
@@ -12,53 +12,67 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-// Map string from backend to your icons
-const iconMap = {
-  university: <FaUniversity className="text-white text-2xl" />,
-  book: <FaBook className="text-white text-2xl" />,
-  briefcase: <FaBriefcase className="text-white text-2xl" />,
-  building: <FaBuilding className="text-white text-2xl" />,
-  user: <FaUser className="text-white text-2xl" />,
-};
+const quickLinks = [
+  {
+    title: "Schools",
+    desc: "Explore our academic schools",
+    icon: <FaUniversity className="text-white text-2xl" />,
+    color: "bg-green-600",
+    link: "/academics/schools",
+    external: false,
+  },
+ 
+ 
+  {
+    title: "Faculty",
+    desc: "Academic Leadership",
+    icon: <FaBook className="text-white text-2xl" />,
+    color: "bg-green-700",
+    link: "/admissions/courses-offered",
+    external: true,
+  },
+   {
+    title: "Exam",
+    desc: "Schedules, Results & Guideline",
+    icon: <FaUser className="text-white text-2xl" />,
+    color: "bg-blue-700",
+    link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
+    external: true,
+  },
 
-const BASE = (import.meta.env.VITE_HOST || "").replace(/\/$/, "");
+ 
+  {
+    title: "Library",
+    desc: "Beyond Classroom",
+    icon: <FaBook className="text-white text-2xl" />,
+    color: "bg-blue-700",
+    link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
+    external: true,
+  },
+ {
+    title: "NSS/NCC",
+    desc: "Capacity Building",
+    icon: <FaUser className="text-white text-2xl" />,
+    color: "bg-blue-700",
+    link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
+    external: true,
+  },
+  {
+    title: "Placements",
+    desc: "Career opportunities",
+    icon: <FaBriefcase className="text-white text-2xl" />,
+    color: "bg-orange-600",
+    link: "/placements/placement-process",
+    external: true,
+  },
+  
+];
 
 export default function QuickAccess() {
-  const [quickLinks, setQuickLinks] = useState([]);
-  const [sectionTitle, setSectionTitle] = useState("Quick Access");
-
-  useEffect(() => {
-    const fetchQuickAccess = async () => {
-      try {
-        const res = await axios.get(`${BASE}/landing/quick-access`);
-        const data = res.data;
-        if (Array.isArray(data) && data.length) {
-          const mappedLinks = data.map((item) => ({
-            title: item.card_title || "Title",
-            desc: item.card_description || "Description",
-            icon: iconMap[item.icon?.toLowerCase()] || <FaUniversity className="text-white text-2xl" />,
-            color: "bg-green-600",
-            link: item.url || "#",
-            external: item.url?.startsWith("http"),
-          }));
-          setQuickLinks(mappedLinks);
-          if (data[0].title) {
-            setSectionTitle(data[0].title);
-          }
-        }
-      } catch (err) {
-        console.error("Failed to fetch quick access data:", err);
-      }
-    };
-
-    fetchQuickAccess();
-  }, []);
-
   return (
     <section
-      className="bg-gray-50 py-12"
+      className="bg-gray-50 py-12 mt-24"
       role="region"
       aria-labelledby="quick-access-heading"
     >
@@ -66,12 +80,14 @@ export default function QuickAccess() {
         id="quick-access-heading"
         className="text-3xl font-bold text-center text-blue-800 mb-10"
       >
-        {sectionTitle}
+        Quick Access
       </h2>
       <div className="flex flex-wrap justify-center gap-6 px-4">
         {quickLinks.map((item, idx) => {
           const Card = (
-            <div className="w-70 sm:w-64 bg-white rounded-lg shadow-md p-6 text-center transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full">
+            <div
+              className="w-70 sm:w-64 bg-white rounded-lg shadow-md p-6 text-center transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
+            >
               <div
                 className={`w-14 h-14 mx-auto flex items-center justify-center rounded-full ${item.color} mb-4`}
               >

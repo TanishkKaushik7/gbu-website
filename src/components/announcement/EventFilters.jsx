@@ -14,7 +14,7 @@ const EventFilters = ({
 
   return (
     <div
-      className={`bg-gradient-to-br from-slate-50 to-blue-100 rounded-[22px] shadow-lg px-8 py-10 my-10 mx-auto flex flex-col items-center border border-slate-300 transition-shadow duration-200 ${
+      className={`bg-gradient-to-br from-slate-50 to-blue-100 rounded-[22px] shadow-lg w-full py-2  mx-auto flex flex-col items-center border border-slate-300 transition-shadow duration-200 ${
         hovered ? 'shadow-2xl border-indigo-500' : ''
       }`}
       onMouseEnter={() => setHovered(true)}
@@ -26,16 +26,16 @@ const EventFilters = ({
       <div className="text-[1.05rem] text-slate-500 mb-4 text-center font-inter">
         Quickly search and filter events by type, year, or date.
       </div>
-      <div className="w-[70px] h-1 bg-blue-400 rounded mx-auto mb-6 border-0"></div>
-      <AdvancedSearchFilter
+      {/* <div className=" h-1 w-full bg-blue-400 rounded mx-auto mb-6 border-0"></div> */}
+      <div className='w-full'><AdvancedSearchFilter
         onSearch={onSearch}
         onDateFilter={onDateFilter}
         onTypeFilter={onTypeFilter}
         onYearFilter={onYearFilter}
         types={types}
         years={years}
-        placeholder="🔍 Search events, types, or years..."
-      />
+        placeholder="Search events, types, or years..."
+      /></div>
     </div>
   );
 };

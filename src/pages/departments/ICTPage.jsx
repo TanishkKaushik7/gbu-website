@@ -3,6 +3,7 @@ import Navbar from "../../components/departments/Navbar";
 import AboutSection from "../../components/departments/AboutIct";
 import LeadershipCard from "../../components/departments/Dean";
 import ProgramsShowcase from "../../components/departments/Program";
+import QuickAccess from "../../components/home/Quicklink.jsx";
 import DepartmentsSection from "../../components/departments/Deptcard";
 import FacultyCarousel from "../../components/departments/faculty_rotating.jsx";
 import NoticeEvents from "../../components/departments/Notice.jsx";
@@ -20,6 +21,7 @@ const Index = () => {
 
       <Landing />
       <AboutSection />
+      <QuickAccess/>
       <LeadershipCard />
       <ProgramsShowcase />
       <DepartmentsSection />

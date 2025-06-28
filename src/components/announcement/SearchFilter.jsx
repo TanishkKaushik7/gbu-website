@@ -1,14 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { CalendarIcon, Search, X } from 'lucide-react';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-// Utility function to join class names conditionally
+// Utility: Conditional class join
 function cn(...args) {
   return args.flat().filter(Boolean).join(' ');
 }
 
-// Enhanced Input
+// Reusable Input
 const Input = ({ className = '', ...props }) => (
   <input
     className={cn(
@@ -19,12 +21,12 @@ const Input = ({ className = '', ...props }) => (
   />
 );
 
-// Enhanced Button
+// Reusable Button
 const Button = ({ children, className = '', variant = 'default', ...props }) => {
   const base =
     'px-5 py-2.5 rounded-lg font-semibold transition focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm';
   const variants = {
-    default: 'bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-700 hover:to-blue-600',
+    default: 'bg-blue-500 text-white hover:bg-blue-600',
     outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-100',
     ghost: 'bg-transparent text-gray-500 hover:bg-gray-100',
   };
@@ -35,7 +37,7 @@ const Button = ({ children, className = '', variant = 'default', ...props }) => 
   );
 };
 
-// Enhanced Select
+// Reusable Select
 const Select = ({ value, onValueChange, children, ...props }) => (
   <select
     className="border rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 shadow-sm text-gray-800"
@@ -46,31 +48,30 @@ const Select = ({ value, onValueChange, children, ...props }) => (
     {children}
   </select>
 );
-
 const SelectValue = ({ placeholder }) => (
   <option className="hidden" value="" disabled>{placeholder}</option>
 );
-
 const SelectItem = ({ value, children }) => (
   <option value={value}>{children}</option>
 );
 
-// Enhanced Calendar Popover
+// ✅ CalendarPopover with react-datepicker (no native input)
 const CalendarPopover = ({ selected, onSelect, onClear, label }) => {
   const [open, setOpen] = useState(false);
-  const ref = useRef();
+  const ref = useRef(null);
 
-  // Close popover on outside click
-  React.useEffect(() => {
-    function handleClick(e) {
-      if (open && ref.current && !ref.current.contains(e.target)) setOpen(false);
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [open]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative inline-block" ref={ref}>
       <Button
         variant="outline"
         className={cn(
@@ -79,7 +80,7 @@ const CalendarPopover = ({ selected, onSelect, onClear, label }) => {
         )}
         type="button"
         aria-label={label}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen(prev => !prev)}
       >
         <CalendarIcon className="h-5 w-5 text-blue-500" />
         {selected ? format(selected, "MMM dd, yyyy") : label}
@@ -88,31 +89,43 @@ const CalendarPopover = ({ selected, onSelect, onClear, label }) => {
             tabIndex={0}
             aria-label="Clear date"
             className="ml-auto text-gray-400 hover:text-red-500 cursor-pointer"
-            onClick={e => { e.stopPropagation(); onClear(); setOpen(false); }}
-            onKeyDown={e => { if (e.key === 'Enter') { e.stopPropagation(); onClear(); setOpen(false); } }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClear();
+              setOpen(false);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.stopPropagation();
+                onClear();
+                setOpen(false);
+              }
+            }}
             role="button"
           >
             <X size={16} />
           </span>
         )}
       </Button>
+
       {open && (
         <div className="absolute z-20 mt-2 bg-white border rounded-lg shadow-xl p-4" style={{ minWidth: 220 }}>
-          <input
-            type="date"
-            value={selected ? selected.toISOString().split('T')[0] : ''}
-            onChange={e => {
-              onSelect(e.target.value ? new Date(e.target.value) : null);
+          <DatePicker
+            selected={selected}
+            onChange={(date) => {
+              onSelect(date);
               setOpen(false);
             }}
-            className="border rounded-lg px-3 py-2 bg-gray-50 shadow-sm text-gray-800 w-full"
-            autoFocus
+            inline
           />
           <div className="flex justify-end mt-2">
             <Button
               variant="ghost"
               type="button"
-              onClick={() => { onClear(); setOpen(false); }}
+              onClick={() => {
+                onClear();
+                setOpen(false);
+              }}
               className="px-2 py-1 text-sm"
             >
               Clear
@@ -139,6 +152,7 @@ const FilterChip = ({ label, onRemove }) => (
   </span>
 );
 
+// ✅ MAIN SearchFilter
 const SearchFilter = ({
   onSearch,
   onDateFilter,
@@ -161,15 +175,14 @@ const SearchFilter = ({
 
   const handleDateChange = (date, isStart) => {
     if (isStart) {
-      setStartDate(date || null);
-      onDateFilter(date || null, endDate);
+      setStartDate(date);
+      onDateFilter(date, endDate);
     } else {
-      setEndDate(date || null);
-      onDateFilter(startDate, date || null);
+      setEndDate(date);
+      onDateFilter(startDate, date);
     }
   };
 
-  // Reset handlers
   const clearStartDate = () => handleDateChange(null, true);
   const clearEndDate = () => handleDateChange(null, false);
   const clearType = () => { setType('all'); onTypeFilter && onTypeFilter('all'); };
@@ -181,7 +194,7 @@ const SearchFilter = ({
       <form onSubmit={handleSearch} className="space-y-6">
         <div className="flex flex-col md:flex-row gap-6 items-center">
           {/* Search Input */}
-          <div className=" w-3/6">
+          <div className="w-3/6">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-400" size={22} />
               <Input
@@ -210,21 +223,20 @@ const SearchFilter = ({
           <div className="flex w-2/6 gap-1 items-center">
             <CalendarPopover
               selected={startDate}
-              onSelect={date => handleDateChange(date, true)}
+              onSelect={(date) => handleDateChange(date, true)}
               onClear={clearStartDate}
               label="Start Date"
-              
             />
             <span className="text-gray-400 font-semibold">—</span>
             <CalendarPopover
               selected={endDate}
-              onSelect={date => handleDateChange(date, false)}
+              onSelect={(date) => handleDateChange(date, false)}
               onClear={clearEndDate}
               label="End Date"
             />
           </div>
 
-          <Button type="submit" className="text-lg flex items-center gap-2 shadow-md">
+          <Button type="submit" className="text-lg flex items-center gap-2 shadow-md ">
             Search
           </Button>
         </div>
@@ -253,7 +265,6 @@ const SearchFilter = ({
               ))}
             </Select>
           )}
-
           {years.length > 0 && onYearFilter && (
             <Select
               value={year}

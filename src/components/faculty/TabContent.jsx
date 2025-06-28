@@ -250,7 +250,7 @@
 
 
 import React from 'react';
-import { OverviewTab } from './tabs/OverviewTab';
+import  OverviewTab  from './tabs/OverviewTab';
 import { QualificationsTab } from './tabs/QualificationsTab';
 import { TeachingTab } from './tabs/TeachingTab';
 import { AdministrationTab } from './tabs/AdministrationTab';
@@ -263,11 +263,12 @@ import { TalksTab } from './tabs/TalksTab';
 import { AwardsTab } from './tabs/AwardsTab';
 import { SocialImpactTab } from './tabs/SocialImpactTab';
 
-const TabContent = ({ activeTab }) => {
+
+const TabContent = ({ activeTab , profile}) => {
   const renderContent = () => {
     switch (activeTab) {
       case 'overview':
-        return <OverviewTab />;
+        return <OverviewTab profile={profile}/>;
       case 'qualifications':
         return <QualificationsTab />;
       case 'teaching':

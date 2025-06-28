@@ -3,24 +3,22 @@ import { Link } from "react-router-dom";
 const DepartmentsSection = () => {
   const departments = [
     {
-      name: "Electronics & Communication Engineering",
-      code: "ECE",
-      description:
-        "Focusing on electronic systems, communication networks, and signal processing technologies.",
-      courses: ["B.Tech ECE", "M.Tech VLSI", "M.Tech Communication Systems"],
-      faculty: 25,
-      labs: 8,
-      image:
-        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop",
-      gradient: "from-blue-500 to-blue-700",
-      link: "/schools/ict/departments/ece",
-    },
-    {
       name: "Computer Science & Engineering",
       code: "CSE",
       description:
-        "Leading innovations in software development, artificial intelligence, and data science.",
-      courses: ["B.Tech CSE", "M.Tech AI & ML", "M.Tech Software Engineering"],
+        "Pioneering research and education in AI, ML, Cyber Security, Data Science, Software Engineering and Robotics.",
+      courses: [
+        "B.Tech CSE",
+        "B.Tech CSE (AI)",
+        "B.Tech CSE (Cyber Security)",
+        "B.Tech CSE (Data Science)",
+        "Integrated B.Tech–M.Tech CSE",
+        "M.Tech CSE (AI & Robotics)",
+        "M.Tech CSE (Data Science)",
+        "M.Tech CSE (Software Engineering)",
+        "M.Tech CSE (for Working Professionals)",
+        "Ph.D. CSE",
+      ],
       faculty: 30,
       labs: 12,
       image:
@@ -32,11 +30,17 @@ const DepartmentsSection = () => {
       name: "Information Technology",
       code: "IT",
       description:
-        "Bridging technology and business solutions through modern IT practices.",
+        "Focuses on AI, Machine Learning, Data Science, Information Security and practical IT applications.",
       courses: [
         "B.Tech IT",
-        "M.Tech Information Security",
-        "M.Tech Data Analytics",
+        "B.Tech IT (AI & ML)",
+        "B.Tech IT (Data Science & ML)",
+        "B.C.A.",
+        "M.Tech ICT",
+        "M.Tech IT (Data Science & ML)",
+        "M.C.A. (Data Science)",
+        "M.C.A. (Artificial Intelligence)",
+        "Ph.D. ICT/IT",
       ],
       faculty: 22,
       labs: 10,
@@ -45,8 +49,29 @@ const DepartmentsSection = () => {
       gradient: "from-blue-600 to-blue-800",
       link: "/schools/ict/departments/it",
     },
+    {
+      name: "Electronics & Communication Engineering",
+      code: "ECE",
+      description:
+        "Covers VLSI, Embedded Systems, AI/ML in ECE, Wireless Communication, Signal Processing and Railway Signalling.",
+      courses: [
+        "B.Tech ECE",
+        "B.Tech ECE (AI & ML)",
+        "B.Tech ECE (VLSI & Embedded)",
+        "Integrated B.Tech–M.Tech ECE",
+        "M.Tech ECE (Wireless Comm & Networks)",
+        "M.Tech ECE (VLSI Design)",
+        "M.Tech ECE (Railway Signalling, Telecom & RAMS)",
+        "Ph.D. ECE",
+      ],
+      faculty: 25,
+      labs: 8,
+      image:
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop",
+      gradient: "from-blue-500 to-blue-700",
+      link: "/schools/ict/departments/ece",
+    },
   ];
-
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

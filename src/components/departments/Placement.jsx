@@ -1,10 +1,11 @@
 const PlacementsSection = () => {
   const placementStats = [
-    { label: "Placement Rate", value: "95%", color: "bg-green-500" },
-    { label: "Highest Package", value: "₹45 LPA", color: "bg-blue-500" },
-    { label: "Average Package", value: "₹8.5 LPA", color: "bg-purple-500" },
-    { label: "Companies Visited", value: "150+", color: "bg-yellow-500" },
-  ];
+  { label: "Placement Rate", value: "85‑90%", color: "bg-green-500" },
+  { label: "Highest Package", value: "₹51 LPA", color: "bg-blue-500" },
+  { label: "Average Package", value: "₹6 LPA", color: "bg-purple-500" },
+  { label: "Companies Visited", value: "150+", color: "bg-yellow-500" },
+];
+
 
   return (
     <section
