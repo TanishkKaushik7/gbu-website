@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/announcement/Header';
-import AdvancedSearchFilter from '../../components/announcement/AdvancedSearchFilter';
+import SearchFilter from '../../components/announcement/SearchFilter';
 import SocialShare from '../../components/announcement/SocialShare';
 import EnhancedPagination from '../../components/announcement/EnhancedPagination';
 
@@ -65,27 +65,145 @@ const Button = ({ children, size = 'md', className = '', ...props }) => {
 };
 
 // mockNews (minimal mock data for demonstration)
-const mockNews = [
+export const mockNews = [
   {
     id: 1,
-    title: 'GBU Launches New Research Center',
-    excerpt: 'The university has inaugurated a new interdisciplinary research center...',
-    date: '2024-05-10',
-    author: 'Admin',
-    tags: ['Research', 'Campus'],
-    image: 'https://via.placeholder.com/400x200',
+    title: 'GBU Inaugurates Centre for Artificial Intelligence',
+    excerpt: 'Gautam Buddha University launched a state-of-the-art Centre for AI to boost interdisciplinary research and smart technologies.',
+    date: '2024-06-20',
+    author: 'Research Cell',
+    tags: ['AI', 'Research', 'Innovation'],
+    image: 'https://gburif.org/images/intro-carousel/gautam-buddha-university-3.jpg', 
   },
   {
     id: 2,
-    title: 'Annual Sports Meet Announced',
-    excerpt: 'Get ready for the annual sports meet with exciting events and prizes...',
-    date: '2024-04-22',
-    author: 'Sports Dept',
-    tags: ['Sports', 'Events'],
-    image: 'https://via.placeholder.com/400x200',
+    title: 'Annual Convocation Ceremony Held at GBU',
+    excerpt: 'Degrees were awarded to graduating students in the presence of faculty, parents, and special guests.',
+    date: '2024-05-30',
+    author: 'Admin',
+    tags: ['Convocation', 'Graduation'],
+    image: 'https://tennews.in/wp-content/uploads/2016/04/14-3.jpg', 
   },
-  // Add more mock news items as needed
+  {
+    id: 3,
+    title: 'GBU Students Shine at National Hackathon',
+    excerpt: 'A team of engineering students developed a smart traffic management system and won the top prize.',
+    date: '2024-05-15',
+    author: 'Innovation Cell',
+    tags: ['Hackathon', 'Technology'],
+    image: 'https://tennews.in/wp-content/uploads/2022/11/WhatsApp-Image-2022-11-22-at-8.24.01-PM-e1669129715871.jpeg', // hackathon scene
+  },
+  {
+    id: 4,
+    title: 'Library Introduces Digital Resources Hub',
+    excerpt: 'Students now have access to thousands of e-books, research journals, and digital archives.',
+    date: '2024-04-28',
+    author: 'Library Committee',
+    tags: ['Library', 'Facilities'],
+    image: 'https://makesaral.com/wp-content/uploads/2025/06/Screenshot_2025-06-03-11-45-15-673_com.google.android.apps_.maps-edit.jpg', // library
+  },
+  {
+    id: 5,
+    title: 'GBU Sports Meet: Champions of Tomorrow',
+    excerpt: 'University athletes bagged multiple medals at the state-level sports meet.',
+    date: '2024-04-10',
+    author: 'Sports Department',
+    tags: ['Sports', 'Achievements'],
+    image: 'https://images.unsplash.com/photo-1521412644187-c49fa049e84d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', // sports track
+  },
+  {
+    id: 6,
+    title: 'Environment Week Concludes with Plantation Drive',
+    excerpt: 'Students and staff planted over 500 saplings to promote sustainability on campus.',
+    date: '2024-04-05',
+    author: 'Eco Club',
+    tags: ['Environment', 'Campus Life'],
+    image: 'https://scalemag.online/wp-content/uploads/2019/03/Gautam_Buddha_University.jpg', 
+  },
+  {
+    id: 7,
+    title: 'Abhivyakti 2024: Cultural Fest Wraps Up',
+    excerpt: 'Three days of music, dance, art exhibitions, and celebrity performances thrilled the campus.',
+    date: '2024-03-20',
+    author: 'Cultural Committee',
+    tags: ['Cultural', 'Fest'],
+    image: 'https://images.openai.com/thumbnails/url/VUAonnicu1mUUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw4pdXePdE1PTTRzDypwLPYzijAtjjAIzSpJLfbzKgur8o3y1E3XTdWNqNBNzwyvisoxzcgLcHNLSYtXKwYAxKYpTA', // fest stage
+  },
+  {
+    id: 8,
+    title: 'Blood Donation Camp Organized by NSS',
+    excerpt: 'Volunteers donated over 300 units of blood to local hospitals.',
+    date: '2024-03-15',
+    author: 'NSS Unit',
+    tags: ['Social Service', 'Health'],
+    image: 'https://nss.gbu.ac.in/uploads/imagesfiles/666c5a020f5b4_WhatsApp%20Image%202024-03-09%20at%204.29.32%20PM.jpeg', // blood donation
+  },
+  {
+    id: 9,
+    title: 'Coding Club Conducts Competitive Programming Contest',
+    excerpt: 'Top coders competed for exciting prizes and internship opportunities.',
+    date: '2024-02-25',
+    author: 'Coding Club',
+    tags: ['Coding', 'Competition'],
+    image: 'https://www.ic3ecsbhi.com/Events/20231006_133039.jpg', // coding
+  },
+  {
+    id: 10,
+    title: 'GBU Signs MoU with German University',
+    excerpt: 'The partnership will enable student exchanges, joint research, and collaborative programs.',
+    date: '2024-02-10',
+    author: 'International Relations Office',
+    tags: ['International', 'Collaboration'],
+    image: 'https://ik.imagekit.io/edtechdigit/usaii/content/images/usaii-and-gautam-buddha-university-sign-mou-to-elevate-ai-education-in-india.png', // handshake agreement
+  },
+  {
+    id: 11,
+    title: 'Yoga Day Celebration Promotes Wellness',
+    excerpt: 'Over 1000 students participated in the International Yoga Day session at the main lawn.',
+    date: '2024-01-25',
+    author: 'Wellness Club',
+    tags: ['Yoga', 'Wellness'],
+    image: 'https://images.openai.com/thumbnails/url/-F4ohXicu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw6yNHIy1zUsTgtKys-qMC0v9g41dorK8M8qSM7KDixODy8NdfTNzi9OLK6IKvc0cjKuiM8pLjVwz_RMcVQrBgAhZyqH', // yoga session
+  },
+  {
+    id: 12,
+    title: 'Guest Lecture on Industry Trends by Tech Leader',
+    excerpt: 'Students interacted with a top industry veteran who shared insights on tech careers.',
+    date: '2024-01-15',
+    author: 'Career Cell',
+    tags: ['Lecture', 'Careers'],
+    image: 'https://www.ux4g.gov.in/assets/img/awareness-workshop/gbu-19-11-24/900x16.webp', // seminar hall
+  },
+  {
+    id: 13,
+    title: 'Placement Season: Record Offers for 2024 Batch',
+    excerpt: 'Students received lucrative offers from leading MNCs across IT, finance, and consulting.',
+    date: '2023-12-30',
+    author: 'Placement Cell',
+    tags: ['Placements', 'Careers'],
+    image: 'https://images.openai.com/thumbnails/url/vLSln3icu1mUUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw5MDgsycfcx94zMcrQ0dXS1SHP1Kg70twj0CneKL0gucS7MjChwjfcwCdaNLAv2LA9IMrMszA8yS65QKwYAl74oRw', // interview scene
+  },
+  {
+    id: 14,
+    title: 'Arts Club Organizes Photography & Painting Workshop',
+    excerpt: 'Budding artists learned new techniques and displayed their work in an on-campus exhibition.',
+    date: '2023-12-15',
+    author: 'Arts Club',
+    tags: ['Workshop', 'Arts'],
+    image: 'https://images.unsplash.com/photo-1495567720989-cebdbdd97913?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', // art workshop
+  },
+  {
+    id: 15,
+    title: 'Political Science Students Visit Parliament House',
+    excerpt: 'Students observed live parliamentary sessions and met with lawmakers as part of their study tour.',
+    date: '2023-12-05',
+    author: 'Political Science Dept',
+    tags: ['Educational Tour', 'Politics'],
+    image: 'https://niu.edu.in/wp-content/uploads/2025/06/image5-1.webp', // parliament
+  },
 ];
+
+
 import { format } from 'date-fns';
 
 const NewsNotifications = () => {
@@ -194,8 +312,8 @@ const NewsNotifications = () => {
         </section>
       
 
-        <div className="mb-10">
-          <AdvancedSearchFilter
+        <div className="mb-1">
+          <SearchFilter
             onSearch={handleSearch}
             onDateFilter={handleDateFilter}
             onTypeFilter={handleTagFilter}
@@ -211,7 +329,7 @@ const NewsNotifications = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-10 gap-8">
           {currentNews.map((news) => (
             <Card key={news.id} className="group relative overflow-hidden">
               {news.image && (
@@ -219,7 +337,7 @@ const NewsNotifications = () => {
                   <img
                     src={news.image}
                     alt={news.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-400 to-blue-200 opacity-70" />
                 </div>

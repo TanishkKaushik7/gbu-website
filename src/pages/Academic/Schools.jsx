@@ -139,7 +139,7 @@ const HoverCards = () => {
       imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUoLwvVWxxxBLWiAC0R019yjKPhFJzb5TuFg&s",
       label: "School of Biotechnology",
       description: "Advancing life sciences through molecular biology, genetic engineering, and biomedical research with state-of-the-art laboratories.",
-      path: "/schools/biotech",
+      path: "/schools/biotechnology",
       features: ["Genetic Engineering", "Molecular Biology", "Bioinformatics", "Drug Discovery"]
     },
     {

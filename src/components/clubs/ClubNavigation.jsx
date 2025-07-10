@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
+
 const Card = ({ children, ...props }) => (
   <div className="bg-white shadow rounded-lg" {...props}>{children}</div>
 );
@@ -51,6 +53,7 @@ const ClubNavigation = () => {
   };
 
   return (
+    <SearchableWrapper>
     <Card>
       <CardContent className="p-4">
         <h3 className="font-semibold text-gray-900 mb-4">Quick Navigation</h3>
@@ -72,6 +75,7 @@ const ClubNavigation = () => {
         </nav>
       </CardContent>
     </Card>
+    </SearchableWrapper>
   );
 };
 

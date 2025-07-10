@@ -1,7 +1,22 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { Badge } from '../../components/ui/badge';
+const Badge = ({ children, className = '', variant = 'default', ...props }) => {
+  const baseStyle =
+    'inline-block rounded-full font-medium text-sm px-2 py-1';
+  const variants = {
+    default: 'bg-blue-200 text-blue-800',
+    outline: 'border border-blue-400 bg-white text-blue-800',
+  };
+  return (
+    <span
+      className={`${baseStyle} ${variants[variant] || ''} ${className}`}
+      {...props}
+    >
+      {children}
+    </span>
+  );
+};
 
 const Button = ({ children, className = '', variant = 'default', ...props }) => {
   const baseStyle =
@@ -17,143 +32,108 @@ const Button = ({ children, className = '', variant = 'default', ...props }) => 
   );
 };
 
-
-
 const ProgramsShowcase = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
- const programs = [
-    {
-      name: 'B.Tech. Computer Science & Engineering',
-      code: 'CSE',
-      duration: '4 Years',
-      specializations: [
-        'AI & Robotics',
-        'Data Science',
-        'Cyber Security',
-        'Software Engineering',
-      ],
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
-      description:
-        'UG program in CSE with specializations in AI & Robotics, Data Science, Cyber Security and Software Engineering.' ,
-    },
-    {
-      name: 'Integrated B.Tech.–M.Tech. (CSE)',
-      code: 'CSE–Dual',
-      duration: '5 Years',
-      specializations: [
-        'AI & Robotics',
-        'Data Science',
-        'Software Engineering',
-      ],
-      image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop',
-      description:
-        '5‑year integrated CSE dual‑degree granting B.Tech + M.Tech in AI, Data Science or Software Engineering.' ,
-    },
-    {
-      name: 'M.Tech. CSE',
-      code: 'M.Tech CSE',
-      duration: '2 Years',
-      specializations: [
-        'AI & Robotics',
-        'Data Science',
-        'Software Engineering',
-      ],
-      image: 'https://images.unsplash.com/photo-1581091870639-8e2c3a0b5c3c?w=600&h=400&fit=crop',
-      description:
-        'Postgraduate program in CSE offering specializations in AI & Robotics, Data Science, Software Engineering.' ,
-    },
-    {
-      name: 'Ph.D. CSE',
-      code: 'Ph.D CSE',
-      duration: 'Varies',
-      specializations: [
-        'Computer Science & Engineering Research',
-      ],
-      image: 'https://images.unsplash.com/photo-1537432376769-00a3a0ba71a4?w=600&h=400&fit=crop',
-      description:
-        'Doctoral research in CSE across AI, ML, Cybersecurity, IoT and related areas.' ,
-    },
-    {
-      name: 'B.Tech. Information Technology',
-      code: 'IT',
-      duration: '4 Years',
-      specializations: [
-        'AI & ML',
-        'Data Science & ML',
-      ],
-      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop',
-      description:
-        'UG IT program with specializations in AI & ML, Data Science & Machine Learning.' ,
-    },
-    {
-      name: 'M.Tech. IT / ICT',
-      code: 'M.Tech IT',
-      duration: '2 Years',
-      specializations: [
-        'Data Science & ML',
-      ],
-      image: 'https://images.unsplash.com/photo-1558655146-c0141db644a3?w=600&h=400&fit=crop',
-      description:
-        'Postgraduate ICT/IT program focused on Data Science and Machine Learning.' ,
-    },
-    {
-      name: 'Ph.D. ICT/IT',
-      code: 'Ph.D IT',
-      duration: 'Varies',
-      specializations: ['Information & Communication Technology Research'],
-      image: 'https://images.unsplash.com/photo-1526379095098-7021f4cd1d10?w=600&h=400&fit=crop',
-      description:
-        'Doctoral research in Information & Communication Technology.' ,
-    },
-    {
-      name: 'B.Tech. Electronics & Communication Engineering',
-      code: 'ECE',
-      duration: '4 Years',
-      specializations: [
-        'AI & ML',
-        'VLSI & Embedded Systems',
-        'Wireless Comm & Networks',
-      ],
-      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop',
-      description:
-        'UG ECE program with focus areas in AI/ML, VLSI & Embedded, Wireless Communication & Networks.' ,
-    },
-    {
-      name: 'Integrated B.Tech.–M.Tech. (ECE)',
-      code: 'ECE–Dual',
-      duration: '5 Years',
-      specializations: [
-        'Wireless Networks',
-        'VLSI & Embedded Systems',
-      ],
-      image: 'https://images.unsplash.com/photo-1542751110-97427bbecf20?w=600&h=400&fit=crop',
-      description:
-        '5‑year integrated ECE dual‑degree programs in Wireless Communication, VLSI & Embedded Systems.' ,
-    },
-    {
-      name: 'M.Tech. ECE',
-      code: 'M.Tech ECE',
-      duration: '2 Years',
-      specializations: [
-        'Wireless Comm & Networks',
-        'VLSI Design',
-        'Railway Signalling & RAMS',
-      ],
-      image: 'https://images.unsplash.com/photo-1554168155-4cd745fe2b3e?w=600&h=400&fit=crop',
-      description:
-        'Postgraduate ECE specializing in Wireless Networks, VLSI Design, Railway Signalling & RAMS.' ,
-    },
-    {
-      name: 'Ph.D. ECE',
-      code: 'Ph.D ECE',
-      duration: 'Varies',
-      specializations: ['Electronics & Communication Engineering Research'],
-      image: 'https://images.unsplash.com/photo-1573497491208-6b1acb260507?w=600&h=400&fit=crop',
-      description:
-        'Doctoral research in ECE areas including signal processing, VLSI, comm networks.' ,
-    },
-  ];
+const programs = [
+  {
+    name: 'B.Tech. Computer Science & Engineering',
+    code: 'CSE',
+    duration: '4 Years',
+    specializations: ['AI & Robotics', 'Data Science', 'Cyber Security', 'Software Engineering'],
+    image: 'https://images.unsplash.com/photo-1662638600476-d563fffbb072?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8J0RhdGElMjBTY2llbmNlJyUyQyUyMCdDeWJlciUyMFNlY3VyaXR5JyUyQyUyMCdTb2Z0d2FyZSUyMEVuZ2luZWVyaW5nJ3xlbnwwfHwwfHx8MA%3D%3D',
+    description:
+      'UG program in CSE with specializations in AI & Robotics, Data Science, Cyber Security and Software Engineering.',
+  },
+  {
+    name: 'Integrated B.Tech.–M.Tech. (CSE)',
+    code: 'CSE–Dual',
+    duration: '5 Years',
+    specializations: ['AI & Robotics', 'Data Science', 'Software Engineering'],
+    image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&h=400',
+    description:
+      '5‑year integrated CSE dual‑degree granting B.Tech + M.Tech in AI, Data Science or Software Engineering.',
+  },
+  {
+    name: 'M.Tech. CSE',
+    code: 'M.Tech CSE',
+    duration: '2 Years',
+    specializations: ['AI & Robotics', 'Data Science', 'Software Engineering'],
+    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&h=400',
+    description:
+      'Postgraduate program in CSE offering specializations in AI & Robotics, Data Science, Software Engineering.',
+  },
+  {
+    name: 'Ph.D. CSE',
+    code: 'Ph.D CSE',
+    duration: 'Varies',
+    specializations: ['Computer Science & Engineering Research'],
+    image: 'https://plus.unsplash.com/premium_photo-1716396586363-4b942672c2ca?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fENvbXB1dGVyJTIwU2NpZW5jZSUyMCUyNiUyMEVuZ2luZWVyaW5nJTIwUmVzZWFyY2h8ZW58MHx8MHx8fDA%3D',
+    description: 'Doctoral research in CSE across AI, ML, Cybersecurity, IoT and related areas.',
+  },
+  {
+    name: 'B.Tech. Information Technology',
+    code: 'IT',
+    duration: '4 Years',
+    specializations: ['AI & ML', 'Data Science & ML'],
+    image: 'https://images.unsplash.com/photo-1687603917313-ccae1a289a9d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fCdBSSUyMCUyNiUyME1MJyUyQyUyMCdEYXRhJTIwU2NpZW5jZSUyMCUyNiUyME1MJydzb2Z0d2FyZSUyMGVuZ2luZWVyaW5nJ3xlbnwwfHwwfHx8MA%3D%3D',
+    description: 'UG IT program with specializations in AI & ML, Data Science & Machine Learning.',
+  },
+  {
+    name: 'M.Tech. IT / ICT',
+    code: 'M.Tech IT',
+    duration: '2 Years',
+    specializations: ['Data Science & ML'],
+    image: 'https://images.unsplash.com/photo-1653564142033-ab3532091515?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8RGF0YSUyMFNjaWVuY2UlMjAlMjYlMjBNTCd8ZW58MHx8MHx8fDA%3D',
+    description: 'Postgraduate ICT/IT program focused on Data Science and Machine Learning.',
+  },
+  {
+    name: 'Ph.D. ICT/IT',
+    code: 'Ph.D IT',
+    duration: 'Varies',
+    specializations: ['Information & Communication Technology Research'],
+    image: 'https://plus.unsplash.com/premium_photo-1742926583033-56159b3cbf1c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8SW5mb3JtYXRpb24lMjAlMjYlMjBDb21tdW5pY2F0aW9uJTIwVGVjaG5vbG9neSUyMFJlc2VhcmNoJTIwY2xhc3Nyb29tfGVufDB8fDB8fHww',
+    description: 'Doctoral research in Information & Communication Technology.',
+  },
+  {
+    name: 'B.Tech. Electronics & Communication Engineering',
+    code: 'ECE',
+    duration: '4 Years',
+    specializations: ['AI & ML', 'VLSI & Embedded Systems', 'Wireless Comm & Networks'],
+    image: 'https://images.unsplash.com/photo-1744640326166-433469d102f2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fCdBSSUyMCUyNiUyMFJvYm90aWNzJyUyQyUyMCdEYXRhJTIwU2NpZW5jZSclMkMlMjAnQ3liZXIlMjBTZWN1cml0eSclMkMlMjAnU29mdHdhcmUlMjBFbmdpbmVlcmluZyd8ZW58MHx8MHx8fDA%3D',
+    description:
+      'UG ECE program with focus areas in AI/ML, VLSI & Embedded, Wireless Communication & Networks.',
+  },
+  {
+    name: 'Integrated B.Tech.–M.Tech. (ECE)',
+    code: 'ECE–Dual',
+    duration: '5 Years',
+    specializations: ['Wireless Networks', 'VLSI & Embedded Systems'],
+    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&h=400',
+    description:
+      '5‑year integrated ECE dual‑degree programs in Wireless Communication, VLSI & Embedded Systems.',
+  },
+  {
+    name: 'M.Tech. ECE',
+    code: 'M.Tech ECE',
+    duration: '2 Years',
+    specializations: ['Wireless Comm & Networks', 'VLSI Design', 'Railway Signalling & RAMS'],
+    image: 'https://images.unsplash.com/photo-1664526936810-ec0856d31b92?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8V2lyZWxlc3MlMjBDb21tJTIwJTI2JTIwTmV0d29ya3MnJTJDJTIwJ1ZMU0klMjBEZXNpZ24nJTIwbGFifGVufDB8fDB8fHww',
+    description:
+      'Postgraduate ECE specializing in Wireless Networks, VLSI Design, Railway Signalling & RAMS.',
+  },
+  {
+    name: 'Ph.D. ECE',
+    code: 'Ph.D ECE',
+    duration: 'Varies',
+    specializations: ['Electronics & Communication Engineering Research'],
+    image: 'https://plus.unsplash.com/premium_photo-1726880460027-fab1b079b37a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8J0VsZWN0cm9uaWNzJTIwJTI2JTIwQ29tbXVuaWNhdGlvbiUyMEVuZ2luZWVyaW5nJTIwUmVzZWFyY2gnfGVufDB8fDB8fHww',
+    description: 'Doctoral research in ECE areas including signal processing, VLSI, comm networks.',
+  },
+];
+
+
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -185,11 +165,11 @@ const ProgramsShowcase = () => {
         {/* Custom Card Slider */}
         <div className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm relative overflow-hidden rounded-xl">
           <div className="p-0">
-            <div className="relative h-96">
+            <div className="relative h-96 overflow-hidden">
               {programs.map((program, index) => (
                 <div
                   key={index}
-                  className={`absolute inset-0 transition-all duration-1000 ${
+                  className={`absolute inset-0 transition-all duration-700 ${
                     index === currentSlide ? 'opacity-100' : 'opacity-0'
                   }`}
                 >
@@ -198,7 +178,7 @@ const ProgramsShowcase = () => {
                       <img
                         src={program.image}
                         alt={program.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover block"
                       />
                       <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
                     </div>
@@ -207,9 +187,13 @@ const ProgramsShowcase = () => {
                         <Badge className="bg-blue-600 text-white text-lg px-3 py-1">
                           {program.code}
                         </Badge>
-                        <Badge className="bg-gray-100 text-gray-800">{program.duration}</Badge>
+                        <Badge className="bg-gray-100 text-gray-800">
+                          {program.duration}
+                        </Badge>
                       </div>
-                      <h3 className="text-2xl font-bold text-blue-900 mb-2">{program.name}</h3>
+                      <h3 className="text-2xl font-bold text-blue-900 mb-2">
+                        {program.name}
+                      </h3>
                       <p className="text-gray-700 mb-4">{program.description}</p>
                       <div>
                         <h4 className="font-semibold text-blue-900 mb-2">Specializations:</h4>

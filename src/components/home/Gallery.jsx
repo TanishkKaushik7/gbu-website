@@ -106,7 +106,9 @@ export default function CampusGallery() {
             {/* Spinner */}
             {isTransitioning && (
               <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                <div className="w-10 h-10 border-4 border-white/30 border-solid border-t-white border-solid rounded-full animate-spin"></div>
+
+                <div className="w-10 h-10 border-4 border-white/30 border-solid border-t-white rounded-full animate-spin"></div>
+
               </div>
             )}
           </div>

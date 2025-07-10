@@ -1,5 +1,7 @@
 import React from 'react';
 import { Target, History, Trophy } from 'lucide-react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
+
 const Card = ({ className = '', children, ...props }) => (
   <div className={`bg-white rounded-xl border p-6 ${className}`} {...props}>
     {children}
@@ -26,6 +28,7 @@ const CardContent = ({ className = '', children, ...props }) => (
 
 const ClubAbout = ({ club }) => {
   return (
+    <SearchableWrapper>
     <div className="space-y-8">
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">About {club.name}</h2>
@@ -111,6 +114,7 @@ const ClubAbout = ({ club }) => {
         </CardContent>
       </Card>
     </div>
+    </SearchableWrapper>
   );
 };
 

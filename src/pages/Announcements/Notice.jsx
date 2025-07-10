@@ -49,85 +49,86 @@ import { Download, FileText } from 'lucide-react';
 const mockNotices = [
   {
     id: 1,
-    title: "Semester Exam Schedule Released",
-    content: "The schedule for the upcoming semester exams has been released. Please check the exam portal for details.",
-    date: "2024-05-10",
+    title: "End Semester Examination Schedule - June 2025",
+    content: "The final schedule for End Semester Examinations (June 2025) is now available. Students are advised to download the PDF and prepare accordingly.",
+    date: "2025-05-25",
     type: "Exam",
-    pdfUrl: "https://example.com/exam-schedule.pdf"
+    pdfUrl: "https://gbu.ac.in/notices/exam-schedule-june-2025.pdf"
   },
   {
     id: 2,
-    title: "Fee Payment Deadline Extended",
-    content: "The last date for fee payment has been extended to 20th May 2024. Kindly pay your fees before the deadline.",
-    date: "2024-05-05",
+    title: "Extension of Fee Payment Deadline - Summer Semester",
+    content: "The last date for fee payment for the Summer Semester has been extended to 5th June 2025. Late fee will be applicable after this date.",
+    date: "2025-05-20",
     type: "Fee",
-    pdfUrl: ""
+    pdfUrl: "https://gbu.ac.in/notices/fee-extension-summer-2025.pdf"
   },
   {
     id: 3,
-    title: "Annual Sports Meet Announcement",
-    content: "The Annual Sports Meet will be held from 15th to 18th June. All students are encouraged to participate.",
-    date: "2024-04-28",
+    title: "Annual Convocation 2025 Notification",
+    content: "The Annual Convocation for the graduating batch of 2025 will be held on 30th July. Graduates are required to register online.",
+    date: "2025-05-15",
     type: "Event",
-    pdfUrl: "https://example.com/sports-meet.pdf"
+    pdfUrl: "https://gbu.ac.in/notices/convocation-2025-guidelines.pdf"
   },
   {
     id: 4,
-    title: "Academic Calendar 2024-25 Published",
-    content: "The academic calendar for the session 2024-25 is now available. Download the PDF for important dates.",
-    date: "2024-04-15",
+    title: "Academic Calendar 2025-26 Released",
+    content: "The detailed Academic Calendar for the session 2025-26 has been published. Download for semester-wise schedules and holidays.",
+    date: "2025-05-10",
     type: "Academic",
-    pdfUrl: "https://example.com/academic-calendar.pdf"
+    pdfUrl: "https://gbu.ac.in/notices/academic-calendar-2025-26.pdf"
   },
   {
     id: 5,
-    title: "General Notice: Campus Cleanliness Drive",
-    content: "A campus-wide cleanliness drive will be conducted on 22nd May. All students and staff are requested to participate.",
-    date: "2024-05-01",
+    title: "Notice Regarding Monsoon Break",
+    content: "All students are informed that the Monsoon Break will be observed from 20th July to 5th August 2025.",
+    date: "2025-05-12",
     type: "General",
     pdfUrl: ""
   },
   {
     id: 6,
-    title: "Mid-Semester Exam Guidelines",
-    content: "Please read the guidelines for the upcoming mid-semester exams carefully.",
-    date: "2023-11-10",
+    title: "Mid-Term Examination Guidelines - July 2025",
+    content: "Please refer to the attached guidelines for the upcoming Mid-Term Examinations for all undergraduate and postgraduate programs.",
+    date: "2025-06-01",
     type: "Exam",
-    pdfUrl: "https://example.com/midsem-guidelines.pdf"
+    pdfUrl: "https://gbu.ac.in/notices/midterm-guidelines-july-2025.pdf"
   },
   {
     id: 7,
-    title: "Scholarship Application Notice",
-    content: "Applications for scholarships are open till 30th June. Submit your documents to the admin office.",
-    date: "2023-06-01",
+    title: "Scholarship Renewal Notice - 2025",
+    content: "Students availing scholarships are advised to submit renewal applications before 10th August 2025 to the Scholarship Cell.",
+    date: "2025-06-05",
     type: "General",
     pdfUrl: ""
   },
   {
     id: 8,
-    title: "Workshop on AI and ML",
-    content: "A workshop on Artificial Intelligence and Machine Learning will be held on 10th July. Register soon.",
-    date: "2023-07-01",
+    title: "Workshop on Cybersecurity and Data Privacy",
+    content: "A National Workshop on Cybersecurity and Data Privacy will be organized by the School of ICT on 22nd August. Limited seats available.",
+    date: "2025-06-10",
     type: "Event",
-    pdfUrl: "https://example.com/ai-ml-workshop.pdf"
+    pdfUrl: "https://gbu.ac.in/notices/cybersecurity-workshop-2025.pdf"
   },
   {
     id: 9,
-    title: "Fee Payment Notice for New Session",
-    content: "Fee payment for the new academic session is open. Please pay before 10th August.",
-    date: "2023-07-20",
-    type: "Fee",
-    pdfUrl: ""
+    title: "Notice for Hostel Allotment - New Session",
+    content: "Online applications for hostel allotment for the academic session 2025-26 are now open. Download the notice for detailed procedure.",
+    date: "2025-06-15",
+    type: "General",
+    pdfUrl: "https://gbu.ac.in/notices/hostel-allotment-2025.pdf"
   },
   {
     id: 10,
-    title: "Holiday Notice: Independence Day",
-    content: "The university will remain closed on 15th August on account of Independence Day.",
-    date: "2023-08-10",
+    title: "Holiday Notice: Raksha Bandhan",
+    content: "The university will remain closed on 18th August 2025 on account of Raksha Bandhan.",
+    date: "2025-06-18",
     type: "General",
     pdfUrl: ""
   }
 ];
+
 
 // Simple date formatting function (similar to date-fns format)
 function format(date, formatStr) {
@@ -212,14 +213,19 @@ const Notice = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* <Header /> */}
+    <>
+      <div className="min-h-screen bg-gray-50 pb-10">
+        {/* <Header /> */}
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Notices & Circulars</h1>
-          <p className="text-gray-600 text-lg">Important notices and official circulars</p>
-        </div>
+        <section className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 text-white py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-4xl font-bold text-white mb-4">Notices & Circulars</h1>
+            <p className="text-white text-lg">Important notices and official circulars</p>
+          </div>
+        </section>
+
+
+
 
         <SearchFilter
           onSearch={handleSearch}
@@ -231,7 +237,7 @@ const Notice = () => {
           placeholder="Search notices..."
         />
 
-        <div className="space-y-4">
+        <div className="space-y-4 mx-25">
           {currentNotices.map((notice) => (
             <Card key={notice.id} className="hover:shadow-lg transition-shadow">
               <CardHeader>
@@ -254,12 +260,20 @@ const Notice = () => {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2 shrink-0">
                     {notice.pdfUrl && (
-                      <Button size="sm" variant="outline">
-                        <Download size={16} className="mr-2" />
-                        Download
-                      </Button>
+                      <a
+                        href={notice.pdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                      >
+                        <Button size="sm" variant="outline">
+                          <Download size={16} className="mr-2" />
+                          Download
+                        </Button>
+                      </a>
                     )}
-                    <Link to={`/notices/${notice.id}`}>
+
+                    <Link to={`/announcements/notices/${notice.id}`}>
                       <Button size="sm">
                         <FileText size={16} className="mr-2" />
                         View Details
@@ -290,7 +304,8 @@ const Notice = () => {
           />
         )}
       </div>
-    </div>
+
+    </>
   );
 };
 

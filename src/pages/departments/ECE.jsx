@@ -1,4 +1,4 @@
-
+ 
 import { Users, Award, BookOpen, Lightbulb, Cpu, Zap, Radio, Microchip, GraduationCap, Brain, Beaker, Trophy, Star, User, Medal, Target } from "lucide-react";
 
 const Card = ({ children, className = "" }) => (
@@ -131,14 +131,14 @@ const ECE = () => {
       name: "Ananya Patel",
       year: "B.Tech ECE 2024",
       achievement: "Intel Student Research Award, Internship at Qualcomm, Best Project Award",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b8cc?auto=format&fit=crop&w=300&q=80",
+      image: "https://media.istockphoto.com/id/1272815911/photo/young-indian-female-university-student-stock-photo.webp?a=1&b=1&s=612x612&w=0&k=20&c=gIZZVJ3_oo9pxN0TtTaBCk7G8xBHO6vZWy9cJVt8jWA=",
       skills: ["VLSI Design", "MATLAB", "Verilog", "Circuit Analysis"]
     },
     {
       name: "Karan Mehta",
       year: "M.Tech ECE 2023",
       achievement: "IEEE Best Paper Award, Patent filed for 5G antenna design",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80",
+      image: "https://media.istockphoto.com/id/1342062117/photo/smart-arab-guy-student-with-backpack-and-books.webp?a=1&b=1&s=612x612&w=0&k=20&c=QVDN4v9Qrkw1UqqRIAew4uU-HlxWjgsmm5LItr96Qoo=",
       skills: ["RF Design", "Antenna Theory", "5G Technology", "Research"]
     },
     {

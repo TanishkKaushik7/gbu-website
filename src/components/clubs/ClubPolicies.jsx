@@ -1,6 +1,7 @@
  
 import React, { useState, useEffect, Children, cloneElement } from 'react';
 import { FileText, Download, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 
 // Card Components
 const Card = ({ children, className = "" }) => (
@@ -41,7 +42,7 @@ const Button = ({ children, className = "", variant = "default", size = "md", ..
   );
 };
 
-const Collapsible = ({ open, onOpenChange, children }) => {
+const LocalCollapsible = ({ open, onOpenChange, children }) => {
   const [internalOpen, setInternalOpen] = useState(open);
   useEffect(() => setInternalOpen(open), [open]);
   return Children.map(children, child =>
@@ -55,19 +56,13 @@ const Collapsible = ({ open, onOpenChange, children }) => {
   );
 };
 
-const CollapsibleTrigger = ({ children, asChild = false, onOpenChange, open }) =>
-  asChild
-    ? cloneElement(children, {
-        onClick: onOpenChange,
-        'aria-expanded': open,
-        role: "button",
-        tabIndex: 0,
-      })
-    : (
-      <button onClick={onOpenChange} aria-expanded={open}>{children}</button>
-    );
+const LocalCollapsibleTrigger = ({ children, onOpenChange, open }) => (
+  <button onClick={onOpenChange} aria-expanded={open} style={{ width: '100%', background: 'none', border: 'none', padding: 0, textAlign: 'inherit' }}>
+    {children}
+  </button>
+);
 
-const CollapsibleContent = ({ children, open }) => open ? <div>{children}</div> : null;
+const LocalCollapsibleContent = ({ children, open }) => open ? <div>{children}</div> : null;
 
 const ClubPolicies = ({ club }) => {
   const [openSections, setOpenSections] = useState({
@@ -93,6 +88,7 @@ const ClubPolicies = ({ club }) => {
   };
 
   return (
+    <SearchableWrapper>
     <div className="space-y-6 bg-gray-50 p-6 md:p-10 rounded-xl">
       <div className="text-center">
         <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Club Policies & Guidelines</h2>
@@ -102,8 +98,8 @@ const ClubPolicies = ({ club }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {policyData.map((policy) => (
           <Card key={policy.id}  className=" border border-gray-200 hover:shadow-lg transition-all duration-300">
-            <Collapsible open={openSections[policy.id]} onOpenChange={() => toggleSection(policy.id)}>
-              <CollapsibleTrigger asChild>
+            <LocalCollapsible open={openSections[policy.id]} onOpenChange={() => toggleSection(policy.id)}>
+              <LocalCollapsibleTrigger>
                 <div className="cursor-pointer transition-colors" role="button" tabIndex={0} aria-expanded={openSections[policy.id]}>
                   <CardHeader>
                     <div className="flex items-center justify-between">
@@ -115,8 +111,8 @@ const ClubPolicies = ({ club }) => {
                     </div>
                   </CardHeader>
                 </div>
-              </CollapsibleTrigger>
-              <CollapsibleContent open={openSections[policy.id]}>
+              </LocalCollapsibleTrigger>
+              <LocalCollapsibleContent open={openSections[policy.id]}>
                 <CardContent className="pt-0 rounded-b-xl">
                   <ul className="space-y-3 ">
                     {policy.items.map((item, index) => (
@@ -127,8 +123,8 @@ const ClubPolicies = ({ club }) => {
                     ))}
                   </ul>
                 </CardContent>
-              </CollapsibleContent>
-            </Collapsible>
+              </LocalCollapsibleContent>
+            </LocalCollapsible>
           </Card>
         ))}
 
@@ -163,6 +159,7 @@ const ClubPolicies = ({ club }) => {
         </Card>
       </div>
     </div>
+    </SearchableWrapper>
   );
 };
 

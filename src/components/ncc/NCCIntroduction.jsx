@@ -1,17 +1,27 @@
 // Minimal Card components for local use, styled for responsiveness
-const Card = ({ className = '', children }) => (
-  <div className={`rounded-xl shadow bg-white ${className}`}>{children}</div>
+import { motion } from "framer-motion";
+ // Minimal Card components
+const Card = ({ className = "", children }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, ease: "easeOut" }}
+    className={`rounded-xl shadow bg-white ${className}`}
+  >
+    {children}
+  </motion.div>
 );
 
-const CardHeader = ({ className = '', children }) => (
+const CardHeader = ({ className = "", children }) => (
   <div className={`px-6 pt-6 pb-2 ${className}`}>{children}</div>
 );
 
-const CardTitle = ({ className = '', children }) => (
+const CardTitle = ({ className = "", children }) => (
   <h2 className={`font-bold text-xl md:text-2xl ${className}`}>{children}</h2>
 );
 
-const CardContent = ({ className = '', children }) => (
+const CardContent = ({ className = "", children }) => (
   <div className={`px-6 pb-6 ${className}`}>{children}</div>
 );
 import { Shield, Target, Users, Award, Star, Flag } from 'lucide-react';
@@ -56,7 +66,7 @@ const NCCIntroduction = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mx-20">
       {/* Mission Statement */}
       <Card className="border-l-4 border-l-orange-600">
         <CardHeader>
@@ -73,7 +83,7 @@ const NCCIntroduction = () => {
       </Card>
 
       {/* Unit Information */}
-      <Card className="bg-gradient-to-r from-blue-900 to-orange-600 text-white">
+      <Card className="bg-gradient-to-r   from-blue-600 to-purple-600 text-white">
         <CardHeader>
           <CardTitle className="text-2xl flex items-center">
             <Shield className="h-8 w-8 mr-3" />
@@ -161,7 +171,7 @@ const NCCIntroduction = () => {
       </Card>
 
       {/* Call to Action */}
-      <Card className="bg-gradient-to-r from-blue-900 to-orange-600 text-white">
+      <Card className="bg-gradient-to-r  from-blue-600 to-blue-400 text-white">
         <CardContent className="p-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Join the Corps</h2>
           <p className="text-xl mb-6">

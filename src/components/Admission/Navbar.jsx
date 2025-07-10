@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, Bell, Menu, X } from 'lucide-react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Simple dropdown menu components using Headless UI style logic and Tailwind CSS
 
 const DropdownMenu = ({ children }) => (
@@ -78,6 +79,7 @@ const Navbar = () => {
   ];
 
   return (
+    <SearchableWrapper>
     <nav className="bg-white shadow-md border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -163,6 +165,7 @@ const Navbar = () => {
         )}
       </div>
     </nav>
+    </SearchableWrapper>
   );
 };
 

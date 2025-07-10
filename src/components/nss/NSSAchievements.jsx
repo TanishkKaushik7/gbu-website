@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Award, Trophy, Medal, Star, Share2 } from 'lucide-react';
+
+// Basic UI components
 const Card = ({ children, className = '', ...props }) => (
-  <div className={`rounded-lg shadow bg-white ${className}`} {...props}>{children}</div>
+  <motion.div
+    whileHover={{ scale: 1.02 }}
+    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    className={`rounded-lg shadow bg-white ${className}`}
+    {...props}
+  >
+    {children}
+  </motion.div>
 );
 
 const CardHeader = ({ children, className = '', ...props }) => (
-  <div className={`border-b px-6 py-4 ${className}`} {...props}>{children}</div>
+
+  <div className={`px-6 py-4 ${className}`} {...props}>{children}</div>
+
 );
 
 const CardTitle = ({ children, className = '', ...props }) => (
@@ -50,7 +63,6 @@ const Button = ({ children, className = '', variant, size, ...props }) => {
     </button>
   );
 };
-import { Award, Trophy, Medal, Star, Share2 } from 'lucide-react';
 
 const NSSAchievements = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -173,13 +185,18 @@ const NSSAchievements = () => {
   };
 
   return (
-    <div className="space-y-8">
+
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className="space-y-8 mx-20"
+    >
+
       {/* Header */}
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Achievements & Recognition</h2>
-        <p className="text-lg text-gray-600">
-          Celebrating our journey of service and excellence
-        </p>
+        <p className="text-lg text-gray-600">Celebrating our journey of service and excellence</p>
       </div>
 
       {/* Major Achievements Carousel */}
@@ -191,57 +208,58 @@ const NSSAchievements = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="relative">
-            <div className="overflow-hidden rounded-lg">
-              <div
-                className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-              >
-                {achievements.map((achievement) => (
-                  <div key={achievement.id} className="w-full flex-shrink-0">
-                    <div className="grid md:grid-cols-2 gap-6 p-6 bg-gradient-to-r from-blue-50 to-white rounded-lg">
-                      <div>
-                        <img
-                          src={achievement.image}
-                          alt={achievement.title}
-                          className="w-full h-48 object-cover rounded-lg shadow-md"
-                        />
+          <div className="relative overflow-hidden rounded-lg">
+            <motion.div
+              className="flex"
+              animate={{ x: `-${currentSlide * 100}%` }}
+              transition={{ type: 'spring', stiffness: 80, damping: 18 }}
+            >
+              {achievements.map((achievement) => (
+                <motion.div
+                  key={achievement.id}
+                  className="w-full flex-shrink-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="grid md:grid-cols-2 gap-6 p-6 bg-gradient-to-r from-blue-50 to-white rounded-lg">
+                    <div>
+                      <img
+                        src={achievement.image}
+                        alt={achievement.title}
+                        className="w-full h-48 object-cover rounded-lg shadow-md"
+                      />
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <Badge className={getCategoryColor(achievement.category)}>
+                          {achievement.category} Level
+                        </Badge>
+                        <span className="text-2xl font-bold text-gray-900">{achievement.year}</span>
                       </div>
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <Badge className={getCategoryColor(achievement.category)}>
-                            {achievement.category} Level
-                          </Badge>
-                          <span className="text-2xl font-bold text-gray-900">{achievement.year}</span>
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-gray-900 mb-2">{achievement.title}</h3>
-                          <p className="text-gray-700 mb-4">{achievement.description}</p>
-                          <p className="text-sm text-gray-600 mb-4">{achievement.details}</p>
-                          <p className="font-semibold text-blue-600">Awarded to: {achievement.awardee}</p>
-                        </div>
-                        <div className="flex space-x-2">
-                          {Object.entries(shareAchievement(achievement)).map(([platform, url]) => (
-                            <Button
-                              key={platform}
-                              variant="outline"
-                              size="sm"
-                              onClick={() => window.open(url, '_blank')}
-                              className="capitalize"
-                            >
-                              <Share2 className="h-3 w-3 mr-1" />
-                              {platform}
-                            </Button>
-                          ))}
-                        </div>
+                      <h3 className="text-2xl font-bold text-gray-900">{achievement.title}</h3>
+                      <p className="text-gray-700">{achievement.description}</p>
+                      <p className="text-sm text-gray-600">{achievement.details}</p>
+                      <p className="font-semibold text-blue-600">Awarded to: {achievement.awardee}</p>
+                      <div className="flex space-x-2">
+                        {Object.entries(shareAchievement(achievement)).map(([platform, url]) => (
+                          <Button
+                            key={platform}
+                            variant="outline"
+                            size="sm"
+                            onClick={() => window.open(url, '_blank')}
+                            className="capitalize"
+                          >
+                            <Share2 className="h-3 w-3 mr-1" />
+                            {platform}
+                          </Button>
+                        ))}
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Pagination Dots */}
+                </motion.div>
+              ))}
+            </motion.div>
             <div className="flex justify-center mt-6 space-x-2">
               {achievements.map((_, index) => (
                 <button
@@ -258,11 +276,24 @@ const NSSAchievements = () => {
       </Card>
 
       {/* Individual Awards */}
-      <div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">Outstanding Volunteers</h3>
-        <div className="grid md:grid-cols-3 gap-6">
-          {individualAwards.map((awardee, index) => (
-            <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+      <motion.div
+        className="grid md:grid-cols-3 gap-6"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.2 } }
+        }}
+      >
+        {individualAwards.map((awardee, index) => (
+          <motion.div
+            key={index}
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 }
+            }}
+          >
+            <Card>
               <CardContent className="p-6 text-center">
                 <img
                   src={awardee.image}
@@ -274,73 +305,85 @@ const NSSAchievements = () => {
                   <Award className="h-4 w-4 text-yellow-600" />
                   <span className="text-blue-600 font-semibold">{awardee.award}</span>
                 </div>
-                <p className="text-gray-600 mb-2">{awardee.department}</p>
+                <p className="text-gray-600">{awardee.department}</p>
                 <p className="text-sm text-gray-700 mb-4">{awardee.achievement}</p>
                 <Badge variant="outline">{awardee.year}</Badge>
               </CardContent>
             </Card>
-          ))}
-        </div>
-      </div>
+          </motion.div>
+        ))}
+      </motion.div>
 
-      {/* Recognitions & Media Coverage */}
-      <div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">Media Coverage & Recognition</h3>
-        <div className="space-y-4">
-          {recognitions.map((recognition, index) => (
-            <Card key={index} className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6">
+      {/* Recognitions */}
+      <motion.div
+        className="space-y-4"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.15 } }
+        }}
+      >
+        {recognitions.map((recognition, index) => (
+          <motion.div
+            key={index}
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 }
+            }}
+          >
+            <Card className="hover:shadow-md">
+              <CardContent>
                 <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-2">{recognition.title}</h4>
-                    <p className="text-gray-700 mb-2">{recognition.description}</p>
+                  <div>
+                    <h4 className="text-lg font-semibold">{recognition.title}</h4>
+                    <p className="text-gray-700">{recognition.description}</p>
                     <p className="text-sm text-gray-500">{new Date(recognition.date).toLocaleDateString('en-IN')}</p>
                   </div>
-                  <div className="ml-4">
-                    <Badge
-                      className={
-                        recognition.type === 'media'
-                          ? 'bg-purple-100 text-purple-800'
-                          : recognition.type === 'government'
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-blue-100 text-blue-800'
-                      }
-                    >
-                      {recognition.type}
-                    </Badge>
-                  </div>
+                  <Badge
+                    className={
+                      recognition.type === 'media'
+                        ? 'bg-purple-100 text-purple-800'
+                        : recognition.type === 'government'
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-blue-100 text-blue-800'
+                    }
+                  >
+                    {recognition.type}
+                  </Badge>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
-      </div>
+          </motion.div>
+        ))}
+      </motion.div>
 
-      {/* Achievement Statistics */}
+      {/* Stats */}
       <Card className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
         <CardContent className="p-8">
           <h3 className="text-2xl font-bold mb-6 text-center">Our Impact in Numbers</h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">15+</div>
-              <div className="text-blue-100">Awards Received</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">50+</div>
-              <div className="text-blue-100">Individual Recognitions</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">25+</div>
-              <div className="text-blue-100">Media Features</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">100%</div>
-              <div className="text-blue-100">Volunteer Satisfaction</div>
-            </div>
+            {[
+              { value: '15+', label: 'Awards Received' },
+              { value: '50+', label: 'Individual Recognitions' },
+              { value: '25+', label: 'Media Features' },
+              { value: '100%', label: 'Volunteer Satisfaction' }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-4xl font-bold mb-2">{stat.value}</div>
+                <div className="text-blue-100">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 };
 

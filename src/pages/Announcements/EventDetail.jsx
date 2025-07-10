@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import {
+  ArrowLeft,
+  Calendar,
+  MapPin,
+  Users,
+  ExternalLink,
+  CalendarPlus,
+  Download,
+  Phone,
+  Mail,
+  QrCode,
+} from 'lucide-react';
 import Header from '../../components/announcement/Header';
 import SocialShare from '../../components/announcement/SocialShare';
 import RelatedEvents from '../../components/announcement/RelatedEvents';
-import {
-  ArrowLeft, Calendar, MapPin, Users, ExternalLink, CalendarPlus, Download, Phone, Mail, QrCode
-} from 'lucide-react';
 
-// --- UI COMPONENTS (Enhanced with more styles/animations) ---
-
+// --- Solid Color Button ---
 const Button = ({
   children,
   variant = "default",
@@ -18,9 +26,9 @@ const Button = ({
   ...props
 }) => {
   const base =
-    "inline-flex items-center justify-center rounded-lg font-semibold shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center rounded-lg font-semibold shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
   const variants = {
-    default: "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700",
+    default: "bg-blue-600 text-white hover:bg-blue-700",
     outline: "border border-blue-600 text-blue-600 bg-white hover:bg-blue-50",
   };
   const sizes = {
@@ -28,10 +36,13 @@ const Button = ({
     md: "px-5 py-2 text-base",
     lg: "px-7 py-2.5 text-lg",
   };
-  const classes = `${base} ${variants[variant] || variants.default} ${sizes[size] || sizes.md} ${className}`;
+  const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
   if (asChild) {
     const child = React.Children.only(children);
-    return React.cloneElement(child, { className: `${child.props.className || ""} ${classes}`.trim(), ...props });
+    return React.cloneElement(child, {
+      className: `${child.props.className || ""} ${classes}`.trim(),
+      ...props,
+    });
   }
   return (
     <button className={classes} {...props}>
@@ -40,33 +51,47 @@ const Button = ({
   );
 };
 
+// --- Solid Badge ---
 const Badge = ({ children, className = "", variant = "solid", ...props }) => {
-  const base = "inline-block px-3 py-1 rounded-full text-xs font-bold shadow-sm tracking-wide";
+  const base =
+    "inline-block px-3 py-1 rounded-full text-xs font-bold shadow-sm tracking-wide";
   const variants = {
-    solid: "bg-gradient-to-r from-blue-600 to-purple-600 text-white",
+    solid: "bg-blue-600 text-white",
     outline: "border border-current text-inherit bg-transparent",
   };
   return (
-    <span className={`${base} ${variants[variant] || variants.solid} ${className}`} {...props}>
+    <span className={`${base} ${variants[variant]} ${className}`} {...props}>
       {children}
     </span>
   );
 };
 
+// --- Solid Card ---
 const Card = ({ children, className = "", ...props }) => (
-  <div className={`bg-white rounded-2xl shadow-xl border border-gray-100 border-solid hover:shadow-2xl transition-shadow duration-300${className}`} {...props}>{children}</div>
+  <div
+    className={`bg-white rounded-2xl h-[500px] shadow-xl border border-gray-200 border-solid hover:shadow-2xl transition-shadow duration-300${className}`}
+    {...props}
+  >
+    {children}
+  </div>
 );
 const CardHeader = ({ children, className = "", ...props }) => (
-  <div className={`border-b px-8 py-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-2xl ${className}`} {...props}>{children}</div>
+  <div className={`border-b px-8 py-6 bg-blue-50 rounded-t-2xl ${className}`} {...props}>
+    {children}
+  </div>
 );
 const CardTitle = ({ children, className = "", ...props }) => (
-  <h2 className={`text-2xl font-extrabold text-blue-700 tracking-tight ${className}`} {...props}>{children}</h2>
+  <h2 className={`text-2xl font-extrabold text-blue-700 tracking-tight ${className}`} {...props}>
+    {children}
+  </h2>
 );
 const CardContent = ({ children, className = "", ...props }) => (
-  <div className={`px-8 py-6 ${className}`} {...props}>{children}</div>
+  <div className={`px-8 py-6 ${className}`} {...props}>
+    {children}
+  </div>
 );
 
-// Tabs
+// --- Tabs ---
 const TabsContext = React.createContext();
 const Tabs = ({ defaultValue, children, className = "" }) => {
   const [value, setValue] = React.useState(defaultValue);
@@ -77,17 +102,19 @@ const Tabs = ({ defaultValue, children, className = "" }) => {
   );
 };
 const TabsList = ({ children, className = "" }) => (
-  <div className={`flex gap-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl p-2 mb-4 shadow-inner ${className}`}>{children}</div>
+  <div className={`flex gap-2 bg-blue-100 rounded-xl p-2 mb-4 shadow-inner ${className}`}>
+    {children}
+  </div>
 );
 const TabsTrigger = ({ value, children, className = "" }) => {
   const { value: active, setValue } = React.useContext(TabsContext);
   const isActive = active === value;
   return (
     <button
-      className={`flex-1 px-6 py-2 rounded-lg font-semibold transition-all duration-200 ${
+      className={`flex-1 px-8 py-3 rounded-lg font-bold uppercase tracking-wide text-lg transition-all duration-200 ${
         isActive
-          ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow"
-          : "text-blue-700 hover:bg-blue-50"
+          ? "bg-blue-600 text-white shadow"
+          : "text-blue-700 hover:bg-blue-200"
       } ${className}`}
       onClick={() => setValue(value)}
       type="button"
@@ -102,42 +129,267 @@ const TabsContent = ({ value, children, className = "" }) => {
   return <div className={className}>{children}</div>;
 };
 
+
 // --- MOCK DATA ---
 const mockEvents = [
   {
-    id: "1",
-    title: "International Symposium on AI",
-    description: "A premier event bringing together leading minds in Artificial Intelligence for knowledge sharing, networking, and collaboration.",
-    date: "2024-07-15T09:00:00Z",
-    endDate: "2024-07-15T17:00:00Z",
-    venue: "Auditorium, GBU Campus",
-    organizer: "School of ICT, GBU",
-    type: "Symposium",
+    id: 1,
+    title: "GBU Tech Symposium 2024",
+    description:
+      "A state-level symposium with talks and presentations on cutting-edge technologies by students and industry experts.",
+    date: "2024-07-10T09:00:00Z",
+    endDate: "2024-07-10T17:00:00Z",
+    venue: "Main Auditorium, GBU Campus",
+    organizer: "School of Engineering, GBU",
+    type: "Seminar",
     mode: "Offline",
     isUpcoming: true,
-    registrationUrl: "https://forms.gle/ai-symposium-gbu",
+    registrationUrl: "https://forms.gle/gbu-tech-symposium-2024",
     images: [
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80"
-    ]
+      "https://www.ux4g.gov.in/assets/img/awareness-workshop/gbu-19-11-24/900x18.webp"
+    ],
   },
   {
-    id: "2",
-    title: "Web Development Workshop",
-    description: "Hands-on workshop covering modern web development tools and frameworks.",
-    date: "2024-08-10T10:00:00Z",
-    venue: "Lab 2, GBU Campus",
-    organizer: "School of Engineering, GBU",
-    type: "Workshop",
+    id: 2,
+    title: "Annual Science & Innovation Fair",
+    description:
+      "Students present their innovative science projects and working models to guests and faculty.",
+    date: "2023-12-15T10:00:00Z",
+    endDate: "2023-12-15T16:00:00Z",
+    venue: "Exhibition Hall, GBU Campus",
+    organizer: "School of Science, GBU",
+    type: "Fair",
     mode: "Offline",
     isUpcoming: false,
     registrationUrl: "",
     images: [
-      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80"
-    ]
+      "https://images.openai.com/thumbnails/url/NS93cXicu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw4KLjQzjIp3CzfKiM92zQnISzINLC8oqkpKMss0LI80zDcqMM_Mcs5w9IuwqAy19E6KSHYyD3JJSY0qcVQrBgAavCnC"
+    ],
+  },
+  {
+    id: 3,
+    title: "Mathematics Research Workshop",
+    description:
+      "An intensive workshop on modern mathematics and its applications in research and industry.",
+    date: "2024-08-05T09:30:00Z",
+    endDate: "2024-08-05T15:30:00Z",
+    venue: "Lecture Hall 3, Academic Block, GBU",
+    organizer: "Department of Mathematics, GBU",
+    type: "Workshop",
+    mode: "Offline",
+    isUpcoming: true,
+    registrationUrl: "https://forms.gle/mathematics-research-workshop-gbu",
+    images: [
+      "https://www.ux4g.gov.in/assets/img/awareness-workshop/gbu-19-11-24/900x17.webp"
+    ],
+  },
+  {
+    id: 4,
+    title: "Abhivyakti: Cultural Fest",
+    description:
+      "GBU’s flagship cultural festival showcasing dance, drama, music, and literary competitions.",
+    date: "2023-11-20T17:00:00Z",
+    endDate: "2023-11-20T22:00:00Z",
+    venue: "Open Air Theatre, GBU",
+    organizer: "Cultural Committee, GBU",
+    type: "Festival",
+    mode: "Offline",
+    isUpcoming: false,
+    registrationUrl: "",
+    images: [
+      "https://www.indianarrative.com/wp-content/uploads/2024/12/India-Nepal-Cultural-Festival-01-1024x683.jpeg"
+    ],
+  },
+  {
+    id: 5,
+    title: "AI & Robotics Guest Lecture",
+    description:
+      "A guest lecture on Artificial Intelligence, Robotics, and future technology trends.",
+    date: "2024-09-01T11:00:00Z",
+    endDate: "2024-09-01T13:00:00Z",
+    venue: "Seminar Hall B, GBU",
+    organizer: "School of ICT, GBU",
+    type: "Lecture",
+    mode: "Hybrid",
+    isUpcoming: true,
+    registrationUrl: "https://forms.gle/ai-robotics-guest-lecture-gbu",
+    images: [
+      "https://gburif.org/images/intro-carousel/dsf8939-b-copy.jpg"
+    ],
+  },
+  {
+    id: 6,
+    title: "GBU Annual Sports Meet",
+    description:
+      "Annual inter-departmental sports meet with athletics, football, cricket, and indoor games.",
+    date: "2023-10-10T08:00:00Z",
+    endDate: "2023-10-10T18:00:00Z",
+    venue: "Sports Ground, GBU",
+    organizer: "Sports Council, GBU",
+    type: "Sports",
+    mode: "Offline",
+    isUpcoming: false,
+    registrationUrl: "",
+    images: [
+      "https://www.gbu.ac.in/Content/img/sports/banner2.jpg"
+    ],
+  },
+  {
+    id: 7,
+    title: "National Research Paper Presentation",
+    description:
+      "Students and scholars present research papers on various disciplines at national level.",
+    date: "2024-07-25T14:00:00Z",
+    endDate: "2024-07-25T17:00:00Z",
+    venue: "Conference Room 1, GBU",
+    organizer: "Research Cell, GBU",
+    type: "Presentation",
+    mode: "Offline",
+    isUpcoming: true,
+    registrationUrl: "https://forms.gle/national-research-presentation-gbu",
+    images: [
+      "https://www.ic3ecsbhi.com/Events/Picture1.jpg"
+    ],
+  },
+  {
+    id: 8,
+    title: "GBU Alumni Meet 2023",
+    description:
+      "GBU alumni reconnect and share industry insights with current students.",
+    date: "2023-09-05T18:00:00Z",
+    endDate: "2023-09-05T21:00:00Z",
+    venue: "Banquet Hall, GBU",
+    organizer: "Alumni Association, GBU",
+    type: "Meet",
+    mode: "Offline",
+    isUpcoming: false,
+    registrationUrl: "",
+    images: [
+      "https://images.openai.com/thumbnails/url/iYaDH3icu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw42KHCJMDJ3DMnKCyuPzLdMCw9xKa_yiMgyKHNLssirqDAsTzQzzQhNdfJOTbLQ9c72cjfJSC2pSCwPKFcrBgAWxioa"
+    ],
+  },
+  {
+    id: 9,
+    title: "NSS Blood Donation Camp",
+    description:
+      "Organized by NSS volunteers to collect blood for local hospitals and awareness drive.",
+    date: "2024-07-05T09:00:00Z",
+    endDate: "2024-07-05T15:00:00Z",
+    venue: "Medical Centre, GBU",
+    organizer: "NSS Unit, GBU",
+    type: "Social Service",
+    mode: "Offline",
+    isUpcoming: true,
+    registrationUrl: "https://forms.gle/nss-blood-donation-gbu",
+    images: [
+      "https://nss.gbu.ac.in/uploads/eventsfiles/photos/66ffb64b39157_WhatsApp%20Image%202024-04-19%20at%201.59.17%20PM.jpeg"
+    ],
+  },
+  {
+    id: 10,
+    title: "International Yoga Day",
+    description:
+      "Mass yoga session for students and staff promoting healthy living and mindfulness.",
+    date: "2023-06-21T06:00:00Z",
+    endDate: "2023-06-21T08:00:00Z",
+    venue: "Sports Complex Lawn, GBU",
+    organizer: "Wellness Club, GBU",
+    type: "Wellness",
+    mode: "Offline",
+    isUpcoming: false,
+    registrationUrl: "",
+    images: [
+      "https://images.openai.com/thumbnails/url/-F4ohXicu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw6yNHIy1zUsTgtKys-qMC0v9g41dorK8M8qSM7KDixODy8NdfTNzi9OLK6IKvc0cjKuiM8pLjVwz_RMcVQrBgAhZyqH"
+    ],
+  },
+  {
+    id: 11,
+    title: "Guest Lecture: Industry 5.0",
+    description:
+      "A talk by industry leaders on Industry 5.0, smart factories, and the future of work.",
+    date: "2024-07-18T11:00:00Z",
+    endDate: "2024-07-18T13:00:00Z",
+    venue: "Seminar Hall A, GBU",
+    organizer: "School of Management, GBU",
+    type: "Lecture",
+    mode: "Hybrid",
+    isUpcoming: true,
+    registrationUrl: "https://forms.gle/guest-lecture-industry5-gbu",
+    images: [
+      "https://www.ux4g.gov.in/assets/img/awareness-workshop/gbu-19-11-24/900x14.webp"
+    ],
+  },
+  {
+    id: 12,
+    title: "Coding Club Hackathon",
+    description:
+      "24-hour coding marathon for students to build tech solutions and win exciting prizes.",
+    date: "2023-10-30T09:00:00Z",
+    endDate: "2023-10-30T09:00:00Z",
+    venue: "Innovation Lab, GBU",
+    organizer: "Coding Club, GBU",
+    type: "Competition",
+    mode: "Offline",
+    isUpcoming: false,
+    registrationUrl: "",
+    images: [
+      "https://raw.githubusercontent.com/K4R7IK/Glitch-Poster/master/poster/ctf.png"
+    ],
+  },
+  {
+    id: 13,
+    title: "GBU Startup Pitch Day",
+    description:
+      "Students pitch their startup ideas to investors and mentors to get funding and incubation support.",
+    date: "2024-08-20T10:00:00Z",
+    endDate: "2024-08-20T16:00:00Z",
+    venue: "Innovation Centre, GBU",
+    organizer: "Incubation Cell, GBU",
+    type: "Competition",
+    mode: "Offline",
+    isUpcoming: true,
+    registrationUrl: "https://forms.gle/gbu-startup-pitch-day",
+    images: [
+      "https://www.gbu.ac.in/Content/gbudata/incubation/Incubation_Pic9.jpg"
+    ],
+  },
+  {
+    id: 14,
+    title: "GBU Photography Exhibition",
+    description:
+      "Photography club exhibition displaying student works on campus life and nature.",
+    date: "2023-09-25T10:00:00Z",
+    endDate: "2023-09-25T17:00:00Z",
+    venue: "Art Gallery, GBU",
+    organizer: "Photography Club, GBU",
+    type: "Exhibition",
+    mode: "Offline",
+    isUpcoming: false,
+    registrationUrl: "",
+    images: [
+      "https://image-static.collegedunia.com/public/college_data/images/campusimage/1421489668197469_122196337857221_100002005655347_147553_4172796_n.jpg"
+    ],
+  },
+  {
+    id: 15,
+    title: "Environmental Awareness Drive",
+    description:
+      "Tree plantation and cleanliness drive by students under the GBU Eco Club.",
+    date: "2024-09-10T08:00:00Z",
+    endDate: "2024-09-10T12:00:00Z",
+    venue: "GBU Campus",
+    organizer: "Eco Club, GBU",
+    type: "Social Service",
+    mode: "Offline",
+    isUpcoming: true,
+    registrationUrl: "https://forms.gle/environmental-awareness-drive-gbu",
+    images: [
+      "https://www.gniotgroup.edu.in/lifegniotimg/1633936837-244588932_4383100388473842_7973588752178033120_n.jpg"
+    ],
   }
 ];
+
+
 
 // --- UTILS ---
 function format(date, formatStr) {
@@ -156,23 +408,17 @@ function format(date, formatStr) {
   return d.toLocaleDateString();
 }
 
-// --- MAIN COMPONENT ---
 const EventDetail = () => {
   const { id } = useParams();
   const [showQR, setShowQR] = useState(false);
-  // const event = mockEvents.find(item => item.id === id);
   const event = mockEvents.find(item => String(item.id) === String(id));
-
-
-  
 
   if (!event) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
-        {/* <Header /> */}
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="text-3xl font-extrabold text-blue-700 mb-6">Event not found</h1>
-          <Link to="/events-calendar">
+          <Link to="/announcements/event-calendar">
             <Button>Back to Events</Button>
           </Link>
         </div>
@@ -180,36 +426,26 @@ const EventDetail = () => {
     );
   }
 
-  const getTypeColor = (type) => {
-    const colors = {
-      'Symposium': 'bg-gradient-to-r from-blue-200 to-purple-200 text-blue-900',
-      'Workshop': 'bg-gradient-to-r from-green-200 to-blue-100 text-green-900',
-      'Seminar': 'bg-gradient-to-r from-purple-200 to-pink-100 text-purple-900',
-      'Cultural': 'bg-gradient-to-r from-orange-200 to-yellow-100 text-orange-900',
-      'Conference': 'bg-gradient-to-r from-red-200 to-pink-100 text-red-900',
-      'Webinar': 'bg-gradient-to-r from-cyan-200 to-blue-100 text-cyan-900'
-    };
-    return colors[type] || 'bg-gray-100 text-gray-800';
-  };
-
-  const getModeColor = (mode) => {
-    const colors = {
-      'Online': 'bg-gradient-to-r from-green-200 to-blue-100 text-green-900',
-      'Offline': 'bg-gradient-to-r from-blue-200 to-purple-200 text-blue-900',
-      'Hybrid': 'bg-gradient-to-r from-purple-200 to-pink-100 text-purple-900'
-    };
-    return colors[mode] || 'bg-gray-100 text-gray-800';
-  };
+  const getTypeColor = () => 'bg-blue-600 text-white';
+const getModeColor = () => 'bg-blue-600 text-white';
 
   const addToGoogleCalendar = () => {
     const startDate = new Date(event.date);
-    const endDate = event.endDate ? new Date(event.endDate) : new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
-    const formatDate = (date) => date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${formatDate(startDate)}/${formatDate(endDate)}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.venue)}`;
+    const endDate = event.endDate
+      ? new Date(event.endDate)
+      : new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
+    const formatDate = (date) =>
+      date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+      event.title,
+    )}&dates=${formatDate(startDate)}/${formatDate(
+      endDate,
+    )}&details=${encodeURIComponent(
+      event.description,
+    )}&location=${encodeURIComponent(event.venue)}`;
     window.open(googleCalendarUrl, '_blank');
   };
 
-  // Mock data for additional sections
   const agenda = [
     { time: '09:00 AM', activity: 'Registration & Welcome Coffee' },
     { time: '10:00 AM', activity: 'Opening Ceremony' },
@@ -217,21 +453,19 @@ const EventDetail = () => {
     { time: '12:30 PM', activity: 'Panel Discussion' },
     { time: '01:30 PM', activity: 'Lunch Break' },
     { time: '02:30 PM', activity: 'Technical Sessions' },
-    { time: '04:00 PM', activity: 'Networking & Closing' }
+    { time: '04:00 PM', activity: 'Networking & Closing' },
   ];
   const speakers = [
     { name: 'Dr. Rajesh Kumar', designation: 'Professor, IIT Delhi', topic: 'AI in Healthcare' },
     { name: 'Prof. Anita Sharma', designation: 'Director, AIIMS', topic: 'Medical Innovation' },
-    { name: 'Mr. Vikram Singh', designation: 'CTO, TechCorp', topic: 'Industry Perspective' }
+    { name: 'Mr. Vikram Singh', designation: 'CTO, TechCorp', topic: 'Industry Perspective' },
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
-      <Header />
-
-      <div className="container mx-auto px-2 md:px-8 py-10">
-        <div className="mb-8">
-          <Link to="/events-calendar">
+      <div className="container mx-auto px-2 md:px-8 pt-2 pb-10">
+        <div className="mb-4">
+          <Link to="/announcements/event-calendar">
             <Button variant="outline" size="sm">
               <ArrowLeft size={16} className="mr-2" />
               Back to Events
@@ -240,18 +474,16 @@ const EventDetail = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Hero Banner */}
-            <div className="relative rounded-3xl overflow-hidden mb-10 shadow-2xl border border-blue-100">
-              {event.images && event.images.length > 0 && (
+            <div className="relative rounded-3xl h-[22rem] overflow-hidden mb-10 shadow-2xl border border-blue-100">
+              {Array.isArray(event.images) && event.images[0] && (
                 <div className="absolute inset-0">
                   <img
                     src={event.images[0]}
                     alt={event.title}
-                    className="w-full h-full object-cover scale-105 blur-sm brightness-75"
+                    className="w-full h-full object-cover scale-105 brightness-80"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-700/80 to-purple-700/80" />
+                  <div className="absolute inset-0 bg-transparent" />
                 </div>
               )}
               <div className="relative p-10 md:p-16 text-white">
@@ -259,7 +491,7 @@ const EventDetail = () => {
                   <Badge className={`${getTypeColor(event.type)} shadow-lg`}>{event.type}</Badge>
                   <Badge className={`${getModeColor(event.mode)} shadow-lg`}>{event.mode}</Badge>
                   {!event.isUpcoming && (
-                    <Badge variant="outline" className="text-white border-white/70 border-[1.5px] border-solid shadow-lg">
+                    <Badge variant="outline" className="text-white border-white/70 border-solid border-[1.5px]">
                       Completed
                     </Badge>
                   )}
@@ -270,9 +502,7 @@ const EventDetail = () => {
                     <Calendar size={20} className="mr-3" />
                     <div>
                       <div>{format(new Date(event.date), 'MMMM dd, yyyy')}</div>
-                      {event.endDate && (
-                        <div>to {format(new Date(event.endDate), 'MMM dd, yyyy')}</div>
-                      )}
+                      {event.endDate && <div>to {format(new Date(event.endDate), 'MMM dd, yyyy')}</div>}
                     </div>
                   </div>
                   <div className="flex items-center">
@@ -287,8 +517,7 @@ const EventDetail = () => {
               </div>
             </div>
 
-            {/* Content Tabs */}
-            <Tabs defaultValue="overview" className="space-y-8">
+            <Tabs defaultValue="overview" className="space-y-8 ">
               <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="agenda">Agenda</TabsTrigger>
@@ -296,16 +525,13 @@ const EventDetail = () => {
                 <TabsTrigger value="gallery">Gallery</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="overview">
+              <TabsContent value="overview" className='h-full'>
                 <Card>
                   <CardHeader>
                     <CardTitle>About This Event</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-700 leading-relaxed mb-8 text-lg">
-                      {event.description}
-                    </p>
-                    {/* Contact Information */}
+                    <p className="text-gray-700 leading-relaxed mb-8 text-lg">{event.description}</p>
                     <div className="border-t pt-8">
                       <h3 className="text-xl font-bold mb-4 text-blue-700">Contact Information</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -331,8 +557,11 @@ const EventDetail = () => {
                   <CardContent>
                     <div className="space-y-5">
                       {agenda.map((item, index) => (
-                        <div key={index} className="flex items-start space-x-5 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-sm">
-                          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg text-base font-bold min-w-[90px] text-center shadow">
+                        <div
+                          key={index}
+                          className="flex items-start space-x-5 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-sm"
+                        >
+                          <div className="bg-blue-600 text-white px-4 py-2 rounded-lg text-base font-bold min-w-[90px] text-center shadow">
                             {item.time}
                           </div>
                           <div className="flex-1">
@@ -351,7 +580,7 @@ const EventDetail = () => {
                     <CardTitle>Speakers</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2  gap-8">
                       {speakers.map((speaker, index) => (
                         <div key={index} className="p-6 border rounded-xl bg-gradient-to-br from-blue-50 to-purple-50 shadow">
                           <h4 className="font-bold text-xl mb-1">{speaker.name}</h4>
@@ -369,16 +598,17 @@ const EventDetail = () => {
                   <CardHeader>
                     <CardTitle>Event Gallery</CardTitle>
                   </CardHeader>
-
-                  
                   <CardContent>
-                    {event.images && event.images.length > 1 ? (
+                    {Array.isArray(event.images) && event.images.length > 0 ? (
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {event.images.slice(1).map((image, index) => (
-                          <div key={index} className="aspect-video overflow-hidden rounded-xl shadow-lg group relative">
+                        {event.images.map((image, index) => (
+                          <div
+                            key={index}
+                            className="aspect-video  h-[300px] overflow-hidden rounded-xl shadow-lg group relative"
+                          >
                             <img
                               src={image}
-                              alt={`${event.title} - Image ${index + 2}`}
+                              alt={`${event.title} - Image ${index + 1}`}
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -386,7 +616,7 @@ const EventDetail = () => {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-gray-500">No additional images available for this event.</p>
+                      <p className="text-gray-500">No images available for this event.</p>
                     )}
                   </CardContent>
                 </Card>
@@ -394,15 +624,14 @@ const EventDetail = () => {
             </Tabs>
           </div>
 
-          {/* Sidebar */}
           <div className="space-y-8">
-            {/* Action Buttons */}
             <div className="sticky top-24">
-              <Card>
+              <Card className="flex flex-col max-h-[calc(100vh-8rem)] overflow-y-auto">
                 <CardHeader>
                   <CardTitle className="text-xl">Actions</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+
+                <CardContent className="flex flex-col gap-4 flex-grow">
                   {event.isUpcoming && event.registrationUrl && (
                     <Button size="lg" className="w-full animate-pulse" asChild>
                       <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer">
@@ -412,7 +641,12 @@ const EventDetail = () => {
                     </Button>
                   )}
 
-                  <Button size="lg" variant="outline" className="w-full" onClick={addToGoogleCalendar}>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full"
+                    onClick={addToGoogleCalendar}
+                  >
                     <CalendarPlus size={22} className="mr-2" />
                     Add to Calendar
                   </Button>
@@ -422,11 +656,7 @@ const EventDetail = () => {
                     Download Brochure
                   </Button>
 
-                  <SocialShare
-                    url={window.location.href}
-                    title={event.title}
-                    className="w-full"
-                  />
+                  <SocialShare url={window.location.href} title={event.title} className="w-full" />
 
                   <Button
                     size="lg"
@@ -450,28 +680,6 @@ const EventDetail = () => {
               </Card>
             </div>
 
-            {/* Related Events */}
-            <RelatedEvents currentEventId={event.id} />
-          </div>
-        </div>
-
-        {/* Mobile Floating Action Bar */}
-        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-blue-600 to-purple-600 border-t shadow-2xl p-4 lg:hidden z-50">
-          <div className="flex space-x-3">
-            {event.isUpcoming && event.registrationUrl && (
-              <Button className="flex-1" asChild>
-                <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer">
-                  Register
-                </a>
-              </Button>
-            )}
-            <Button variant="outline" onClick={addToGoogleCalendar}>
-              <CalendarPlus size={18} />
-            </Button>
-            <SocialShare
-              url={window.location.href}
-              title={event.title}
-            />
           </div>
         </div>
       </div>

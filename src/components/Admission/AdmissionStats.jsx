@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Card Components with modern UI and effects
 
 const Card = ({ children, className = "" }) => (
@@ -76,6 +77,7 @@ const AdmissionStats = () => {
   ];
 
   return (
+    <SearchableWrapper>
     <div className="space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -157,6 +159,7 @@ const AdmissionStats = () => {
         </Card>
       </div>
     </div>
+    </SearchableWrapper>
   );
 };
 

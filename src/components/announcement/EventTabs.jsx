@@ -1,5 +1,6 @@
 import React from 'react';
 import EventCard from './EventCard';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 
 const Tabs = ({ value, onValueChange, children, className }) => (
   <div className={className}>{children}</div>
@@ -40,6 +41,7 @@ const EventTabs = ({
   const showEmptyMessage = currentEvents.length === 0;
 
   return (
+    <SearchableWrapper>
     <div className="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-8 border border-gray-100 border-solid">
       <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
         <TabsList>
@@ -87,6 +89,7 @@ const EventTabs = ({
         }
       `}</style>
     </div>
+    </SearchableWrapper>
   );
 };
 

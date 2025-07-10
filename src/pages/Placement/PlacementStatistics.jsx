@@ -21,7 +21,7 @@ const Button = ({ children, className = '', variant = 'default', ...props }) => 
     'px-4 py-2 rounded-lg font-semibold transition-all duration-300 focus:outline-none';
   const variants = {
     default: 'bg-red-600 text-white hover:bg-red-700',
-    outline: 'border border-red-600 text-red-600 hover:bg-red-600 hover:text-white',
+    outline: 'border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white',
   };
   return (
     <button className={`${baseStyle} ${variants[variant]} ${className}`} {...props}>
@@ -32,21 +32,22 @@ const Button = ({ children, className = '', variant = 'default', ...props }) => 
 
 const PlacementStatistics = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen pt-3 bg-gradient-to-br from-gray-50 to-blue-50">
 
 
       {/* Hero Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mt-5 mb-12">
-            <h1 className="text-3xl font-bold text-gray-900 mb-6 animate-fade-in">
+          
+<div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-blue-800 mb-4">
               Placement Statistics
-            </h1>
-            <p className="text-xl text-gray-900 mb-8 max-w-3xl mx-auto">
+            </h2>
+            <p className="text-lg text-center text-gray-600">
               Our comprehensive placement data showcases the success of our students and the trust of our industry partners
             </p>
+            <div className="w-24 h-1 bg-blue-500 mx-auto mt-4 rounded-full" />
           </div>
-
           {/* Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 my-20 ">
             <Card className="bg-white pt-5 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover-scale">
@@ -319,7 +320,7 @@ const PlacementStatistics = () => {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Get Detailed Report</h3>
                 <p className="text-gray-600 mt-1 mb-6">Download our comprehensive placement report with detailed analytics and insights</p>
-                <Button className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-3 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover-scale">
+                <Button className="bg-gradient-to-r   from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white px-8 py-3 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover-scale">
                   <Download className="h-5 w-5 mr-3" />
                   Download Full Placement Report (2024)
                 </Button>

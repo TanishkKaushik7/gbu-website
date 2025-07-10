@@ -1,5 +1,6 @@
-import React from 'react';
-import { Linkedin } from 'lucide-react';
+ import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Linkedin } from "lucide-react";
 
 const teamMembers = [
   {
@@ -17,60 +18,94 @@ const teamMembers = [
   {
     name: 'Dr. Vinay Kumar Litoria',
     position: 'Nodal Officer',
-    linkedin: 'https://www.linkedin.com/in/dr-vinay-kumar-litoria',
-    image: 'https://via.placeholder.com/150?text=Vinay+Litoria'
+    linkedin: 'https://www.linkedin.com/in/vinay-kumar-litoria/',
+    image: 'https://summit.careerguide.com/wp-content/uploads/2022/06/vinay-litoria.jpeg'
   },
   {
     name: 'Mr. Raj Kumar',
     position: 'Manager',
     linkedin: 'https://www.linkedin.com/in/raj-kumar-manager',
-    image: 'https://via.placeholder.com/150?text=Raj+Kumar'
+    image: 'https://gburif.org/mentors/raj_kumar_edit.jpg'
   },
   {
     name: 'Mr. Manish Bhardwaj',
     position: 'Office Assistant',
     linkedin: 'https://www.linkedin.com/in/manish-bhardwaj-office',
-    image: 'https://via.placeholder.com/150?text=Manish+Bhardwaj'
+    image: ''
   },
   {
     name: 'Mr. Shekhar Chandra',
     position: 'Office Attendant',
     linkedin: 'https://www.linkedin.com/in/shekhar-chandra-attendant',
-    image: 'https://via.placeholder.com/150?text=Shekhar+Chandra'
+    image: ''
   }
 ];
 
-export default function Team() {
+// Duplicate for infinite scrolling
+const repeatedTeam = [...teamMembers, ...teamMembers];
+
+export default function TeamSlider() {
+  const [x, setX] = useState(0);
+  const cardWidth = 220;
+  const gap = 24;
+  const moveBy = cardWidth + gap;
+  const totalCards = repeatedTeam.length;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setX((prevX) => {
+        const nextX = prevX - moveBy;
+        const maxOffset = -moveBy * teamMembers.length;
+        return nextX <= maxOffset ? 0 : nextX;
+      });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-center mb-8">MEET OUR TEAM</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
+    <section className="py-10 bg-gray-50 overflow-hidden">
+       
+         <h1 className="text-3xl font-bold text-center mb-8">MEET OUR TEAM</h1>
+         
+    
+      <div className="relative w-full max-w-7xl mx-auto px-4 overflow-hidden">
+        <motion.div
+          animate={{ x }}
+          transition={{ ease: "easeInOut", duration: 0.6 }}
+          className="flex py-4"
+          style={{
+            width: `${(cardWidth + gap) * totalCards}px`,
+            columnGap: `${gap}px`,
+          }}
+        >
+          {repeatedTeam.map((member, i) => (
             <div
-              key={index}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 p-6 text-center"
+              key={i}
+              className="flex-shrink-0 bg-white rounded-xl shadow-md border border-blue-100 p-4 flex flex-col items-center text-center cursor-pointer hover:shadow-lg hover:scale-105 transform transition-all duration-300"
+              style={{ width: `${cardWidth}px` }}
             >
               <img
-                src={member.image}
+                src={member.image || "https://via.placeholder.com/100/6B7280/FFFFFF?text=No+Image"}
                 alt={member.name}
-                className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-4 border-blue-100"
+                className="w-24 h-28 object-cover rounded-md shadow mb-3"
               />
-              <h3 className="text-lg font-bold text-gray-800 mb-1">{member.name}</h3>
-              <p className="text-sm text-blue-600 font-medium mb-4">{member.position}</p>
-              <div className="flex justify-center">
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              </div>
+              <h3 className="text-sm font-semibold text-gray-800 mb-1">
+                {member.name}
+              </h3>
+              <p className="text-xs text-gray-500 mb-2">{member.position}</p>
+              <a
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-2 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-600 text-xs font-medium"
+                aria-label={`View ${member.name}'s LinkedIn`}
+              >
+                <Linkedin className="w-3 h-3" />
+                LinkedIn
+              </a>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

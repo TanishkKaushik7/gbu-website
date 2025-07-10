@@ -6,14 +6,12 @@ const Landing = () => {
 
   const slides = [
     {
-      image:
-        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1920&h=1080&fit=crop",
+      image: "/assets/ICT.png",
       title: "School Of ICT",
       subtitle: "Shaping Tomorrow's Engineers Today",
     },
     {
-      image:
-        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1920&h=1080&fit=crop",
+      image: "/assets/CyberLab.jpeg",
       title: "State-of-the-Art Laboratories",
       subtitle: "Where Innovation Meets Technology",
     },
@@ -43,7 +41,7 @@ const Landing = () => {
   return (
     <section
       id="home"
-      className="relative h-[500px] overflow-hidden mt-10 rounded-xl shadow-lg"
+      className="relative h-[500px] overflow-hidden mt-10 shadow-lg"
     >
       {slides.map((slide, index) => (
         <div
@@ -57,9 +55,9 @@ const Landing = () => {
           <img
             src={slide.image}
             alt={slide.title}
-            className="w-full h-full object-cover rounded-xl"
+            className="w-full h-full object-cover "
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent rounded-xl" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent " />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center text-white max-w-3xl px-4">
               <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">

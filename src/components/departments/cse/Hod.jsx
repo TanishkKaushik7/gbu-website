@@ -63,7 +63,7 @@ const HodMessage = () => {
                </p>
 
               <div className="pt-4">
-                <p className="font-semibold text-foreground">Dr. Rajesh Kumar</p>
+                <p className="font-semibold text-foreground">Dr. Arun Solanki</p>
                 <p className="text-sm">Head of Department - CSE</p>
               </div>
             </div>

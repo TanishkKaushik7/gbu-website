@@ -1,5 +1,6 @@
 
 import React from 'react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Card components
 const Card = ({ children, className = "" }) => (
   <div className={`bg-white rounded-xl shadow-md border border-gray-200 ${className}`}>{children}</div>
@@ -110,6 +111,7 @@ const CourseApplications = () => {
   const currentData = schoolData[selectedSchool] || schoolData['Engineering'];
 
   return (
+    <SearchableWrapper>
     <div className="space-y-6">
       {/* School Selector */}
       <Card>
@@ -211,6 +213,7 @@ const CourseApplications = () => {
         </CardContent>
       </Card>
     </div>
+    </SearchableWrapper>
   );
 };
 

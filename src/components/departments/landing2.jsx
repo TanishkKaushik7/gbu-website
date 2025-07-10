@@ -10,10 +10,10 @@ const Landing = () => {
       for (let i = 0; i < 10; i++) {
         birdArray.push({
           id: i,
-          top: Math.random() * 30 + 5, // 5% to 35% from top
+          top: Math.random() * 30 + 5, 
           delay: Math.random() * 8,
-          speed: Math.random() * 5 + 12, // 12-17s animation
-          size: Math.random() * 0.4 + 0.8, // 0.8 to 1.2 scale
+          speed: Math.random() * 5 + 12,
+          size: Math.random() * 0.4 + 0.8,
         });
       }
       setBirds(birdArray);

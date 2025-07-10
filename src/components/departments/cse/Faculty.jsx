@@ -44,38 +44,38 @@ const Faculty = () => {
   const facultyMembers = [
     {
       name: "Dr. Aarti Gautam Dinker",
-      position: "Professor & Research Head",
-      specialization: "Artificial Intelligence, Machine Learning",
-      email: "priya.sharma@cse.edu",
+      position: "Assistant Professor",
+      specialization: "Cyber Security",
+      email: "aarti@gbu.ac.in",
       achievements: "50+ Publications, IEEE Fellow",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b8cc?auto=format&fit=crop&w=300&q=80",
+      image: "https://faculty.gbu.ac.in/uploads/photos/6605300c5c849_aarti.jpg",
       color: "from-blue-500 to-blue-600"
     },
     {
       name: "Dr. Anurag Baghel",
-      position: "Associate Professor",
-      specialization: "Cybersecurity, Network Security",
-      email: "amit.kumar@cse.edu",
+      position: "Assistant Professor",
+      specialization: "Artificial Intelligence, Soft Computing, Optimization Techniques, Algorithm Design, Embedded Systems",
+      email: "asb@gbu.ac.in",
       achievements: "30+ Publications, NSF Grant Recipient",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80",
+      image: "https://faculty.gbu.ac.in/uploads/photos/66052f4f5757a_asb.jpg",
       color: "from-purple-500 to-purple-600"
     },
     {
-      name: "Dr. Sarah Chen",
+      name: "Dr. Rajendra Bahadur Singh",
       position: "Assistant Professor",
-      specialization: "Data Science, Big Data Analytics",
-      email: "sarah.chen@cse.edu",
+      specialization: "Soft Computing, Data Analytics, IC Floorplanning",
+      email: "rajendra@gbu.ac.in",
       achievements: "25+ Publications, Google Research Award",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=300&q=80",
+      image: "https://faculty.gbu.ac.in/uploads/photos/6613ce13d7538_RBS_PIC.jpeg",
       color: "from-green-500 to-green-600"
     },
     {
-      name: "Dr. Ravi Patel",
-      position: "Professor",
-      specialization: "Software Engineering, Distributed Systems",
-      email: "ravi.patel@cse.edu",
+      name: "Dr. Rajesh Mishra",
+      position: "Assistant Professor",
+      specialization: "Networks, Signal Processing, Communication Systems, Reliability Engineering, RAMS",
+      email: " rmishra@gbu.ac.in",
       achievements: "40+ Publications, ACM Distinguished Scientist",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+      image: "https://faculty.gbu.ac.in/uploads/photos/67c341c729a98_rajesh%20photo.jpg",
       color: "from-orange-500 to-orange-600"
     }
   ];

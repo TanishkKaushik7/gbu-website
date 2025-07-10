@@ -1,5 +1,6 @@
 
 import React from 'react';
+import SearchableWrapper from '../../Searchbar/SearchableWrapper';
 // Simple Card and CardContent components with modern UI and effects
 const Card = ({ children }) => (
   <div className="bg-white rounded-2xl shadow-lg border border-gray-200 transition-shadow hover:shadow-2xl">
@@ -85,6 +86,7 @@ const AdmissionTimeline = () => {
   };
 
   return (
+    <SearchableWrapper>
     <Card>
       <CardContent className="p-6">
         <div className="flex items-center space-x-2 mb-6">
@@ -154,6 +156,7 @@ const AdmissionTimeline = () => {
         </div>
       </CardContent>
     </Card>
+    </SearchableWrapper>
   );
 };
 

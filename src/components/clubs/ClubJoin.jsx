@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { UserPlus, Mail, Phone, User, GraduationCap, Send, CheckCircle } from 'lucide-react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Minimal UI components for demonstration purposes
 
 const Card = ({ children, className = "" }) => (
@@ -157,6 +158,7 @@ const ClubJoin = ({ club }) => {
   }
 
   return (
+    <SearchableWrapper>
     <div className="space-y-8">
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Join Our Community</h2>
@@ -341,6 +343,7 @@ const ClubJoin = ({ club }) => {
         </div>
       </div>
     </div>
+    </SearchableWrapper>
   );
 };
 

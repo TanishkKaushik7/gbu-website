@@ -1,27 +1,29 @@
  import React from 'react';
+ import Meditation from '../../../assets/Meditation.jpeg';
 
 export default function Services() {
   const content = [
     {
       title: 'Library',
       description:  "Bodhisattva Dr. B.R.Ambedkar Library is the heart of academic and research activities of the Gautam Buddha University. It has been catering to the needs of faculty members, research scholars, and students on campus effectively.",
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTZOVOqFN0zWMXadrJa3W4Mbd6aHWmKRX6XA&s',
+      image: 'https://library.gbu.ac.in/img/Artboard%201library1.jpg',
     },
     {
       title: 'Meditation Centre',
       description: 'The centre is looking forward to organize seminars, lectures and experiential workshops in meditation, positive values, stress free living and self management.',
-      image: 'https://images.forbesindia.com/media/images/2022/Apr/img_182733_drone.jpg',
+      image: Meditation,
     },
     {
       title: 'Central Computer Center',
       description: 'The Central Computer Center of Gautam Buddha University is a central facility that caters the IT needs of the University and provides access to internet resources as well as telecommunication facilities. ',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3And16FqajXrJoUP94YtPYoXy9i6786IyUQ&s',
+      image: 'https://www.gbu.ac.in/Content/gbudata/ccc/assets/img/banner3.jpg',
     },
   ];
 
   return (
     <div className="px-6 md:px-20 py-10 bg-gray-50">
-       <h1 className="text-3xl font-bold text-center mb-8">SERVICES</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">SERVICES</h1>
+      
 
       {/* Card Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">

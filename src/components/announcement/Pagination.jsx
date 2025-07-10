@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 
 // Enhanced Button with more modern styles and subtle animation
 const Button = ({
@@ -99,6 +100,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   };
 
   return (
+    <SearchableWrapper>
     <div className="flex items-center justify-center gap-2 mt-10">
       <Button
         variant="outline"
@@ -150,6 +152,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <ChevronRight size={18} />
       </Button>
     </div>
+    </SearchableWrapper>
   );
 };
 

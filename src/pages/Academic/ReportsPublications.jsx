@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {
   FileText, Download, Calendar, Eye, BookOpen,
@@ -8,6 +9,8 @@ import {
 const ReportsPublications = () => {
   const [hero, setHero] = useState(null);
   const [reports, setReports] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const BASE = import.meta.env.VITE_HOST?.replace(/\/$/, '');
 
@@ -29,25 +32,32 @@ const ReportsPublications = () => {
   };
 
   useEffect(() => {
-    const fetchReportsData = async () => {
+    const fetchData = async () => {
       try {
-        const [heroRes, listRes] = await Promise.all([
-          fetch(`${BASE}/academic/reports/hero/`),
-          fetch(`${BASE}/academic/reports/list/`)
+        const [heroRes, reportsRes] = await Promise.all([
+          axios.get(`${BASE}/academic/reports/hero/`),
+          axios.get(`${BASE}/academic/reports/list/`)
         ]);
 
-        const heroData = await heroRes.json();
-        const listData = await listRes.json();
-
-        setHero(heroData[0]);
-        setReports(listData);
+        setHero(heroRes.data[0]);
+        setReports(reportsRes.data);
       } catch (error) {
         console.error('Error fetching reports data:', error);
       }
     };
 
-    fetchReportsData();
+    fetchData();
   }, [BASE]);
+
+  const filteredReports = reports.filter(report => {
+    const matchesCategory =
+      selectedCategory === 'All' ||
+      report.category.toLowerCase() === selectedCategory.toLowerCase();
+    const matchesSearch =
+      report.card_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      report.card_desc.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   if (!hero) return <div className="text-center py-20">Loading...</div>;
 
@@ -116,13 +126,14 @@ const ReportsPublications = () => {
             <p className="text-xl text-gray-600">{hero.description}</p>
           </div>
 
-          {/* Filter Category UI - non-functional for now */}
+          {/* Filter Category UI */}
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             {categories.map((category, index) => (
               <button
                 key={index}
+                onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  index === 0
+                  selectedCategory === category
                     ? 'bg-blue-600 text-white'
                     : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'
                 }`}
@@ -133,14 +144,15 @@ const ReportsPublications = () => {
             <input
               type="text"
               placeholder="Search reports..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="ml-4 px-4 py-2 rounded-full border border-gray-300 border-solid focus:outline-none focus:ring-2 focus:ring-blue-200 text-sm"
               style={{ minWidth: 200 }}
-              disabled
             />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {reports.map((report, index) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 mx-10 gap-8">
+            {filteredReports.map((report, index) => (
               <div
                 key={report.id}
                 className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 animate-fade-in"
@@ -153,7 +165,11 @@ const ReportsPublications = () => {
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-bold text-gray-800 mb-1">{report.card_title}</h3>
-                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(report.category)}`}>
+                      <span
+                        className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(
+                          report.category
+                        )}`}
+                      >
                         {report.category}
                       </span>
                     </div>

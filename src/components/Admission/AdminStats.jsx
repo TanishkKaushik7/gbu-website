@@ -1,7 +1,9 @@
 
 import React from 'react';
-// Custom Card components with modern UI effects
+import { Users, FileText, CheckCircle, AlertCircle, GraduationCap, BookOpen } from 'lucide-react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 
+// Custom Card components with modern UI effects
 const Card = ({ children, className = '', ...props }) => (
   <div
     className={
@@ -39,7 +41,8 @@ const CardContent = ({ children, className = '', ...props }) => (
     {children}
   </div>
 );
-import { Users, FileText, CheckCircle, AlertCircle, GraduationCap, BookOpen } from 'lucide-react';
+
+
 
 const AdminStats = () => {
   const stats = [
@@ -89,6 +92,7 @@ const AdminStats = () => {
   ];
 
   return (
+    <SearchableWrapper>
     <div className="space-y-8">
       {/* Main Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -148,6 +152,7 @@ const AdminStats = () => {
         </CardContent>
       </Card>
     </div>
+    </SearchableWrapper>
   );
 };
 

@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Dialog Components
 const Dialog = ({ open, onOpenChange, children }) => {
   if (!open) return null;
@@ -150,6 +151,7 @@ const NoticeModal = () => {
 
   return (
     <>
+    <SearchableWrapper>
       {/* Notice Bell Button */}
       <button
         onClick={() => setIsOpen(true)}
@@ -233,6 +235,7 @@ const NoticeModal = () => {
           </div>
         </DialogContent>
       </Dialog>
+      </SearchableWrapper>
     </>
   );
 };

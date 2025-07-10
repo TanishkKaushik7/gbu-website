@@ -1,20 +1,25 @@
-import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 import { ArrowLeft, Award, Calendar, DollarSign, Users, CheckCircle, Clock, Target } from "lucide-react";
 
 const ResearchProjects = () => {
   return (
 <>
-
-      {/* Hero Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Transformative Research Initiatives</h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-4xl mx-auto">
+ <div className="min-h-sceen">
+ {/* Hero Section */}
+      <section className="py-20   bg-gradient-to-br from-purple-50 to-indigo-100 h-[310px]">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-5xl font-bold text-gray-900 mb-6 animate-fade-in">
+           Transformative Research Initiatives
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in">
             Our research projects span cutting-edge technologies and address real-world challenges,
             funded by prestigious government agencies and industry partners.
           </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        </div>
+      </section>
+      {/* Stats */}
+      <section className="py-16 px-4 bg-white"> 
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6  max-w-7xl mx-auto">
             <div className="bg-white p-6 rounded-xl shadow-lg">
               <Award className="h-12 w-12 text-blue-600 mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-gray-900 mb-2">75</h3>
@@ -36,7 +41,6 @@ const ResearchProjects = () => {
               <p className="text-gray-600">Completed Projects</p>
             </div>
           </div>
-        </div>
       </section>
 
       {/* Major Ongoing Projects */}
@@ -618,6 +622,7 @@ const ResearchProjects = () => {
           </div>
         </div>
       </section>
+   </div>
       </>
   );
 };

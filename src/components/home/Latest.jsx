@@ -209,13 +209,13 @@ export default function LatestUpdates() {
                   </div>
                 </div>
 
-                <div className="flex align-middle justify-end z-10 mt-8 h-12">
+                <div className="flex align-middle justify-end z-10 mt-8 h-10">
                   <button
                     onClick={() => {
                       const url = catItem.view_more_url || '/news-and-events';
                       window.location.href = url;
                     }}
-                    className="px-4 py-2 border border-blue-500 text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-200 bg-transparent shadow"
+                    className="px-4 py-1 text-blue-600  rounded-2xl font-semibold hover:bg-blue-500 hover:text-white transition-colors duration-200 bg-transparent"
                   >
                     View More
                   </button>

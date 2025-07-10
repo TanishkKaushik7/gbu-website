@@ -2,27 +2,11 @@ import { useState, useEffect } from 'react';
 import { Badge } from './ui/Badge';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const StudentStartup = () => {
+const StudentStartup = ( {startupData={startups: [], stats: {}}}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Simulated dynamic data (replace with API later)
-  const startupData = {
-    startups: [
-      {
-        name: 'KOYAL FM',
-        founder: 'GBU Incubation Team',
-        description: 'Campus-based community radio initiative by students',
-        funding: 'University Supported',
-        status: 'Incubated',
-        image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop',
-        year: '2020',
-      },
-    ],
-    stats: {
-      totalFunding: '₹19.3L+',
-      totalDepartments: 4,
-    }
-  };
+
 
   const { startups, stats } = startupData;
 
@@ -60,28 +44,28 @@ const StudentStartup = () => {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <section className="py-16 bg-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-purple-700 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold mb-4 text-blue-800">
             Student Startups
           </h2>
           <p className="text-xl text-gray-600">Empowering the next generation of entrepreneurs</p>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 mx-auto mt-4 rounded-full" />
+          <div className="w-24 h-1 bg-blue-500 mx-auto mt-4 rounded-full" />
         </div>
 
         {/* Dynamic Stats Section */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
+          <div className="bg-white backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
             <div className="text-3xl font-bold text-blue-600 mb-2">{startups.length}</div>
             <div className="text-gray-600">Active Student Startups</div>
           </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
-            <div className="text-3xl font-bold text-green-600 mb-2">{stats.totalFunding}</div>
+          <div className="bg-white backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
+            <div className="text-3xl font-bold text-blue-600 mb-2">{stats.totalFunding}</div>
             <div className="text-gray-600">Total Funding Raised</div>
           </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
-            <div className="text-3xl font-bold text-purple-600 mb-2">{stats.totalDepartments}</div>
+          <div className="bg-white backdrop-blur-sm rounded-lg p-6 text-center shadow-lg">
+            <div className="text-3xl font-bold text-blue-600 mb-2">{stats.totalDepartments}</div>
             <div className="text-gray-600">Departments Represented</div>
           </div>
         </div>

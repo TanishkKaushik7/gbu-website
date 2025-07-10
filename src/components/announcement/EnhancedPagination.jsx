@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal, ChevronDown } from "lucide-react";
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 
 // Enhanced Button component
 const Button = ({
@@ -151,6 +152,7 @@ const EnhancedPagination = ({
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   return (
+    <SearchableWrapper>
     <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-10 bg-gradient-to-r from-white via-blue-50 to-white p-6 rounded-2xl shadow-lg border border-blue-100">
       {/* Items Info */}
       <div className="text-sm text-gray-700 font-medium bg-blue-50 px-4 py-2 rounded-lg shadow-inner">
@@ -223,6 +225,7 @@ const EnhancedPagination = ({
         </div>
       )}
     </div>
+    </SearchableWrapper>
   );
 };
 

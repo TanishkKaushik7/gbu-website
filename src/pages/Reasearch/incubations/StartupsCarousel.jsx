@@ -13,6 +13,7 @@ export default function StartupsCarousel() {
   return (
     <div className="bg-gray-50 py-10 mt-10 mr-15 ml-20">
       <h2 className="text-3xl font-bold text-center mb-6">STARTUPS/INCUBATEES</h2>
+      
       <div className="overflow-hidden relative w-full">
         <div
           className="flex w-max animate-[scroll_15s_linear_infinite] space-x-20"

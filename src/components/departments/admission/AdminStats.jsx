@@ -1,5 +1,6 @@
 
 import React from 'react';
+import SearchableWrapper from '../../Searchbar/SearchableWrapper';
 // Card components with modern UI and subtle effects
 
 const Card = ({ children, className = '', ...props }) => (
@@ -78,6 +79,7 @@ const AdminStats = () => {
   ];
 
   return (
+    <SearchableWrapper>
     <div className="space-y-8">
       {/* Main Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -137,6 +139,7 @@ const AdminStats = () => {
         </CardContent>
       </Card>
     </div>
+    </SearchableWrapper>
   );
 };
 

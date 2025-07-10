@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, Filter, Eye, Download } from 'lucide-react';
 
 const NSSGallery = () => {
@@ -16,10 +17,10 @@ const NSSGallery = () => {
       year: '2024',
       date: '2024-01-15',
       images: [
-        { url: '/placeholder.svg', caption: 'Volunteers registering donors' },
-        { url: '/placeholder.svg', caption: 'Medical team conducting checkups' },
-        { url: '/placeholder.svg', caption: 'Blood collection in progress' },
-        { url: '/placeholder.svg', caption: 'Volunteers with certificates' }
+        { url: 'https://nss.gbu.ac.in/uploads/imagesfiles/666c5b818913d_WhatsApp%20Image%202024-04-19%20at%201.59.17%20PM%20(1).jpeg', caption: 'Volunteers registering donors' },
+        { url: 'https://nss.gbu.ac.in/uploads/imagesfiles/666c5b5215672_WhatsApp%20Image%202024-04-19%20at%201.28.41%20PM%20(1).jpeg', caption: 'Medical team conducting checkups' },
+        { url: 'https://nss.gbu.ac.in/uploads/imagesfiles/666c5b43cda9a_WhatsApp%20Image%202024-04-19%20at%202.00.34%20PM.jpeg', caption: 'Blood collection in progress' },
+        { url: 'https://nss.gbu.ac.in/uploads/imagesfiles/666c5b5c4bf7a_WhatsApp%20Image%202024-04-19%20at%204.04.40%20PM.jpeg', caption: 'Volunteers with certificates' }
       ]
     },
     {
@@ -95,17 +96,34 @@ const NSSGallery = () => {
   };
 
   return (
-    <div className="space-y-8">
+
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="space-y-8 mx-20"
+    >
+
       {/* Header */}
-      <div className="text-center">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="text-center"
+      >
         <h2 className="text-3xl font-bold text-gray-900 mb-4">NSS Gallery</h2>
         <p className="text-lg text-gray-600">
           Capturing moments of service, impact, and community engagement
         </p>
-      </div>
+      </motion.div>
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="bg-white rounded-lg shadow p-6"
+      >
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex items-center space-x-2">
             <Filter className="h-4 w-4 text-gray-600" />
@@ -146,12 +164,27 @@ const NSSGallery = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Gallery Grid */}
-      <div className="space-y-8">
+      <motion.div
+        className="space-y-8"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.2 } }
+        }}
+      >
         {filteredItems.map((item) => (
-          <div key={item.id} className="bg-white rounded-lg shadow overflow-hidden">
+          <motion.div
+            key={item.id}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            className="bg-white rounded-lg shadow overflow-hidden"
+          >
             <div className="p-4 border-b border-gray-200">
               <div className="flex justify-between items-start">
                 <div>
@@ -178,16 +211,25 @@ const NSSGallery = () => {
             <div className="p-4">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {item.images.map((image, index) => (
-                  <div key={index} className="relative group cursor-pointer" onClick={() => setDialogImage(image)}>
+                  <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.05 }}
+                    className="relative group cursor-pointer"
+                    onClick={() => setDialogImage(image)}
+                  >
                     <img
                       src={image.url}
                       alt={image.caption}
-                      className="w-full h-32 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-32 object-cover rounded-lg"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 rounded-lg flex items-center justify-center">
-                      <Eye className="h-6 w-6 text-white opacity-0 transform scale-90 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300" />
-                    </div>
-                  </div>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                      className="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex items-center justify-center"
+                    >
+                      <Eye className="h-6 w-6 text-white" />
+                    </motion.div>
+                  </motion.div>
                 ))}
               </div>
 
@@ -201,70 +243,105 @@ const NSSGallery = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      {/* Dialog View */}
-      {dialogImage && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-          role="dialog"
-          aria-modal="true"
+      {/* Dialog */}
+    
+<AnimatePresence>
+  {dialogImage && (
+    <motion.div
+      className="fixed inset-0 z-50 flex items-start justify-center bg-white/80 backdrop-blur-sm"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={() => setDialogImage(null)}
+    >
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -20, opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="bg-white rounded-xl shadow-2xl p-4 md:p-6 w-[90vw] max-w-xl relative mt-30"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close Button */}
+        <button
+          className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 focus:outline-none"
           onClick={() => setDialogImage(null)}
+          aria-label="Close"
         >
-          <div
-            className="bg-white rounded-lg p-6 w-[90vw] md:w-auto max-w-4xl relative"
-            onClick={(e) => e.stopPropagation()}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <button
-              className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onClick={() => setDialogImage(null)}
-              aria-label="Close"
-            >
-              ×
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div className="space-y-3">
+          <div className="flex items-center justify-center">
+            <img
+              src={dialogImage.url}
+              alt={dialogImage.caption}
+              className="rounded-md object-contain max-h-[60vh]"
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+            <p className="text-gray-700 text-center sm:text-left">{dialogImage.caption}</p>
+            <button className="flex items-center gap-2 px-4 py-2 text-sm rounded bg-blue-600 text-white hover:bg-blue-700 transition">
+              <Download className="h-4 w-4" />
+              Download
             </button>
-            <div className="space-y-4">
-              <img src={dialogImage.url} alt={dialogImage.caption} className="w-full h-auto rounded-lg" />
-              <div className="flex justify-between items-center">
-                <p className="text-gray-700">{dialogImage.caption}</p>
-                <button className="flex items-center gap-2 px-4 py-2 text-sm border rounded text-gray-700 bg-white hover:bg-gray-50">
-                  <Download className="h-4 w-4" />
-                  Download
-                </button>
-              </div>
-            </div>
           </div>
         </div>
-      )}
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
 
       {/* Statistics */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg shadow">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg shadow"
+      >
         <div className="p-8">
           <h3 className="text-2xl font-bold mb-6 text-center">Gallery Statistics</h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-            <div>
-              <div className="text-4xl font-bold mb-2">500+</div>
-              <div className="text-blue-100">Total Photos</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">50+</div>
-              <div className="text-blue-100">Events Documented</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">25+</div>
-              <div className="text-blue-100">Video Records</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">10K+</div>
-              <div className="text-blue-100">Views & Downloads</div>
-            </div>
+            {[
+              { value: '500+', label: 'Total Photos' },
+              { value: '50+', label: 'Events Documented' },
+              { value: '25+', label: 'Video Records' },
+              { value: '10K+', label: 'Views & Downloads' }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: i * 0.2 }}
+              >
+                <div className="text-4xl font-bold mb-2">{stat.value}</div>
+                <div className="text-blue-100">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Upload Section */}
-      <div className="border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors rounded-lg shadow">
+      {/* Upload */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors rounded-lg shadow"
+      >
         <div className="flex flex-col items-center justify-center py-12">
           <Camera className="h-12 w-12 text-gray-400 mb-4" />
           <h3 className="text-lg font-semibold text-gray-600 mb-2">Add New Photos</h3>
@@ -276,8 +353,8 @@ const NSSGallery = () => {
             Upload Media
           </button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

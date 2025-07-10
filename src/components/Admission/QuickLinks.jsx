@@ -1,5 +1,6 @@
 
 import React from 'react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Card, CardHeader, CardTitle, CardContent, and Button components defined locally
 
 const Card = ({ children, className = "" }) => (
@@ -114,6 +115,7 @@ const QuickLinks = () => {
   ];
 
   return (
+  <SearchableWrapper>
     <div className="space-y-6">
       {/* Quick Links */}
       <Card>
@@ -219,6 +221,7 @@ const QuickLinks = () => {
         </CardContent>
       </Card>
     </div>
+  </SearchableWrapper>
   );
 };
 

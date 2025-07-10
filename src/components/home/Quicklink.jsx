@@ -1,15 +1,11 @@
 import React from "react";
 import {
   FaUniversity,
-  FaMoneyCheckAlt,
   FaBriefcase,
   FaBook,
-  FaBuilding,
-  FaBatteryEmpty,
-  FaPersonBooth,
-  FaWordpress,
-  FaCreativeCommonsNcEu,
   FaUser,
+  FaChalkboardTeacher,
+  FaPenNib,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -20,43 +16,36 @@ const quickLinks = [
     icon: <FaUniversity className="text-white text-2xl" />,
     color: "bg-green-600",
     link: "/academics/schools",
-    external: false,
   },
- 
- 
+
   {
     title: "Faculty",
     desc: "Academic Leadership",
-    icon: <FaBook className="text-white text-2xl" />,
+    icon: <FaChalkboardTeacher className="text-white text-2xl" />,
     color: "bg-green-700",
-    link: "/admissions/courses-offered",
-    external: true,
+    link: "/academics/faculty",
   },
-   {
+  {
     title: "Exam",
     desc: "Schedules, Results & Guideline",
-    icon: <FaUser className="text-white text-2xl" />,
+    icon: <FaPenNib className="text-white text-2xl" />,
     color: "bg-blue-700",
     link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
-    external: true,
   },
 
- 
   {
     title: "Library",
     desc: "Beyond Classroom",
     icon: <FaBook className="text-white text-2xl" />,
     color: "bg-blue-700",
     link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
-    external: true,
   },
- {
+  {
     title: "NSS/NCC",
     desc: "Capacity Building",
     icon: <FaUser className="text-white text-2xl" />,
     color: "bg-blue-700",
     link: "https://buddha-university-portal.lovable.app/campus/infrastructure",
-    external: true,
   },
   {
     title: "Placements",
@@ -64,9 +53,7 @@ const quickLinks = [
     icon: <FaBriefcase className="text-white text-2xl" />,
     color: "bg-orange-600",
     link: "/placements/placement-process",
-    external: true,
   },
-  
 ];
 
 export default function QuickAccess() {
@@ -85,9 +72,7 @@ export default function QuickAccess() {
       <div className="flex flex-wrap justify-center gap-6 px-4">
         {quickLinks.map((item, idx) => {
           const Card = (
-            <div
-              className="w-70 sm:w-64 bg-white rounded-lg shadow-md p-6 text-center transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
-            >
+            <div className="w-70 sm:w-64 bg-white rounded-lg shadow-md p-6 text-center transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full">
               <div
                 className={`w-14 h-14 mx-auto flex items-center justify-center rounded-full ${item.color} mb-4`}
               >

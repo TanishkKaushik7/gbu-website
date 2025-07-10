@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Card component
 const Card = ({ className = '', children }) => (
   <div className={`bg-white rounded-xl shadow-md ${className}`}>{children}</div>
@@ -159,6 +160,7 @@ const LoginForm = ({ type }) => {
   };
 
   return (
+    <SearchableWrapper>
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="text-center space-y-4">
@@ -279,6 +281,7 @@ const LoginForm = ({ type }) => {
         </CardContent>
       </Card>
     </div>
+    </SearchableWrapper>
   );
 };
 

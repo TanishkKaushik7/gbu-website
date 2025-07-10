@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Calendar, MapPin, ExternalLink, Clock, Filter } from 'lucide-react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Card component
 const Card = ({ children, className = "" }) => (
   <div className={`bg-white rounded-lg shadow border ${className}`}>{children}</div>
@@ -59,15 +60,15 @@ const Badge = ({ children, className = "" }) => (
 );
 import { clubsData } from './data/clubsData';
 
- 
 
-const ClubEvents  = ({ club }) => {
+
+const ClubEvents = ({ club }) => {
   const [selectedFilter, setSelectedFilter] = useState('all');
 
   const eventTypes = ['all', 'workshop', 'competition', 'cultural', 'social'];
-  
-  const filteredEvents = selectedFilter === 'all' 
-    ? club.events 
+
+  const filteredEvents = selectedFilter === 'all'
+    ? club.events
     : club.events.filter(event => event.type === selectedFilter);
 
   const getEventTypeColor = (type) => {
@@ -82,10 +83,10 @@ const ClubEvents  = ({ club }) => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   };
 
@@ -94,6 +95,7 @@ const ClubEvents  = ({ club }) => {
   };
 
   return (
+    <SearchableWrapper>
     <div className="space-y-6">
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Events & Activities</h2>
@@ -101,22 +103,22 @@ const ClubEvents  = ({ club }) => {
       </div>
 
       {/* Filter Buttons */}
-     <div className="flex flex-wrap gap-2 justify-center">
-  {eventTypes.map((type) => (
-    <button
-      key={type}
-      onClick={() => setSelectedFilter(type)}
-      className={`flex items-center px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 capitalize
+      <div className="flex flex-wrap gap-2 justify-center">
+        {eventTypes.map((type) => (
+          <button
+            key={type}
+            onClick={() => setSelectedFilter(type)}
+            className={`flex items-center px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 capitalize
         ${selectedFilter === type
-          ? "bg-[#0F172A] text-white shadow-md"
-          : "bg-white border border-gray-300 text-gray-800 hover:bg-gray-100"
-        }`}
-    >
-      <Filter className="w-4 h-4 mr-2" />
-      {type === 'all' ? 'All Events' : type}
-    </button>
-  ))}
-</div>
+                ? "bg-[#0F172A] text-white shadow-md"
+                : "bg-white border border-gray-300 text-gray-800 hover:bg-gray-100"
+              }`}
+          >
+            <Filter className="w-4 h-4 mr-2" />
+            {type === 'all' ? 'All Events' : type}
+          </button>
+        ))}
+      </div>
 
 
       {/* Events Grid */}
@@ -125,8 +127,8 @@ const ClubEvents  = ({ club }) => {
           {filteredEvents.map((event) => (
             <Card key={event.id} className="border-gray-300 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
               <div className="relative">
-                <img 
-                  src={event.image} 
+                <img
+                  src={event.image}
                   alt={event.title}
                   className="w-full h-48 object-cover"
                 />
@@ -188,8 +190,8 @@ const ClubEvents  = ({ club }) => {
               No {selectedFilter === 'all' ? '' : selectedFilter} events found
             </h3>
             <p className="text-gray-600">
-              {selectedFilter === 'all' 
-                ? 'No events are currently scheduled. Check back soon!' 
+              {selectedFilter === 'all'
+                ? 'No events are currently scheduled. Check back soon!'
                 : `No ${selectedFilter} events are currently scheduled.`
               }
             </p>
@@ -214,14 +216,15 @@ const ClubEvents  = ({ club }) => {
   <ExternalLink className="w-4 h-4" />
   Subscribe to Calendar
 </Button> */}
- <Button variant="outline" size="md" className="gap-2">
-               <ExternalLink className="w-4 h-4" />
-  Subscribe to Calendar
+            <Button variant="outline" size="md" className="gap-2">
+              <ExternalLink className="w-4 h-4" />
+              Subscribe to Calendar
             </Button>
           </div>
         </CardContent>
       </Card>
     </div>
+    </SearchableWrapper>
   );
 };
 

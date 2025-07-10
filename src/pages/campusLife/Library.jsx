@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Clock, Wifi, Globe, BookOpen, Book, Armchair } from 'lucide-react';
 
-import React, { useState } from 'react';
-// import { Card, CardContent } from '@/components/ui/card';
-import { Clock, Wifi, Globe, BookOpen, Book } from 'lucide-react';
-// Dialog components defined locally for modal functionality and responsiveness
+// Dialog components
 const Dialog = ({ open, onOpenChange, children }) => {
   if (!open) return null;
   return (
@@ -14,7 +14,7 @@ const Dialog = ({ open, onOpenChange, children }) => {
     >
       <div
         className="relative w-full max-w-2xl mx-4 sm:mx-auto"
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         {children}
       </div>
@@ -31,9 +31,7 @@ const DialogContent = ({ className = "", children, ...props }) => (
   </div>
 );
 
-const DialogHeader = ({ children }) => (
-  <div className="mb-4">{children}</div>
-);
+const DialogHeader = ({ children }) => <div className="mb-4">{children}</div>;
 
 const DialogTitle = ({ className = "", children, ...props }) => (
   <h2 className={`text-xl sm:text-2xl font-bold ${className}`} {...props}>
@@ -42,10 +40,7 @@ const DialogTitle = ({ className = "", children, ...props }) => (
 );
 
 const Card = ({ className = "", children, ...props }) => (
-  <div
-    className={`rounded-lg border bg-white text-black shadow-sm ${className}`}
-    {...props}
-  >
+  <div className={`rounded-lg border bg-white text-black shadow-sm ${className}`} {...props}>
     {children}
   </div>
 );
@@ -56,119 +51,92 @@ const CardContent = ({ className = "", children, ...props }) => (
   </div>
 );
 
+const iconMap = {
+  book: BookOpen,
+  armchair: Armchair,
+  clock: Clock,
+  wifi: Wifi,
+  globe: Globe,
+};
+
 const Library = () => {
+  const [libraryInfo, setLibraryInfo] = useState(null);
+  const [features, setFeatures] = useState([]);
+  const [stats, setStats] = useState([]);
+  const [facilities, setFacilities] = useState([]);
   const [selectedSpace, setSelectedSpace] = useState(null);
 
-  const features = [
-    {
-      icon: Clock,
-      title: '24x7 Access',
-      description: 'Round-the-clock access to study spaces'
-    },
-    {
-      icon: BookOpen,
-      title: '1.5+ Lakh Books',
-      description: 'Extensive collection of academic resources'
-    },
-    {
-      icon: Globe,
-      title: 'Digital Library',
-      description: 'Access to digital books and resources'
-    },
-    {
-      icon: Book,
-      title: 'E-Journals',
-      description: 'Online academic journals and publications'
-    },
-    {
-      icon: Wifi,
-      title: 'Wi-Fi Enabled Study Zones',
-      description: 'High-speed internet throughout the library'
-    }
-  ];
+  const BASE_URL = import.meta.env.VITE_HOST;
 
-  const libraryImages = [
-    {
-      url: 'https://images.unsplash.com/photo-1473177104440-ffee2f376098?w=800&h=600&fit=crop',
-      title: 'Main Reading Hall',
-      description: 'Spacious reading area with natural lighting',
-      capacity: '200 seats',
-      availability: 'Available 24/7',
-      features: ['Silent study zone', 'Individual reading desks', 'Natural lighting', 'Air conditioning'],
-      rules: ['Maintain silence', 'No food or drinks', 'Mobile phones on silent', 'Keep belongings secure']
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
-      title: 'Digital Study Zone',
-      description: 'Computer lab with high-speed internet',
-      capacity: '50 computers',
-      availability: '6 AM - 12 AM',
-      features: ['High-speed internet', 'Latest software', 'Printing facilities', 'Technical support'],
-      rules: ['Valid student ID required', 'Time limit: 2 hours', 'No downloads allowed', 'Report technical issues']
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop',
-      title: 'Group Study Rooms',
-      description: 'Collaborative spaces for team projects',
-      capacity: '6-8 people per room',
-      availability: 'Bookable 24/7',
-      features: ['Whiteboard', 'Projector', 'Audio-visual equipment', 'Comfortable seating'],
-      rules: ['Advance booking required', 'Max 3 hours per session', 'Clean after use', 'Report damages']
-    }
-  ];
-
-  const handleSpaceClick = (space) => {
-    setSelectedSpace(space);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [infoRes, featuresRes, statsRes, facilitiesRes] = await Promise.all([
+          axios.get(`${BASE_URL}campuslife/library-info/`),
+          axios.get(`${BASE_URL}campuslife/library-facilities/`),
+          axios.get(`${BASE_URL}campuslife/library-stats/`),
+          axios.get(`${BASE_URL}campuslife/library-facilities/`),
+        ]);
+        setLibraryInfo(infoRes.data[0]);
+        setFeatures(featuresRes.data);
+        setStats(statsRes.data);
+        setFacilities(facilitiesRes.data);
+      } catch (error) {
+        console.error('Failed to fetch library data:', error);
+      }
+    };
+    fetchData();
+  }, [BASE_URL]);
 
   return (
     <section id="library" className="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
       <div className="container mx-auto px-4">
+        {/* Dynamic Title & Description */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            GBU <span className="text-purple-600">Library</span>
+            {libraryInfo?.title || 'Library'}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Your gateway to knowledge with extensive collections, modern facilities, and digital resources.
+            {libraryInfo?.description}
           </p>
         </div>
 
-        {/* Library Features */}
+        {/* Features */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-6xl mx-auto mb-16">
           {features.map((feature, index) => (
-            <Card key={index} className="text-center hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <Card key={index} className="text-center hover:shadow-xl transition-all pt-5 duration-500 hover:scale-105">
               <CardContent className="p-6">
                 <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="text-white" size={32} />
+                  <Clock className="text-white" size={32} />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{feature.name}</h3>
                 <p className="text-gray-600 text-sm">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        {/* Library Spaces */}
+        {/* Facilities */}
         <div className="mb-16">
           <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">Library Facilities</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {libraryImages.map((image, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 mx-10 gap-6 mb-8">
+            {facilities.map((facility, index) => (
               <Card
                 key={index}
-                className="cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                onClick={() => handleSpaceClick(image)}
+                className="cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-xl"
+                onClick={() => setSelectedSpace(facility)}
               >
                 <CardContent className="p-0">
                   <div className="relative overflow-hidden">
                     <img
-                      src={image.url}
-                      alt={image.title}
+                      src={facility.image}
+                      alt={facility.name}
                       className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                     <div className="absolute bottom-3 left-3 text-white">
-                      <h4 className="font-bold text-sm">{image.title}</h4>
-                      <p className="text-xs opacity-90">{image.description}</p>
+                      <h4 className="font-bold text-sm">{facility.name}</h4>
+                      <p className="text-xs opacity-90">{facility.description}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -177,75 +145,34 @@ const Library = () => {
           </div>
         </div>
 
-        {/* Library Stats */}
-        <Card className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        {/* Stats */}
+        <Card className="bg-gradient-to-r pt-5 from-purple-600 to-blue-600 text-white">
           <CardContent className="p-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-3xl font-bold mb-2">2M+</div>
-                <div className="text-sm opacity-90">Books & Resources</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold mb-2">500+</div>
-                <div className="text-sm opacity-90">Study Seats</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold mb-2">24/7</div>
-                <div className="text-sm opacity-90">Digital Access</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold mb-2">100+</div>
-                <div className="text-sm opacity-90">Computer Terminals</div>
-              </div>
+              {stats.map((stat, index) => (
+                <div key={index}>
+                  <div className="text-3xl font-bold mb-2">{stat.label}</div>
+                  <div className="text-sm opacity-90">{stat.value}</div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
 
-        {/* Space Details Modal */}
+        {/* Dialog */}
         {selectedSpace && (
           <Dialog open={!!selectedSpace} onOpenChange={() => setSelectedSpace(null)}>
             <DialogContent className="max-w-2xl bg-white">
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold">{selectedSpace.title}</DialogTitle>
+                <DialogTitle className="text-2xl font-bold">{selectedSpace.name}</DialogTitle>
               </DialogHeader>
               <div className="space-y-6">
                 <img
-                  src={selectedSpace.url}
-                  alt={selectedSpace.title}
+                  src={selectedSpace.image}
+                  alt={selectedSpace.name}
                   className="w-full h-64 object-cover rounded-lg"
                 />
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Capacity</h4>
-                    <p className="text-gray-600">{selectedSpace.capacity}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Availability</h4>
-                    <p className="text-gray-600">{selectedSpace.availability}</p>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Features</h4>
-                  <ul className="grid grid-cols-2 gap-2">
-                    {selectedSpace.features.map((feature, index) => (
-                      <li key={index} className="flex items-center space-x-2">
-                        <span className="text-purple-600">•</span>
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Rules & Guidelines</h4>
-                  <ul className="space-y-1">
-                    {selectedSpace.rules.map((rule, index) => (
-                      <li key={index} className="flex items-start space-x-2">
-                        <span className="text-purple-600 mt-1">•</span>
-                        <span className="text-gray-700">{rule}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <p className="text-gray-700">{selectedSpace.description}</p>
               </div>
             </DialogContent>
           </Dialog>

@@ -1,32 +1,51 @@
-import React from 'react';
-// Minimal Card, CardContent, CardHeader, and CardTitle components for local use
-import { Mail, Phone, MapPin, Award, Shield, Star } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Mail, Phone, Shield, Award } from "lucide-react";
 
-const Card = ({ className = '', children, ...props }) => (
-  <div className={`rounded-lg shadow bg-white ${className}`} {...props}>{children}</div>
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.01, duration: 0.2, ease: "easeOut" }
+  })
+};
+
+// Minimal Card, CardContent, CardHeader, CardTitle, Badge components
+const Card = ({ className = "", children, ...props }) => (
+  <motion.div
+     initial="hidden"
+  animate="visible"
+  variants={fadeInUp}
+  whileHover={{ scale: 1.02 }}
+  transition={{ duration: 0.3 }}
+    className={`rounded-lg shadow bg-white ${className}`}
+    {...props}
+  >
+    {children}
+  </motion.div>
 );
 
-const CardHeader = ({ className = '', children, ...props }) => (
-  <div className={`px-6 py-4 border-b border-gray-200 ${className}`} {...props}>{children}</div>
-);
-
-const CardTitle = ({ className = '', children, ...props }) => (
-  <h2 className={`font-semibold text-lg ${className}`} {...props}>{children}</h2>
-);
-
-const CardContent = ({ className = '', children, ...props }) => (
+const CardHeader = ({ className = "", children, ...props }) => (
   <div className={`px-6 py-4 ${className}`} {...props}>{children}</div>
 );
 
-const Badge = ({ className = '', variant, children, ...props }) => {
+const CardTitle = ({ className = "", children, ...props }) => (
+  <h2 className={`font-semibold text-lg ${className}`} {...props}>{children}</h2>
+);
+
+const CardContent = ({ className = "", children, ...props }) => (
+  <div className={`px-6 py-4 ${className}`} {...props}>{children}</div>
+);
+
+const Badge = ({ className = "", variant, children, ...props }) => {
   let base =
-    'inline-block px-3 py-1 rounded-full text-xs font-medium align-middle';
+    "inline-block px-3 py-1 rounded-full text-xs font-medium align-middle";
   let color =
-    variant === 'secondary'
-      ? 'bg-gray-100 text-gray-800'
-      : variant === 'outline'
-      ? 'border border-gray-300 text-gray-700 bg-white'
-      : '';
+    variant === "secondary"
+      ? "bg-gray-100 text-gray-800"
+      : variant === "outline"
+      ? "border border-gray-300 text-gray-700 bg-white"
+      : "";
   return (
     <span className={`${base} ${color} ${className}`} {...props}>
       {children}
@@ -93,10 +112,12 @@ const NCCStructure = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mx-20">
       {/* ANO Section */}
-      <Card className="overflow-hidden">
-        <CardHeader className="bg-gradient-to-r from-blue-900 to-orange-600 text-white">
+      <Card className="overflow-hidden mr-5 ml-5">
+
+        <CardHeader className=" bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+
           <CardTitle className="text-2xl flex items-center">
             <Shield className="h-6 w-6 mr-2" />
             Associate NCC Officer (ANO)
@@ -246,7 +267,7 @@ const NCCStructure = () => {
       </Card>
 
       {/* Training Schedule */}
-      <Card className="bg-gradient-to-r from-blue-900 to-orange-600 text-white">
+      <Card className="bg-gradient-to-r  from-blue-600 to-blue-400 text-white">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Training Schedule</CardTitle>
         </CardHeader>

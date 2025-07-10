@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import { Play, Calendar } from 'lucide-react';
-// Dialog Components
+
+// === Dialog Components ===
 const DialogContext = React.createContext();
 
 const Dialog = ({ children }) => {
@@ -57,11 +59,10 @@ const DialogTitle = ({ children }) => (
   <h2 className="text-2xl font-bold text-gray-900">{children}</h2>
 );
 
-// Input and Label Components
 const Input = React.forwardRef(({ className = '', ...props }, ref) => (
   <input
     ref={ref}
-    className={`w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 ${className}`}
+    className={`w-full px-4 py-2 border border-gray-300 border-solid rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200${className}`}
     {...props}
   />
 ));
@@ -73,7 +74,6 @@ const Label = ({ htmlFor, children }) => (
   </label>
 );
 
-// Animation for Dialog
 const style = document.createElement('style');
 style.innerHTML = `
 @keyframes fadeIn {
@@ -103,10 +103,34 @@ const Button = ({ children, className = '', variant = 'default', ...props }) => 
   );
 };
 
-
-
 const VirtualTour = () => {
+  const [tour, setTour] = useState(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+  useEffect(() => {
+    const fetchVirtualTour = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_HOST}campuslife/virtual-tours/`);
+        if (res.data && res.data.length > 0) {
+          setTour(res.data[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching virtual tour data:", error);
+      }
+    };
+
+    fetchVirtualTour();
+  }, []);
+
+  if (!tour) {
+    return (
+      <section id="campus-tour" className="py-20 bg-white">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-xl text-gray-600">Loading virtual tour...</p>
+        </div>
+      </section>
+    );
+  }
 
   const tourHighlights = [
     { title: 'Academic Excellence', description: 'State-of-the-art classrooms and laboratories' },
@@ -120,10 +144,10 @@ const VirtualTour = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Virtual Campus <span className="text-blue-600">Tour</span>
+            {tour.title}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Take an immersive virtual tour of our beautiful campus and discover all the amazing facilities we offer.
+            {tour.description}
           </p>
         </div>
 
@@ -136,15 +160,15 @@ const VirtualTour = () => {
                   <>
                     {/* Video Thumbnail */}
                     <img
-                      src="https://images.unsplash.com/photo-1466442929976-97f336a657be?w=1200&h=800&fit=crop"
-                      alt="Campus Virtual Tour"
+                      src={tour.thumbnail}
+                      alt={tour.title}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                       <Button
                         onClick={() => setIsVideoPlaying(true)}
                         size="lg"
-                        className="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white border-white/50 px-8 py-6 rounded-full text-xl font-semibold transition-all duration-300 hover:scale-105"
+                        className="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white border-white/50 border-[1px] border-solid px-8 py-6 rounded-full text-xl font-semibold transition-all duration-300 hover:scale-105"
                       >
                         <Play className="mr-3" size={24} />
                         Start Virtual Tour
@@ -159,8 +183,8 @@ const VirtualTour = () => {
                     <iframe
                       width="100%"
                       height="100%"
-                      src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                      title="GBU Campus Virtual Tour"
+                      src={`${tour.video_link}?autoplay=1`}
+                      title={tour.title}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -246,4 +270,3 @@ const VirtualTour = () => {
 };
 
 export default VirtualTour;
-

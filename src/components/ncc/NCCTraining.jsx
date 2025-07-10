@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
-// Card, CardContent, CardHeader, CardTitle, Button, Badge components (responsive, minimal styling)
-const Card = ({ children, className = "" }) => (
-  <div className={`bg-white rounded-lg shadow border ${className}`}>{children}</div>
+ import React from 'react';
+import { motion } from 'framer-motion';
+import { Calendar, MapPin, Users, FileText, Share2, Shield, Target } from 'lucide-react';
+
+// Reusable card components
+const Card = ({ children, className = "", ...props }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, ease: "easeOut" }}
+    className={`bg-white rounded-lg shadow border border-gray-200 ${className}`}
+    {...props}
+  >
+    {children}
+  </motion.div>
 );
 
 const CardHeader = ({ children, className = "" }) => (
@@ -27,8 +39,7 @@ const Button = ({
     "inline-flex items-center justify-center rounded px-3 py-1.5 font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2";
   const variants = {
     default: "bg-blue-900 text-white hover:bg-blue-800",
-    outline:
-      "border border-blue-900 text-blue-900 bg-white hover:bg-blue-50",
+    outline: "border border-blue-900 text-blue-900 bg-white hover:bg-blue-50",
   };
   const sizes = {
     sm: "text-xs px-2 py-1",
@@ -47,7 +58,7 @@ const Button = ({
 const Badge = ({
   children,
   className = "",
-  variant = "solid",
+  variant,
   ...props
 }) => {
   const base =
@@ -58,19 +69,113 @@ const Badge = ({
   };
   return (
     <span
-      className={`${base} ${variants[variant] || ""} ${className}`}
+      className={`${base} ${variant ? variants[variant] : ""} ${className}`}
       {...props}
     >
       {children}
     </span>
   );
 };
-import { Calendar, MapPin, Users, FileText, Share2, Shield, Target } from 'lucide-react';
+ 
 
 const NCCTraining = () => {
-  const camps = [/* ... unchanged camp data ... */];
+ const camps = [
+    {
+      id: 1,
+      title: 'Combined Annual Training Camp (CATC)',
+      type: 'CATC',
+      date: '2024-03-15',
+      venue: 'Regional Training Centre, Lucknow',
+      duration: '10 Days',
+      status: 'Upcoming',
+      description: 'Annual training camp focusing on military drills, adventure activities, and discipline development.',
+      capacity: 50,
+      enrolled: 35,
+      requirements: ['Physical fitness certificate', 'Medical clearance', 'Parent consent'],
+      activities: ['Drill Training', 'Adventure Activities', 'Weapon Training', 'Map Reading']
+    },
+    {
+      id: 2,
+      title: 'Republic Day Camp (RDC)',
+      type: 'RDC',
+      date: '2024-01-26',
+      venue: 'New Delhi',
+      duration: '15 Days',
+      status: 'Completed',
+      description: 'Prestigious camp for selected cadets to participate in Republic Day Parade.',
+      capacity: 5,
+      enrolled: 3,
+      requirements: ['Excellent performance record', 'NCC B Certificate', 'Selection through competition'],
+      activities: ['Parade Training', 'Cultural Programs', 'National Integration', 'Discipline Training']
+    },
+    {
+      id: 3,
+      title: 'Thal Sainik Camp (TSC)',
+      type: 'TSC',
+      date: '2024-04-20',
+      venue: 'Army Training Centre, Jaipur',
+      duration: '12 Days',
+      status: 'Registration Open',
+      description: 'Advanced military training camp for senior cadets with Army exposure.',
+      capacity: 25,
+      enrolled: 18,
+      requirements: ['NCC B Certificate', 'Senior Division enrollment', 'Medical fitness'],
+      activities: ['Advanced Drill', 'Field Craft', 'Leadership Training', 'Military Exposure']
+    },
+    {
+      id: 4,
+      title: 'Adventure Training Camp',
+      type: 'ATC',
+      date: '2024-05-10',
+      venue: 'Himalayan Adventure Institute',
+      duration: '7 Days',
+      status: 'Planning',
+      description: 'Adventure activities including trekking, rock climbing, and survival training.',
+      capacity: 30,
+      enrolled: 12,
+      requirements: ['Adventure training consent', 'Insurance coverage', 'Basic fitness'],
+      activities: ['Rock Climbing', 'Trekking', 'Survival Training', 'Team Building']
+    }
+  ];
 
-  const trainingModules = [/* ... unchanged module data ... */];
+  const trainingModules = [
+    {
+      title: 'Drill & Discipline',
+      description: 'Basic military drill, parade movements, and discipline training',
+      duration: '30 Periods',
+      level: 'Foundation'
+    },
+    {
+      title: 'Weapon Training',
+      description: 'Training with .22 rifle, weapon handling, and shooting practices',
+      duration: '20 Periods',
+      level: 'Intermediate'
+    },
+    {
+      title: 'Map Reading & Field Craft',
+      description: 'Navigation skills, map reading, and basic field craft techniques',
+      duration: '25 Periods',
+      level: 'Intermediate'
+    },
+    {
+      title: 'First Aid & Health',
+      description: 'Medical training, first aid techniques, and health awareness',
+      duration: '15 Periods',
+      level: 'Foundation'
+    },
+    {
+      title: 'Leadership & Management',
+      description: 'Leadership qualities development and team management skills',
+      duration: '20 Periods',
+      level: 'Advanced'
+    },
+    {
+      title: 'Adventure Activities',
+      description: 'Rock climbing, trekking, water sports, and survival training',
+      duration: '30 Periods',
+      level: 'Advanced'
+    }
+  ];
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -84,7 +189,7 @@ const NCCTraining = () => {
 
   const getLevelColor = (level) => {
     switch (level) {
-      case 'Foundation': return 'bg-green-100 text-green-800';
+       case 'Foundation': return 'bg-green-100 text-green-800';
       case 'Intermediate': return 'bg-yellow-100 text-yellow-800';
       case 'Advanced': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
@@ -92,7 +197,7 @@ const NCCTraining = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mx-20">
       {/* Header */}
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Training & Camps</h2>
@@ -234,7 +339,7 @@ const NCCTraining = () => {
       </div>
 
       {/* Training Statistics */}
-      <Card className="bg-gradient-to-r from-blue-900 to-orange-600 text-white">
+      <Card className="bg-gradient-to-r from-blue-600 to-blue-400 text-white">
         <CardContent className="p-8">
           <h3 className="text-2xl font-bold mb-6 text-center">Training Impact</h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">

@@ -1,7 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import React, { useState } from 'react';
-
-// import { Card, CardContent } from '@/components/ui/card';
 // Carousel Components
 const Carousel = ({ className = "", children }) => (
   <div className={`relative ${className}`}>{children}</div>
@@ -92,235 +91,35 @@ const CardContent = ({ className = "", children, ...props }) => (
 );
 
 const SportsWellness = () => {
+  const [sportsFacilities, setSportsFacilities] = useState([]);
   const [selectedFacility, setSelectedFacility] = useState(null);
 
-  const sportsFacilities = [
-    {
-      id: 1,
-      icon: '⚽',
-      title: 'Outdoor Stadium',
-      shortDescription: 'Professional football stadium',
-      image: 'https://images.unsplash.com/photo-1459865264687-595d652de67e?w=800&h=600&fit=crop',
-      capacity: '5000 spectators',
-      location: 'Main Sports Complex',
-      access: 'Students & Staff',
-      type: 'Outdoor Sports Facility',
-      timings: '6:00 AM - 8:00 PM',
-      contact: 'Sports Director - ext. 2340',
-      description: 'FIFA-standard football stadium with natural grass pitch and professional lighting system for evening matches.',
-      features: [
-        'Natural grass pitch',
-        'Professional lighting',
-        'Spectator stands',
-        'Player facilities',
-        'Equipment storage',
-        'First aid station',
-        'Scoreboard',
-        'Sound system'
-      ],
-      bookingInfo: 'Advance booking required for matches'
-    },
-    {
-      id: 2,
-      icon: '🏀',
-      title: 'Basketball Court',
-      shortDescription: 'Indoor professional court',
-      image: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&h=600&fit=crop',
-      capacity: '500 spectators',
-      location: 'Sports Complex - Block A',
-      access: 'Students & Staff',
-      type: 'Indoor Court',
-      timings: '7:00 AM - 10:00 PM',
-      contact: 'Basketball Coach - ext. 2341',
-      description: 'Professional indoor basketball court with wooden flooring and regulation-height hoops.',
-      features: [
-        'Wooden flooring',
-        'Regulation hoops',
-        'Spectator seating',
-        'Locker rooms',
-        'Equipment rental',
-        'Climate control',
-        'LED lighting',
-        'Shot clock'
-      ],
-      bookingInfo: 'Open court hours and reserved slots available'
-    },
-    {
-      id: 3,
-      icon: '🏸',
-      title: 'Indoor Badminton Arena',
-      shortDescription: 'Multi-court badminton facility',
-      image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop',
-      capacity: '6 courts, 120 spectators',
-      location: 'Sports Complex - Block B',
-      access: 'Students & Staff',
-      type: 'Indoor Arena',
-      timings: '6:00 AM - 10:00 PM',
-      contact: 'Badminton Coach - ext. 2342',
-      description: 'State-of-the-art indoor badminton facility with professional wooden flooring and international standard courts.',
-      features: [
-        'Professional wooden flooring',
-        'International standard courts',
-        'High-quality lighting',
-        'Spectator seating',
-        'Equipment rental',
-        'Air conditioning',
-        'Changing rooms',
-        'Practice nets'
-      ],
-      bookingInfo: 'Court booking system available online'
-    },
-    {
-      id: 4,
-      icon: '🏓',
-      title: 'Table Tennis Room',
-      shortDescription: 'Dedicated TT facility',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
-      capacity: '8 tables, 50 spectators',
-      location: 'Sports Complex - Ground Floor',
-      access: 'Students & Staff',
-      type: 'Indoor Recreation',
-      timings: '7:00 AM - 9:00 PM',
-      contact: 'Recreation Manager - ext. 2343',
-      description: 'Dedicated table tennis facility with professional tables and equipment for recreational and competitive play.',
-      features: [
-        'Professional TT tables',
-        'Quality paddles & balls',
-        'Spectator area',
-        'Equipment storage',
-        'Scorekeeping',
-        'Ventilation system',
-        'Non-slip flooring',
-        'Practice wall'
-      ],
-      bookingInfo: 'Walk-in basis with hourly slots'
-    },
-    {
-      id: 5,
-      icon: '🏋️',
-      title: 'Gymnasium',
-      shortDescription: 'Modern fitness center',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
-      capacity: '100 users simultaneously',
-      location: 'Sports Complex - First Floor',
-      access: 'Students & Staff (Membership)',
-      type: 'Fitness Center',
-      timings: '5:00 AM - 11:00 PM',
-      contact: 'Fitness Manager - ext. 2344',
-      description: 'Modern gymnasium equipped with latest fitness equipment for strength training, cardio, and functional fitness.',
-      features: [
-        'Latest cardio equipment',
-        'Weight training section',
-        'Functional fitness area',
-        'Personal training',
-        'Group fitness classes',
-        'Locker facilities',
-        'Shower rooms',
-        'Nutritional guidance'
-      ],
-      bookingInfo: 'Membership required for access'
-    },
-    {
-      id: 6,
-      icon: '🏐',
-      title: 'Volleyball Court',
-      shortDescription: 'Indoor & outdoor courts',
-      image: 'https://images.unsplash.com/photo-1594736797933-d0400e808d57?w=800&h=600&fit=crop',
-      capacity: '2 courts, 200 spectators',
-      location: 'Sports Complex - Multi-purpose',
-      access: 'Students & Staff',
-      type: 'Multi-purpose Court',
-      timings: '6:00 AM - 9:00 PM',
-      contact: 'Volleyball Coach - ext. 2345',
-      description: 'Professional volleyball courts suitable for both indoor and beach volleyball with regulation nets and equipment.',
-      features: [
-        'Regulation nets',
-        'Professional flooring',
-        'Spectator seating',
-        'Equipment storage',
-        'Scoreboard',
-        'Line marking',
-        'Lighting system',
-        'Player benches'
-      ],
-      bookingInfo: 'Team bookings and open play sessions'
-    },
-    {
-      id: 7,
-      icon: '🏊',
-      title: 'Swimming Pool',
-      shortDescription: 'Olympic-size pool',
-      image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&h=600&fit=crop',
-      capacity: '50m Olympic-size pool',
-      location: 'Aquatic Center',
-      access: 'Students & Staff (Swimming test)',
-      type: 'Aquatic Facility',
-      timings: '6:00 AM - 9:00 PM',
-      contact: 'Aquatics Director - ext. 2346',
-      description: 'Olympic-standard swimming pool with separate diving area and training facilities for competitive swimming.',
-      features: [
-        '50m Olympic-size pool',
-        '8 racing lanes',
-        'Diving pool',
-        'Starting blocks',
-        'Timing system',
-        'Lifeguard service',
-        'Pool equipment',
-        'Poolside seating'
-      ],
-      bookingInfo: 'Swimming test required for access'
-    },
-    {
-      id: 8,
-      icon: '🏃‍♂️',
-      title: 'Track & Field Ground',
-      shortDescription: '400m athletic track',
-      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop',
-      capacity: '8-lane 400m track',
-      location: 'Main Athletic Ground',
-      access: 'Students & Staff',
-      type: 'Athletics Facility',
-      timings: '5:30 AM - 7:30 PM',
-      contact: 'Athletics Coach - ext. 2347',
-      description: 'International standard 400-meter running track with field event areas for comprehensive athletic training.',
-      features: [
-        '8-lane synthetic track',
-        'Long jump pit',
-        'High jump area',
-        'Shot put circle',
-        'Javelin throw area',
-        'Pole vault facility',
-        'Electronic timing',
-        'Starting blocks'
-      ],
-      bookingInfo: 'Open access during operating hours'
-    },
-    {
-      id: 9,
-      icon: '🎭',
-      title: 'Multipurpose Sports Auditorium',
-      shortDescription: 'Large indoor arena',
-      image: 'https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=800&h=600&fit=crop',
-      capacity: '2000 spectators',
-      location: 'Central Sports Complex',
-      access: 'Students & Staff (Event bookings)',
-      type: 'Indoor Arena',
-      timings: '8:00 AM - 10:00 PM',
-      contact: 'Arena Manager - ext. 2348',
-      description: 'Large indoor arena suitable for basketball, volleyball, and major sporting events with professional-grade facilities.',
-      features: [
-        'Multi-sport flooring',
-        'Professional lighting',
-        'Sound system',
-        'Video displays',
-        'VIP seating',
-        'Media facilities',
-        'Climate control',
-        'Event support'
-      ],
-      bookingInfo: 'Advance booking required for events'
-    }
-  ];
+  useEffect(() => {
+    const fetchFacilities = async () => {
+      try {
+        const res = await axios.get('https://meow.tilchattaas.com/campuslife/sport-facilities/');
+        const transformed = res.data.map(item => ({
+          id: item.id,
+          icon: item.name.split(" ")[0],
+          title: item.name.slice(2).trim(),
+          image: item.image,
+          type: item.facility_type,
+          location: item.location,
+          capacity: item.capacity,
+          access: item.access,
+          timings: item.timings,
+          contact: item.contact,
+          bookingInfo: item.booking,
+          description: item.description,
+        }));
+        setSportsFacilities(transformed);
+      } catch (error) {
+        console.error("Error fetching sports facilities:", error);
+      }
+    };
+
+    fetchFacilities();
+  }, []);
 
   const handleFacilityClick = (facility) => {
     setSelectedFacility(facility);
@@ -338,7 +137,6 @@ const SportsWellness = () => {
           </p>
         </div>
 
-        {/* Sports Facilities Carousel */}
         <div className="max-w-7xl mx-auto">
           <Carousel className="w-full">
             <CarouselContent className="-ml-2 md:-ml-4">
@@ -356,12 +154,9 @@ const SportsWellness = () => {
                           className="w-full h-48 object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                        <div className="absolute top-4 left-4 text-4xl">
-                          {facility.icon}
-                        </div>
+                        <div className="absolute top-4 left-4 text-4xl">{facility.icon}</div>
                         <div className="absolute bottom-4 left-4 right-4 text-white">
                           <h3 className="text-lg font-bold mb-1">{facility.title}</h3>
-                          <p className="text-sm opacity-90">{facility.shortDescription}</p>
                         </div>
                       </div>
                       <div className="p-4">
@@ -395,7 +190,6 @@ const SportsWellness = () => {
           </Carousel>
         </div>
 
-        {/* Facility Details Modal */}
         {selectedFacility && (
           <Dialog open={!!selectedFacility} onOpenChange={() => setSelectedFacility(null)}>
             <DialogContent className="bg-white max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -411,7 +205,6 @@ const SportsWellness = () => {
                   alt={selectedFacility.title}
                   className="w-full h-64 object-cover rounded-lg"
                 />
-                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">Facility Details</h3>
@@ -425,23 +218,10 @@ const SportsWellness = () => {
                       <div><span className="font-medium">Booking:</span> {selectedFacility.bookingInfo}</div>
                     </div>
                   </div>
-                  
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Features & Amenities</h3>
-                    <div className="grid grid-cols-1 gap-2">
-                      {selectedFacility.features.map((feature, index) => (
-                        <div key={index} className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-green-600 rounded-full" />
-                          <span className="text-gray-700">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Description</h3>
+                    <p className="text-gray-600">{selectedFacility.description}</p>
                   </div>
-                </div>
-                
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Description</h3>
-                  <p className="text-gray-600">{selectedFacility.description}</p>
                 </div>
               </div>
             </DialogContent>

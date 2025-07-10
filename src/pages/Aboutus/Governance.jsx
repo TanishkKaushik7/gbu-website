@@ -37,7 +37,7 @@ const governanceData = {
 const organizationalStructure = [
   {
     name: 'Chancellor',
-    person: 'Shri M. Yogi Adityanath',
+    person: 'Shri Yogi Adityanath',
     color: 'bg-gradient-to-r from-red-100 to-red-200 border-red-300',
     icon: <Crown className="w-7 h-7 text-red-600" />,
     children: [
@@ -49,50 +49,50 @@ const organizationalStructure = [
         children: [
           {
             name: 'Dean, Engineering',
-            person: 'Prof. A.K. Sharma',
+            person: 'Dr. Kirti Pal',
             color: 'bg-gradient-to-r from-green-100 to-green-200 border-green-300',
             icon: <Building className="w-6 h-6 text-green-600" />
           },
           {
             name: 'Dean, Management',
-            person: 'Dr. P.K. Gupta',
+            person: 'Dr. Indu Uprety',
             color: 'bg-gradient-to-r from-yellow-100 to-yellow-200 border-yellow-300',
             icon: <Building className="w-6 h-6 text-yellow-600" />
           },
           {
             name: 'Dean, Humanities',
-            person: 'Prof. S. Tripathi',
+            person: 'Prof. Bandana Pandey',
             color: 'bg-gradient-to-r from-pink-100 to-pink-200 border-pink-300',
             icon: <Building className="w-6 h-6 text-pink-600" />
           },
       
           {
             name: 'Dean, ICT',
-            person: 'Prof. V. Mehra',
+            person: 'Dr. Arpit Bhardwaj',
             color: 'bg-gradient-to-r from-blue-100 to-blue-200 border-blue-300',
             icon: <Building className="w-6 h-6 text-blue-600" />
           },
           {
             name: 'Dean, Biotechnology',
-            person: 'Dr. P. Chaturvedi',
+            person: 'Dr. N.P. Melkania',
             color: 'bg-gradient-to-r from-teal-100 to-teal-200 border-teal-300',
             icon: <Building className="w-6 h-6 text-teal-600" />
           },
           {
             name: 'Dean, Buddhist Studies & Civilization',
-            person: 'Prof. T. Bhattacharya',
+            person: 'Prof. Shweta Anand',
             color: 'bg-gradient-to-r from-purple-100 to-purple-200 border-purple-300',
             icon: <Building className="w-6 h-6 text-purple-600" />
           },
           {
             name: 'Dean, Law, Justice & Governance',
-            person: 'Dr. R. Pandey',
+            person: 'Dr. Krishna Kant Dwivedi',
             color: 'bg-gradient-to-r from-indigo-100 to-indigo-200 border-indigo-300',
             icon: <Building className="w-6 h-6 text-indigo-600" />
           },
           {
             name: 'Dean, Vocational & Applied Sciences',
-            person: 'Prof. M. Jain',
+            person: 'Prof. N.P. Melkania',
             color: 'bg-gradient-to-r from-orange-100 to-orange-200 border-orange-300',
             icon: <Building className="w-6 h-6 text-orange-600" />
           }

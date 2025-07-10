@@ -1,14 +1,22 @@
-import React,{ useState } from 'react';
-// Card, CardHeader, CardTitle, CardContent, Button, Badge components defined locally
+ import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Calendar, ChevronLeft, ChevronRight, Clock, MapPin } from 'lucide-react';
 
+// Reusable UI components
 const Card = ({ children, className = '', ...props }) => (
-  <div className={`bg-white rounded-lg shadow border ${className}`} {...props}>
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.4 }}
+    className={`bg-white rounded-lg shadow  ${className}`}
+    {...props}
+  >
     {children}
-  </div>
+  </motion.div>
 );
 
 const CardHeader = ({ children, className = '', ...props }) => (
-  <div className={`px-6 py-4 border-b border-gray-200 ${className}`} {...props}>
+  <div className={`px-6 py-4 border border-gray-300 ${className}`} {...props}>
     {children}
   </div>
 );
@@ -45,13 +53,15 @@ const Button = ({
     lg: 'px-6 py-3 text-lg',
   };
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
       type="button"
       className={`${base} ${variants[variant] || variants.default} ${sizes[size] || sizes.md} ${className}`}
       {...props}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };
 
@@ -63,25 +73,69 @@ const Badge = ({ children, className = '', ...props }) => (
     {children}
   </span>
 );
-import { Calendar, ChevronLeft, ChevronRight, Filter, Clock, MapPin } from 'lucide-react';
-const Select = ({ value, onValueChange, children }) => (
-  <div className="relative">
-    {React.Children.map(children, child =>
-      React.cloneElement(child, { value, onValueChange })
-    )}
-  </div>
-);
+
+const Select = ({ value, onValueChange, children }) => {
+  const [open, setOpen] = useState(false);
+
+  // Find the label for the selected value
+  let selectedLabel = null;
+  React.Children.forEach(children, child => {
+    if (child.type === SelectTrigger) return;
+    if (child.type === SelectContent) {
+      React.Children.forEach(child.props.children, item => {
+        if (item.props.value === value) {
+          selectedLabel = item.props.children;
+        }
+      });
+    }
+  });
+
+  // Clone children and inject open/setOpen/value/onValueChange as needed
+  return (
+    <div className="relative">
+      {React.Children.map(children, child => {
+        if (child.type === SelectTrigger) {
+          return React.cloneElement(child, {
+            onClick: () => setOpen(o => !o),
+            children: (
+              <>
+                <SelectValue
+                  value={selectedLabel}
+                  placeholder={child.props.children.props.placeholder}
+                />
+                <svg className="ml-2 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </>
+            ),
+          });
+        }
+        if (child.type === SelectContent && open) {
+          return React.cloneElement(child, {
+            children: React.Children.map(child.props.children, item =>
+              React.cloneElement(item, {
+                onValueChange: (val) => {
+                  onValueChange(val);
+                  setOpen(false);
+                },
+                selected: value === item.props.value,
+              })
+            ),
+          });
+        }
+        return null;
+      })}
+    </div>
+  );
+};
 
 const SelectTrigger = ({ children, className = '', ...props }) => (
   <button
     type="button"
-    className={`flex items-center justify-between border rounded px-3 py-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
+    className={`flex items-center justify-between border-gray-300 rounded px-3 py-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
     {...props}
   >
     {children}
-    <svg className="ml-2 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-    </svg>
   </button>
 );
 
@@ -90,18 +144,18 @@ const SelectValue = ({ placeholder, value }) => (
 );
 
 const SelectContent = ({ children }) => (
-  <div className="absolute z-10 mt-1 w-full bg-white border rounded shadow-lg max-h-60 overflow-auto">
+  <div className="absolute z-10 mt-1 w-full bg-white border-gray-300 rounded shadow-lg max-h-60 overflow-auto">
     {children}
   </div>
 );
 
-const SelectItem = ({ value, children, onValueChange }) => (
+const SelectItem = ({ value, children, onValueChange, selected }) => (
   <div
-    className="px-4 py-2 cursor-pointer hover:bg-blue-100 text-gray-700"
+    className={`px-4 py-2 cursor-pointer hover:bg-blue-100 text-gray-700 ${selected ? 'bg-blue-100 font-bold' : ''}`}
     onClick={() => onValueChange && onValueChange(value)}
     tabIndex={0}
     role="option"
-    aria-selected="false"
+    aria-selected={selected ? "true" : "false"}
   >
     {children}
   </div>
@@ -119,7 +173,6 @@ const NCCEvents = () => {
       time: '06:00 - 08:00',
       venue: 'University Parade Ground',
       category: 'Training',
-      type: 'recurring',
       description: 'Regular drill and parade practice for all cadets'
     },
     {
@@ -129,7 +182,6 @@ const NCCEvents = () => {
       time: '17:00',
       venue: 'NCC Office',
       category: 'Deadline',
-      type: 'deadline',
       description: 'Last date for CATC camp registration submission'
     },
     {
@@ -139,7 +191,6 @@ const NCCEvents = () => {
       time: '05:00',
       venue: 'Adventure Training Institute',
       category: 'Camp',
-      type: 'special',
       description: '7-day adventure training camp with trekking and survival skills'
     },
     {
@@ -149,7 +200,6 @@ const NCCEvents = () => {
       time: '09:00 - 15:00',
       venue: 'Shooting Range',
       category: 'Competition',
-      type: 'competition',
       description: 'Inter-platoon shooting competition with .22 rifles'
     },
     {
@@ -159,7 +209,6 @@ const NCCEvents = () => {
       time: '10:00 - 16:00',
       venue: 'University Auditorium',
       category: 'Celebration',
-      type: 'special',
       description: 'Annual NCC Day celebration with cultural programs and parade'
     }
   ];
@@ -185,17 +234,6 @@ const NCCEvents = () => {
     }
   ];
 
-  const getCategoryColor = (category) => {
-    const colors = {
-      'Training': 'bg-blue-100 text-blue-800',
-      'Camp': 'bg-green-100 text-green-800',
-      'Competition': 'bg-orange-100 text-orange-800',
-      'Deadline': 'bg-red-100 text-red-800',
-      'Celebration': 'bg-purple-100 text-purple-800'
-    };
-    return colors[category] || 'bg-gray-100 text-gray-800';
-  };
-
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'high': return 'bg-red-100 text-red-800 border-red-200';
@@ -213,21 +251,13 @@ const NCCEvents = () => {
     });
   };
 
-  const getDaysInMonth = (date) => {
-    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-  };
-
-  const getFirstDayOfMonth = (date) => {
-    return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
-  };
-
-  const getEventsForDate = (day) => {
-    return events.filter(event => 
-      event.date.getDate() === day &&
-      event.date.getMonth() === currentDate.getMonth() &&
-      event.date.getFullYear() === currentDate.getFullYear()
-    );
-  };
+  const getDaysInMonth = (date) => new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  const getFirstDayOfMonth = (date) => new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  const getEventsForDate = (day) => events.filter(e => 
+    e.date.getDate() === day &&
+    e.date.getMonth() === currentDate.getMonth() &&
+    e.date.getFullYear() === currentDate.getFullYear()
+  );
 
   const renderCalendar = () => {
     const daysInMonth = getDaysInMonth(currentDate);
@@ -240,12 +270,15 @@ const NCCEvents = () => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const dayEvents = getEventsForDate(day);
-      const isToday = new Date().getDate() === day && 
-                      new Date().getMonth() === currentDate.getMonth() && 
+      const isToday = new Date().getDate() === day &&
+                      new Date().getMonth() === currentDate.getMonth() &&
                       new Date().getFullYear() === currentDate.getFullYear();
-      
       days.push(
-        <div key={day} className={`h-24 border border-gray-200 p-1 overflow-hidden hover:bg-gray-50 ${isToday ? 'bg-blue-50 border-blue-300' : ''}`}>
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          key={day}
+          className={`h-24 border border-gray-200 p-1 overflow-hidden ${isToday ? 'bg-blue-50 border-blue-300' : 'hover:bg-gray-50'}`}
+        >
           <div className={`font-semibold text-sm ${isToday ? 'text-blue-600' : 'text-gray-900'}`}>
             {day}
           </div>
@@ -266,12 +299,10 @@ const NCCEvents = () => {
               </div>
             ))}
             {dayEvents.length > 2 && (
-              <div className="text-xs text-gray-500 text-center">
-                +{dayEvents.length - 2} more
-              </div>
+              <div className="text-xs text-gray-500 text-center">+{dayEvents.length - 2} more</div>
             )}
           </div>
-        </div>
+        </motion.div>
       );
     }
 
@@ -279,7 +310,7 @@ const NCCEvents = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mx-20">
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Events & Schedule</h2>
         <p className="text-lg text-gray-600">
@@ -330,7 +361,11 @@ const NCCEvents = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               {upcomingDeadlines.map((deadline, index) => (
-                <div key={index} className={`border rounded-lg p-3 ${getPriorityColor(deadline.priority)}`}>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  key={index}
+                  className={`border rounded-lg p-3 ${getPriorityColor(deadline.priority)}`}
+                >
                   <h4 className="font-semibold mb-1">{deadline.title}</h4>
                   <div className="flex items-center space-x-2 text-sm">
                     <Calendar className="h-3 w-3" />
@@ -339,7 +374,7 @@ const NCCEvents = () => {
                   <div className="text-sm font-medium mt-1">
                     {deadline.days} days remaining
                   </div>
-                </div>
+                </motion.div>
               ))}
             </CardContent>
           </Card>
@@ -348,25 +383,16 @@ const NCCEvents = () => {
             <CardHeader>
               <CardTitle className="text-xl">Quick Actions</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <Button className="w-full bg-blue-900 hover:bg-blue-800">Apply for Camp</Button>
-              <Button variant="outline" className="w-full">View Training Schedule</Button>
-              <Button variant="outline" className="w-full">Download Calendar</Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Event Categories</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2"><div className="w-4 h-4 bg-blue-500 rounded"></div><span className="text-sm">Training</span></div>
-                <div className="flex items-center space-x-2"><div className="w-4 h-4 bg-green-500 rounded"></div><span className="text-sm">Camps</span></div>
-                <div className="flex items-center space-x-2"><div className="w-4 h-4 bg-orange-500 rounded"></div><span className="text-sm">Competitions</span></div>
-                <div className="flex items-center space-x-2"><div className="w-4 h-4 bg-red-500 rounded"></div><span className="text-sm">Deadlines</span></div>
-                <div className="flex items-center space-x-2"><div className="w-4 h-4 bg-purple-500 rounded"></div><span className="text-sm">Celebrations</span></div>
-              </div>
+            <CardContent className="space-y-2">
+                <button className="w-full h-10 bg-blue-800 text-white rounded-md font-semibold">
+    Apply for Camp
+  </button>
+  <button className="w-full h-10 border border-blue-600 text-blue-600 rounded-md font-semibold">
+    View Training Schedule
+  </button>
+  <button className="w-full h-10 border border-blue-600 text-blue-600 rounded-md font-semibold">
+    Download Calendar
+  </button>
             </CardContent>
           </Card>
         </div>
@@ -396,10 +422,22 @@ const NCCEvents = () => {
             .filter(event => filterCategory === 'all' || event.category === filterCategory)
             .sort((a, b) => a.date.getTime() - b.date.getTime())
             .map(event => (
-              <div key={event.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                key={event.id}
+                className="border border-gray-300 rounded-lg p-4 hover:shadow-md transition-shadow"
+              >
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold text-gray-900">{event.title}</h3>
-                  <Badge className={getCategoryColor(event.category)}>{event.category}</Badge>
+                  <Badge className={
+                    event.category === 'Training' ? 'bg-blue-100 text-blue-800' :
+                    event.category === 'Camp' ? 'bg-green-100 text-green-800' :
+                    event.category === 'Competition' ? 'bg-orange-100 text-orange-800' :
+                    event.category === 'Deadline' ? 'bg-red-100 text-red-800' :
+                    'bg-purple-100 text-purple-800'
+                  }>
+                    {event.category}
+                  </Badge>
                 </div>
                 <p className="text-sm text-gray-600 mb-3">{event.description}</p>
                 <div className="flex items-center justify-between text-sm text-gray-500">
@@ -410,7 +448,7 @@ const NCCEvents = () => {
                   </div>
                   <Button variant="outline" size="sm">View Details</Button>
                 </div>
-              </div>
+              </motion.div>
             ))}
         </CardContent>
       </Card>

@@ -1,78 +1,252 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function CampusLifeSection() {
   const [testimonials, setTestimonials] = useState([]);
-
-  const BASE = import.meta.env.VITE_HOST?.replace(/\/$/, '');
+  const BASE = import.meta.env.VITE_HOST?.replace(/\/$/, "");
   const CAMPUS_LIFE_API = `${BASE}/landing/campus-life/`;
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await axios.get(CAMPUS_LIFE_API);
-        const data = response.data;
+        // Your original axios API call logic here
+        const response = await fetch(CAMPUS_LIFE_API);
+        const data = await response.json();
         if (Array.isArray(data)) {
           setTestimonials(data);
         }
       } catch (error) {
-        console.error('Failed to fetch campus life data:', error);
+        console.error("Failed to fetch campus life data:", error);
       }
     };
-
     fetchTestimonials();
   }, []);
 
-  return (
-    <div className="px-6 md:px-20 py-12 bg-gray-50">
-      <h2 className="text-3xl font-bold text-center text-indigo-800 mb-3 md:mb-6">
-        Campus Life at GBU
-      </h2>
-      <p className="text-center text-gray-700 mb-10 max-w-2xl mx-auto text-sm sm:text-base">
-        Experience a vibrant campus life filled with learning, growth, and unforgettable memories.
-        Our diverse community of students creates an environment where everyone can thrive.
-      </p>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+      scale: 0.9,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const imageVariants = {
+    hover: {
+      scale: 1.1,
+      transition: {
+        duration: 0.4,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const overlayVariants = {
+    hover: {
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
+  const textVariants = {
+    hover: {
+      y: -5,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  return (
+    <div className="px-6 md:px-20 py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Header Section */}
+      <motion.div
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <motion.h2
+          className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-800 via-purple-800 to-blue-800 bg-clip-text text-transparent mb-4"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          Campus Life at GBU
+        </motion.h2>
+        <motion.div
+          className="w-24 h-1 bg-gradient-to-r from-orange-400 to-pink-500 mx-auto mb-6 rounded-full"
+          initial={{ width: 0 }}
+          animate={{ width: 96 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        />
+        <motion.p
+          className="text-gray-600 mb-4 max-w-3xl mx-auto text-lg leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          Experience a vibrant campus life filled with learning, growth, and
+          unforgettable memories. Our diverse community of students creates an
+          environment where everyone can thrive.
+        </motion.p>
+      </motion.div>
+
+      {/* Cards Grid */}
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {testimonials.map((item, index) => {
-          // Split only on the first hyphen to allow hyphens in the quote
-          const [categoryRaw, ...quoteParts] = item.card_content.split('-');
-          const category = categoryRaw?.trim() || '';
-          const quote = quoteParts.join('-').replace(/^["\s]+|["\s]+$/g, '') || '';
+          const [categoryRaw] = item.card_content.split("-");
+          const category = categoryRaw?.trim() || "";
+          const quote = item.description?.replace(/\r\n/g, " ").trim() || "";
 
           return (
-            <div
+            <motion.div
               key={index}
-              tabIndex={0}
-              className="bg-white rounded-lg shadow hover:shadow-xl focus:shadow-xl transition-all duration-300 transform hover:scale-105 focus:scale-105 hover:-translate-y-2 outline-none cursor-pointer overflow-hidden group w-full h-[25rem] max-w-sm mx-auto"
-              style={{ aspectRatio: '1/1' }}
+              variants={cardVariants}
+              whileHover={{
+                y: -10,
+                transition: { duration: 0.3 },
+              }}
+              className="group cursor-pointer"
             >
-              <div className="relative h-3/5">
-                <img
-                  src={item.image}
-                  alt={category}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <span className="absolute top-2 left-2 bg-orange-500 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full shadow select-none transform transition-transform duration-300 group-hover:scale-110">
-                  {category}
-                </span>
+              <div className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-96 relative border border-gray-100">
+                {/* Image Container */}
+                <div className="relative h-56 overflow-hidden">
+                  <motion.img
+                    src={item.image}
+                    alt={category}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    variants={imageVariants}
+                    whileHover="hover"
+                  />
+
+                  {/* Gradient Overlay */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0"
+                    variants={overlayVariants}
+                    whileHover="hover"
+                  />
+
+                  {/* Category Badge */}
+                  <motion.div
+                    className="absolute top-3 left-3"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="relative">
+                      <div className="bg-white/90 backdrop-blur-md rounded-2xl px-4 py-2 shadow-lg border border-white/20">
+                        <span className="text-gray-800 text-xs font-bold tracking-wide uppercase">
+                          {category}
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-pink-500/20 rounded-2xl"></div>
+                      </div>
+                      {/* Decorative elements */}
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full opacity-80"></div>
+                      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-60"></div>
+                    </div>
+                  </motion.div>
+
+                  {/* Floating Elements */}
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+
+                {/* Content Container */}
+                <div className="px-4 py-5 h-40 relative">
+                  <motion.div
+                    variants={textVariants}
+                    whileHover="hover"
+                    className="h-full flex flex-col justify-center"
+                  >
+                    <p className="text-gray-800 text-xl leading-relaxed italic relative font-semibold">
+                      <span
+                        className="relative z-10 line-clamp-3 font-medium"
+                        style={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {quote}
+                      </span>
+                    </p>
+                  </motion.div>
+
+                  {/* Bottom Accent */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                </div>
+
+                {/* Subtle Pattern Overlay */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500">
+                  <div
+                    className="w-full h-full"
+                    style={{
+                      backgroundImage: `radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.3) 1px, transparent 0)`,
+                      backgroundSize: "20px 20px",
+                    }}
+                  ></div>
+                </div>
               </div>
-              <div className="p-3 sm:p-4 flex flex-col justify-between">
-                <p className="italic text-gray-700 leading-tight text-xs sm:text-sm transform transition-transform duration-300 group-hover:translate-x-1 overflow-hidden">
-                  "{quote.length > 500 ? quote.slice(0, 500) + '...' : quote}"
-                </p>
-                <p className="text-white font-semibold text-xs sm:text-sm transform transition-all duration-300 group-hover:text-white group-hover:translate-x-1 mt-2">
-                  {item.name}
-                  <br />
-                  <span className="italic text-xs">{item.course}</span>
-                </p>
-              </div>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
+
+      {/* Bottom Decoration */}
+      <motion.div
+        className="mt-12 flex justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+      >
+        <div className="flex space-x-2">
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="w-3 h-3 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.2,
+              }}
+            />
+          ))}
+        </div>
+      </motion.div>
     </div>
   );
 }

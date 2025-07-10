@@ -3,26 +3,20 @@ import { Award, BookOpen, Download, TrendingUp, Users } from 'lucide-react'
 
 function PlacementBrochure() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen pt-3 bg-gradient-to-br from-gray-50 to-blue-50">
       {/* Hero Section */}
       <section className="py-16 ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl font-bold text-gray-900 mb-6">
-              Download Our Latest Placement Brochure
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Get comprehensive insights into our placement statistics, success stories, and career opportunities
-            </p>
-            <button
-              className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center mx-auto"
-              onClick={() => window.open('https://www.gbu.ac.in/Content/admissions/brochures/Final_GBU_Brochure_2022.pdf', '_blank')}
-            >
-              <Download className="h-6 w-6 mr-3" />
-              Download PDF Brochure
-            </button>
-          </div>
           
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-blue-800 mb-4">
+               University Placement Insights
+            </h2>
+            <p className="text-lg text-center text-gray-600">
+               Get comprehensive insights into our placement statistics, success stories, and career opportunities
+            </p>
+            <div className="w-24 h-1 bg-blue-500 mx-auto mt-4 rounded-full" />
+          </div>
 
           {/* Quick Highlights */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
@@ -118,7 +112,7 @@ function PlacementBrochure() {
             <div className="text-center">
               <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-2xl inline-block hover:shadow-3xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
                    onClick={() => window.open('https://www.gbu.ac.in/Content/admissions/brochures/Final_GBU_Brochure_2022.pdf', '_blank')}>
-                <div className="w-64 h-80 bg-gradient-to-b from-red-600 to-orange-600 rounded-lg flex items-center justify-center text-white shadow-2xl">
+                <div className="w-64 h-80 bg-gradient-to-b from-blue-600 to-blue-400 rounded-lg flex items-center justify-center text-white shadow-2xl">
                   <div className="text-center">
                     <BookOpen className="h-20 w-20 mx-auto mb-6" />
                     <div className="font-bold text-xl mb-2">Placement</div>
@@ -137,7 +131,7 @@ function PlacementBrochure() {
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Explore?</h2>
               <p className="text-gray-600 mb-6">Download our comprehensive placement brochure and discover endless career opportunities</p>
               <button
-                className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-10 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center mx-auto"
+                className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white px-10 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center mx-auto"
                 onClick={() => window.open('https://www.gbu.ac.in/Content/admissions/brochures/Final_GBU_Brochure_2022.pdf', '_blank')}
               >
                 <Download className="h-6 w-6 mr-3" />

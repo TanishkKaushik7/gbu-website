@@ -1,8 +1,5 @@
-
-
-
-
 import { Calendar } from "lucide-react";
+import { useState } from "react";
 
 // Card Components
 const Card = ({ children, className = "", ...props }) => {
@@ -56,6 +53,9 @@ const Badge = ({ children, className = "", ...props }) => {
 };
 
 const NoticeEvents = () => {
+  const [showAllNotices, setShowAllNotices] = useState(false);
+  const initialNoticeCount = 5;
+
   const notices = [
     {
       title: "Back Paper Examination Date Sheet – Even Semester 2024–25",
@@ -73,11 +73,54 @@ const NoticeEvents = () => {
       type: "General",
     },
     {
-      title: "Office Order for Hostel & Mess Exemption (Married PG/PhD Students)",
+      title: "Office Order for Hostel & Mess Exemption",
       date: "2025-05-13",
       type: "Administrative",
     },
+    {
+      title: "Office Order for Hostel & Mess2 Exemption",
+      date: "2025-05-13",
+      type: "Administrative",
+    },
+    {
+      title: "PhD Thesis Submission Guidelines Update",
+      date: "2025-05-12",
+      type: "Academic",
+    },
+    {
+      title: "Summer Internship Opportunities 2025",
+      date: "2025-05-10",
+      type: "Placement",
+    },
+    {
+      title: "Library Working Hours Extended",
+      date: "2025-05-09",
+      type: "General",
+    },
+    {
+      title: "Research Grant Applications Open",
+      date: "2025-05-08",
+      type: "Research",
+    },
+    {
+      title: "Campus Recruitment Drive - TCS",
+      date: "2025-05-07",
+      type: "Placement",
+    },
+    {
+      title: "Student Council Elections Schedule",
+      date: "2025-05-06",
+      type: "Important",
+    },
+    {
+      title: "Student Council Elections Schedule",
+      date: "2025-05-06",
+      type: "Important",
+    },
+    
   ];
+
+  const displayedNotices = showAllNotices ? notices : notices.slice(0, initialNoticeCount);
 
   const events = [
     {
@@ -119,39 +162,40 @@ const NoticeEvents = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-white to-blue-50">
+    <section className="py-20 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-blue-900 mb-3">
-            SOICT Campus Life
-          </h2>
+<h2 className="text-4xl font-bold text-blue-900 mb-3">
+  Notices and Events
+</h2>
           <p className="text-xl text-gray-600">
             Stay updated with latest notices and events
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto mt-4 rounded-full" />
         </div>
 
         {/* Main Grid */}
         <div className="grid lg:grid-cols-10 gap-10">
           {/* Notice Board */}
           <div className="lg:col-span-3">
-            <div className="rounded-xl shadow-lg border-0 bg-white p-6">
-              <div className="text-blue-800 text-lg font-bold flex items-center gap-2 mb-4">
-                <Calendar size={20} />
-                Notice Board
+            <div className="rounded-xl shadow-lg border border-gray-200 bg-white p-6 h-[37.5rem] flex flex-col">
+              <div className="text-blue-800 text-lg font-bold flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Calendar size={20} />
+                  Notice Board
+                </div>
               </div>
-              <div className="space-y-4">
-                {notices.map((notice, index) => (
+              <div className={`space-y-4 flex-grow ${showAllNotices ? 'overflow-y-auto pr-2 custom-scrollbar' : ''}`} style={{ maxHeight: 'calc(100% - 110px)' }}>
+                {displayedNotices.map((notice, index) => (
                   <div
                     key={index}
-                    className="border-l-4 border-blue-500 pl-4 py-2"
+                    className="border-l-4 border-blue-500 pl-4 py-2 hover:bg-blue-50 transition-colors"
                   >
                     <div className="flex items-start justify-between mb-1">
                       <h4 className="font-semibold text-sm text-blue-900">
                         {notice.title}
                       </h4>
-                      <Badge className="text-xs px-2 py-0.5 capitalize bg-blue-100 text-blue-800">
+                      <Badge className="text-xs px-2 py-0.5 capitalize bg-blue-100 text-blue-800 whitespace-nowrap ml-2">
                         {notice.type}
                       </Badge>
                     </div>
@@ -159,16 +203,24 @@ const NoticeEvents = () => {
                   </div>
                 ))}
               </div>
+              <div className="mt-8 pt-4 border-t border-gray-200 flex-shrink-0">
+                <button 
+                  onClick={() => setShowAllNotices(!showAllNotices)}
+                  className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                >
+                  {showAllNotices ? 'Show Less' : 'View More'}
+                </button>
+              </div>
             </div>
           </div>
 
           {/* Event Gallery */}
           <div className="lg:col-span-7">
-            <div className="rounded-xl shadow-lg border-0 bg-white p-6">
+            <div className="rounded-xl shadow-lg border border-gray-200 bg-white p-6 h-[37.5rem]">
               <h3 className="text-blue-800 text-lg font-bold mb-4">
                 Event Gallery
               </h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto h-[calc(100%-30px)] pr-2 custom-scrollbar">
                 {events.map((event, index) => (
                   <div key={index} className="group cursor-pointer">
                     <div className="relative overflow-hidden rounded-lg mb-3 bg-gray-100">
@@ -178,7 +230,6 @@ const NoticeEvents = () => {
                         className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />
-                      {/* <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded-lg" /> */}
                     </div>
                     <h4 className="font-semibold text-blue-900 text-sm mb-1">
                       {event.title}
@@ -201,3 +252,4 @@ const NoticeEvents = () => {
 };
 
 export default NoticeEvents;
+

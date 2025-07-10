@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 
 // Card component
 const Card = ({ children, className = '', ...props }) => (
@@ -152,6 +153,7 @@ const RelatedEvents = ({ currentEventId, maxEvents = 4 }) => {
   if (relatedEvents.length === 0) return null;
 
   return (
+    <SearchableWrapper>
     <div className="bg-gradient-to-br from-blue-50 via-white to-cyan-50 rounded-2xl shadow-xl p-8 border border-blue-100">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-2xl font-bold text-blue-900 flex items-center gap-2">
@@ -203,6 +205,7 @@ const RelatedEvents = ({ currentEventId, maxEvents = 4 }) => {
         ))}
       </div>
     </div>
+    </SearchableWrapper>
   );
 };
 

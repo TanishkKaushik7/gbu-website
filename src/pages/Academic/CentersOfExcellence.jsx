@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Shield, Brain, Zap, ArrowRight, Users, Award, BookOpen } from 'lucide-react';
+import axios from 'axios';
+import {
+  Shield,
+  Brain,
+  Zap,
+  ArrowRight,
+  Users,
+  Award,
+  BookOpen,
+} from 'lucide-react';
 
+// ✅ Local icon map for dynamic matching
 const iconMap = {
   'cyber security': Shield,
   'artificial intelligence': Brain,
+  'drone technologies': Zap,
   'drone technology': Zap,
+  'data science': Brain,
+  'robotics': Zap,
 };
 
 const CentersOfExcellence = () => {
@@ -14,64 +26,80 @@ const CentersOfExcellence = () => {
   const [galleryImages, setGalleryImages] = useState([]);
   const [ctaData, setCtaData] = useState(null);
 
-  const BASE_URL = 'https://meow.tilchattaas.com';
+  const BASE_URL = import.meta.env.VITE_HOST;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [heroRes, centersRes, galleryRes, joinRes] = await Promise.all([
-          fetch(`${BASE_URL}/academic/coe/hero/`),
-          fetch(`${BASE_URL}/academic/coe/list/`),
-          fetch(`${BASE_URL}/academic/coe/gallery/`),
-          fetch(`${BASE_URL}/academic/coe/join/`)
+          axios.get(`${BASE_URL}/academic/coe/hero/`),
+          axios.get(`${BASE_URL}/academic/coe/list/`),
+          axios.get(`${BASE_URL}/academic/coe/gallery/`),
+          axios.get(`${BASE_URL}/academic/coe/join/`),
         ]);
 
-        const [heroJson, centersJson, galleryJson, joinJson] = await Promise.all([
-          heroRes.json(),
-          centersRes.json(),
-          galleryRes.json(),
-          joinRes.json()
-        ]);
-
-        setHeroData(heroJson[0]);
-        setCenters(centersJson);
+        setHeroData(heroRes.data[0]);
+        setCenters(centersRes.data);
         setGalleryImages(
-          galleryJson.map(item => ({
-            src: `${BASE_URL}/media/${item.image}`,
-            caption: item.card_desc,
-            alt: item.title
+          galleryRes.data.map((img) => ({
+            src: `${BASE_URL}/media/${img.image}`,
+            caption: img.card_desc,
+            alt: img.title,
           }))
         );
-        setCtaData(joinJson[0]);
-
+        
+        setCtaData(joinRes.data[0]);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching Centers of Excellence data:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [BASE_URL]);
 
   if (!heroData || !ctaData) return <div className="text-center py-10">Loading...</div>;
 
   return (
     <>
       {/* Hero Section */}
-      <section className="text-white py-20" style={{ backgroundColor: heroData.background_color || '#4f46e5' }}>
+      <section
+        className="text-white py-20"
+        style={{ backgroundColor: heroData.background_color }}
+      >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6">{heroData.title}</h1>
           <p className="text-xl text-purple-100 max-w-3xl mx-auto">{heroData.description}</p>
         </div>
       </section>
 
-      {/* Statistics Section */}
+      {/* Statistics */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <StatCard icon={<Award className="w-8 h-8 text-purple-600" />} value={heroData.coe_count} label="Centers of Excellence" bg="bg-purple-100" />
-            <StatCard icon={<Users className="w-8 h-8 text-blue-600" />} value={heroData.ResearchAndstudents + '+'} label="Researchers & Students" bg="bg-blue-100" />
-            <StatCard icon={<BookOpen className="w-8 h-8 text-green-600" />} value={heroData.projects_count + '+'} label="Research Projects" bg="bg-green-100" />
-            <StatCard icon={<Shield className="w-8 h-8 text-orange-600" />} value={heroData.memberrs_count} label="Faculty Members" bg="bg-orange-100" />
+            <StatCard
+              icon={<Award className="w-8 h-8 text-purple-600" />}
+              value={heroData.coe_count}
+              label="Centers of Excellence"
+              bg="bg-purple-100"
+            />
+            <StatCard
+              icon={<Users className="w-8 h-8 text-blue-600" />}
+              value={`${heroData.ResearchAndstudents}+`}
+              label="Researchers & Students"
+              bg="bg-blue-100"
+            />
+            <StatCard
+              icon={<BookOpen className="w-8 h-8 text-green-600" />}
+              value={`${heroData.projects_count}+`}
+              label="Research Projects"
+              bg="bg-green-100"
+            />
+            <StatCard
+              icon={<Shield className="w-8 h-8 text-orange-600" />}
+              value={heroData.memberrs_count}
+              label="Faculty Members"
+              bg="bg-orange-100"
+            />
           </div>
         </div>
       </section>
@@ -87,8 +115,9 @@ const CentersOfExcellence = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {centers.map((center, index) => {
-              const IconComponent = iconMap[center.title.toLowerCase()] || Shield;
+            {centers.map((center) => {
+              const IconComponent =
+                iconMap[center.title.toLowerCase()] || Shield;
 
               return (
                 <div
@@ -100,29 +129,37 @@ const CentersOfExcellence = () => {
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-3">{center.card_title}</h3>
+                    <h3 className="text-2xl font-semibold text-gray-800 mb-3">
+                      {center.card_title}
+                    </h3>
                     <p className="text-gray-600 mb-4 text-sm leading-relaxed">
                       {center.card_desc}
                     </p>
 
-                    {/* Stats */}
                     <div className="grid grid-cols-3 gap-4 text-center mb-4">
                       <div>
-                        <div className="text-lg font-bold text-blue-600">{center.faculty_count}</div>
+                        <div className="text-lg font-bold text-blue-600">
+                          {center.faculty_count}
+                        </div>
                         <div className="text-xs text-gray-500">Faculty</div>
                       </div>
                       <div>
-                        <div className="text-lg font-bold text-green-600">{center.student_count}</div>
+                        <div className="text-lg font-bold text-green-600">
+                          {center.student_count}
+                        </div>
                         <div className="text-xs text-gray-500">Students</div>
                       </div>
                       <div>
-                        <div className="text-lg font-bold text-purple-600">{center.project_count}</div>
+                        <div className="text-lg font-bold text-purple-600">
+                          {center.project_count}
+                        </div>
                         <div className="text-xs text-gray-500">Projects</div>
                       </div>
                     </div>
 
                     <p className="text-sm text-gray-600">
-                      <span className="font-semibold">Director:</span> {center.director}
+                      <span className="font-semibold">Director:</span>{' '}
+                      {center.director || 'N/A'}
                     </p>
                   </div>
                 </div>
@@ -136,7 +173,9 @@ const CentersOfExcellence = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Gallery of Excellence</h2>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              Gallery of Excellence
+            </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Explore moments of innovation, collaboration, and brilliance captured from across our Centers of Excellence.
             </p>
@@ -144,7 +183,10 @@ const CentersOfExcellence = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {galleryImages.map((img, idx) => (
-              <div key={idx} className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow">
+              <div
+                key={idx}
+                className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow"
+              >
                 <img
                   src={img.src}
                   alt={img.alt}
@@ -159,7 +201,7 @@ const CentersOfExcellence = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
+      {/* CTA */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-gray-800 mb-6">{ctaData.title}</h2>
@@ -167,12 +209,18 @@ const CentersOfExcellence = () => {
             {ctaData.description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={ctaData.url1} target="_blank" rel="noopener noreferrer"
+            <a
+              href={ctaData.url1}
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors transform hover:scale-105"
             >
               {ctaData.button1_text}
             </a>
-            <a href={ctaData.url2} target="_blank" rel="noopener noreferrer"
+            <a
+              href={ctaData.url2}
+              target="_blank"
+              rel="noopener noreferrer"
               className="border border-purple-600 border-solid text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-purple-50 transition-colors"
             >
               {ctaData.button2_text}
@@ -184,10 +232,11 @@ const CentersOfExcellence = () => {
   );
 };
 
-// Reusable StatCard Component
 const StatCard = ({ icon, value, label, bg }) => (
   <div className="animate-fade-in">
-    <div className={`${bg} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
+    <div
+      className={`${bg} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}
+    >
       {icon}
     </div>
     <h3 className="text-3xl font-bold text-gray-800 mb-2">{value}</h3>

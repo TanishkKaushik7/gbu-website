@@ -1,104 +1,58 @@
-import { useState, useEffect } from "react";
+ import { useState, useEffect } from "react";
 import { Badge } from "../ui/badge";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const RecentPlacements = () => {
+const RecentPlacements = ({ data }) => {
+  // 🔹 Dynamic Data Object
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const recentPlacements = [
-  {
-    name: "Om Sharma",
-    company: "Microsoft",
-    package: "₹51 LPA",
-    department: "CSE",
-    photo: "https://images.unsplash.com/photo-1494790108755-2616b332c2c2?w=200&h=200&fit=crop&crop=face",
-  },
-  {
-    name: "Groww Placed Student",
-    company: "Groww",
-    package: "₹6 LPA",
-    department: "IT",
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
-  },
-  {
-    name: "Mayukhi Shaikia",
-    company: "Child Welfare Organization",
-    package: "₹4 LPA",
-    department: "MSW",
-    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
-  },
-  {
-    name: "B.Tech (IT) Student",
-    company: "Tech Recruiter (generic)",
-    package: "₹5‑6 LPA",
-    department: "IT",
-    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
-  },
-  {
-    name: "Anonymous B.Tech Student",
-    company: "TCS / Infosys",
-    package: "₹4‑6 LPA",
-    department: "CSE",
-    photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=200&h=200&fit=crop&crop=face",
-  },
-  {
-    name: "Anonymous MBA Student",
-    company: "MSW Child Welfare Org",
-    package: "₹4 LPA",
-    department: "MSW",
-    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face",
-  },
-];
-
+const fallbackImage = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide(
-        (prev) => (prev + 1) % Math.ceil(recentPlacements.length / 2)
+        (prev) => (prev + 1) % Math.ceil(data.students.length / 2)
       );
     }, 4000);
     return () => clearInterval(timer);
-  }, [recentPlacements.length]);
+  }, [data.students.length]);
 
   const nextSlide = () => {
     setCurrentSlide(
-      (prev) => (prev + 1) % Math.ceil(recentPlacements.length / 2)
+      (prev) => (prev + 1) % Math.ceil(data.students.length / 2)
     );
   };
 
   const prevSlide = () => {
     setCurrentSlide(
       (prev) =>
-        (prev - 1 + Math.ceil(recentPlacements.length / 2)) %
-        Math.ceil(recentPlacements.length / 2)
+        (prev - 1 + Math.ceil(data.students.length / 2)) %
+        Math.ceil(data.students.length / 2)
     );
   };
 
   const getCurrentPlacements = () => {
     const startIndex = currentSlide * 2;
-    return recentPlacements.slice(startIndex, startIndex + 2);
+    return data.students.slice(startIndex, startIndex + 2);
   };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-green-50 to-blue-50">
+    <section className="py-16 bg-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-800 to-blue-500 bg-clip-text text-transparent">
-            Recent Placements
+          <h2 className="text-4xl font-bold mb-4 text-blue-800">
+            {data.heading}
           </h2>
-          <p className="text-xl text-gray-600">
-            Our students securing top positions
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto mt-4 rounded-full" />
+          <p className="text-xl text-gray-600">{data.subheading}</p>
+          <div className="w-24 h-1 bg-blue-500 mx-auto mt-4 rounded-full" />
         </div>
 
-        {/* Content Card */}
-        <div className="rounded-xl shadow-2xl border-0 bg-white/90 backdrop-blur-sm relative overflow-hidden">
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 border-b border-gray-200 p-4 text-center">
+        {/* Card */}
+        <div className="rounded-xl shadow-2xl border-0 bg-white backdrop-blur-sm relative overflow-hidden">
+          <div className="bg-white border-b border-gray-200 p-4 text-center">
             <h3 className="flex justify-center items-center text-blue-800 text-lg font-bold">
-              <div className="w-2 h-8 bg-gradient-to-b from-green-500 to-blue-500 rounded-full mr-3" />
-              Success Stories
+              <div className="w-2 h-8 bg-blue-500 rounded-full mr-3" />
+              {data.sectionTitle}
             </h3>
           </div>
 
@@ -113,6 +67,7 @@ const RecentPlacements = () => {
                     <img
                       src={placement.photo}
                       alt={placement.name}
+                      onError={(e) => (e.target.src = fallbackImage)}
                       className="w-20 h-20 rounded-full object-cover ring-4 ring-yellow-300/30 group-hover:ring-yellow-400/60 transition-all duration-300"
                     />
                     <div className="flex-1">
@@ -120,7 +75,7 @@ const RecentPlacements = () => {
                         {placement.name}
                       </h4>
                       <p className="text-gray-600 mb-2">
-                        {placement.department} Department
+                        {placement.department}
                       </p>
                       <p className="font-bold text-green-600 text-xl mb-1">
                         {placement.package}
@@ -154,7 +109,7 @@ const RecentPlacements = () => {
             {/* Dots */}
             <div className="flex justify-center mt-8 space-x-2">
               {Array.from({
-                length: Math.ceil(recentPlacements.length / 2),
+                length: Math.ceil(data.students.length / 2),
               }).map((_, index) => (
                 <button
                   key={index}

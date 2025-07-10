@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CalendarIcon, Search, X, SlidersHorizontal } from 'lucide-react';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
-
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Utility function to join class names conditionally
 function cn(...args) {
   return args
@@ -199,6 +199,7 @@ const AdvancedSearchFilter = ({
   ];
 
   return (
+  <SearchableWrapper>
     <div className="bg-gradient-to-br from-white via-blue-50 to-blue-100 rounded-2xl shadow-2xl mb-8 sticky top-20 z-40 border border-blue-100">
       <div className="p-6">
         {/* Main Search Bar */}
@@ -384,6 +385,7 @@ const AdvancedSearchFilter = ({
         </form>
       </div>
     </div>
+  </SearchableWrapper>
   );
 };
 

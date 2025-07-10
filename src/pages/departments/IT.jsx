@@ -1,4 +1,4 @@
-
+ 
 import { Users, Award, BookOpen, Lightbulb, Globe, Server, Smartphone, Shield, GraduationCap, Brain, Code, Trophy, Star, User, Medal, Target } from "lucide-react";
 
 const Card = ({ children, className = "" }) => (
@@ -498,21 +498,21 @@ export default IT;
       name: "Arjun Kumar",
       year: "B.Tech IT 2024",
       achievement: "Microsoft Student Partner, Full Stack Developer Intern at Google",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80",
+      image: "https://images.unsplash.com/photo-1646415753793-dcfda1dfeee3?w=600&auto=format&fit=crop",
       skills: ["React", "Node.js", "Azure", "Machine Learning"]
     },
     {
       name: "Priya Sharma",
       year: "M.Tech IT 2023",
       achievement: "Best Research Paper Award, Published 5 papers in international journals",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b8cc?auto=format&fit=crop&w=300&q=80",
+      image: "https://media.istockphoto.com/id/1362063465/photo/female-teen-student-with-a-backpack-and-books-smiling-stock-photo.webp?a=1&b=1&s=612x612&w=0&k=20&c=wozjDZd9SxxOG6xGIu5Z1ncjPgeZmU_yvnVQMzqaEe8=",
       skills: ["Data Science", "Python", "TensorFlow", "Research"]
     },
     {
       name: "Rahul Singh",
       year: "B.Tech IT 2024",
       achievement: "Winner of Smart India Hackathon 2023, Founder of tech startup",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+      image: "https://images.unsplash.com/photo-1644904105846-095e45fca990?w=600&auto=format&fit=crop",
       skills: ["Mobile Development", "Entrepreneurship", "UI/UX", "Leadership"]
     }
   ];

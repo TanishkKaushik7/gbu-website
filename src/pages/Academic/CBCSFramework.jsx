@@ -1,69 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Target, Award, Users, CheckCircle, GraduationCap, Star } from 'lucide-react';
+import axios from 'axios';
 
-const iconMap = {
-  Target, Award, BookOpen, Users, GraduationCap, Star
-};
+// ✅ Load BASE_URL from .env
+const BASE_URL = import.meta.env.VITE_HOST;
 
 const CBCSFramework = () => {
   const [heroData, setHeroData] = useState(null);
   const [whatData, setWhatData] = useState([]);
-  const [courses, setCourses] = useState([]);
   const [grading, setGrading] = useState([]);
   const [benefits, setBenefits] = useState([]);
   const [explore, setExplore] = useState(null);
 
-  const BASE = import.meta.env.VITE_HOST?.replace(/\/$/, '');
-
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCBCSData = async () => {
       try {
-        const [
-          heroRes,
-          whatRes,
-          courseRes,
-          gradingRes,
-          benefitsRes,
-          exploreRes
-        ] = await Promise.all([
-          fetch(`${BASE}/academic/cbcs/hero/`),
-          fetch(`${BASE}/academic/cbcs/what/`),
-          fetch(`${BASE}/academic/cbcs/courses/`),
-          fetch(`${BASE}/academic/cbcs/grading/`),
-          fetch(`${BASE}/academic/cbcs/benefits/`),
-          fetch(`${BASE}/academic/cbcs/explore/`)
+        const [heroRes, whatRes, gradingRes, benefitsRes, exploreRes] = await Promise.all([
+          axios.get(`${BASE_URL}/academic/cbcs/hero/`),
+          axios.get(`${BASE_URL}/academic/cbcs/what/`),
+          axios.get(`${BASE_URL}/academic/cbcs/grading/`),
+          axios.get(`${BASE_URL}/academic/cbcs/benefits/`),
+          axios.get(`${BASE_URL}/academic/cbcs/explore/`)
         ]);
 
-        const [
-          heroData,
-          whatData,
-          courseData,
-          gradingData,
-          benefitsData,
-          exploreData
-        ] = await Promise.all([
-          heroRes.json(),
-          whatRes.json(),
-          courseRes.json(),
-          gradingRes.json(),
-          benefitsRes.json(),
-          exploreRes.json()
-        ]);
-
-        setHeroData(heroData[0]);
-        setWhatData(whatData);
-        setCourses(courseData);
-        setGrading(gradingData);
-        setBenefits(benefitsData);
-        setExplore(exploreData[0]);
+        setHeroData(heroRes.data[0] || null);
+        setWhatData(whatRes.data || []);
+        setGrading(gradingRes.data || []);
+        setBenefits(benefitsRes.data || []);
+        setExplore(exploreRes.data[0] || null);
       } catch (error) {
         console.error('Error fetching CBCS data:', error);
       }
     };
 
-    fetchData();
-  }, [BASE]);
+    fetchCBCSData();
+  }, []);
 
   if (!heroData) return <div className="text-center py-20">Loading CBCS Information...</div>;
 
@@ -82,10 +54,34 @@ const CBCSFramework = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             {[
-              { label: "Credit Points per Semester", value: heroData.credits_coount, icon: GraduationCap, color: "bg-blue-100", iconColor: "text-blue-600" },
-              { label: "Elective Courses", value: heroData.elective_courses, icon: BookOpen, color: "bg-green-100", iconColor: "text-green-600" },
-              { label: "Point Grading Scale", value: heroData.grading_scale, icon: Star, color: "bg-purple-100", iconColor: "text-purple-600" },
-              { label: "Choice Flexibility", value: heroData.flexebility, icon: Target, color: "bg-orange-100", iconColor: "text-orange-600" }
+              {
+                label: "Credit Points per Semester",
+                value: heroData.credits_coount,
+                icon: GraduationCap,
+                color: "bg-blue-100",
+                iconColor: "text-blue-600"
+              },
+              {
+                label: "Elective Courses",
+                value: heroData.elective_courses,
+                icon: BookOpen,
+                color: "bg-green-100",
+                iconColor: "text-green-600"
+              },
+              {
+                label: "Point Grading Scale",
+                value: heroData.grading_scale,
+                icon: Star,
+                color: "bg-purple-100",
+                iconColor: "text-purple-600"
+              },
+              {
+                label: "Choice Flexibility",
+                value: heroData.flexebility,
+                icon: Target,
+                color: "bg-orange-100",
+                iconColor: "text-orange-600"
+              }
             ].map((stat, index) => (
               <div key={index} className="animate-fade-in">
                 <div className={`${stat.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
@@ -120,34 +116,6 @@ const CBCSFramework = () => {
         </div>
       </section>
 
-      {/* Course Categories */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Course Categories</h2>
-            <p className="text-xl text-gray-600">Understanding different types of courses in CBCS framework</p>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {courses.map((course, index) => (
-              <div key={index} className={`rounded-xl p-6 border-l-4 border-blue-500 bg-white hover:shadow-lg transition-all animate-fade-in`}>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">{course.card_title}</h3>
-                <p className="text-gray-600 mb-4">{course.card_desc}</p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-gray-700">Credit Range:</span>
-                    <span className="text-blue-600 font-semibold">{course.credit_range}</span>
-                  </div>
-                  <div className="flex items-start justify-between">
-                    <span className="font-medium text-gray-700">Examples:</span>
-                    <span className="text-gray-600 text-right">{course.examples}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Grading System */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -165,15 +133,13 @@ const CBCSFramework = () => {
                 <div>Status</div>
               </div>
               {grading.map((grade, index) => (
-                <div key={index} className={`grid grid-cols-5 text-center py-3 border-b border-gray-200 border-solid${grade.status === 'Fail' ? 'bg-red-50' : index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                <div key={index} className={`grid grid-cols-5 text-center py-3 border-b border-gray-200 ${grade.status === 'Fail' ? 'bg-red-50' : index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                   <div className="font-bold text-lg">{grade.grade}</div>
                   <div className="font-semibold text-blue-600">{grade.points}</div>
                   <div>{grade.percentage_range}</div>
                   <div className="font-medium">{grade.description}</div>
                   <div>
-                    <span className={`font-semibold ${grade.status === 'Fail' ? 'text-red-600' : 'text-green-600'}`}>
-                      {grade.status}
-                    </span>
+                    <span className={`font-semibold ${grade.status === 'Fail' ? 'text-red-600' : 'text-green-600'}`}>{grade.status}</span>
                   </div>
                 </div>
               ))}
@@ -210,7 +176,7 @@ const CBCSFramework = () => {
             <p className="text-xl mb-8 max-w-3xl mx-auto">{explore.description}</p>
             <a
               href={explore.url}
-              className="border border-white border-solid text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition-colors"
+              className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { FileText, Download, Eye, Calendar, TrendingUp } from 'lucide-react';
+import SearchableWrapper from '../Searchbar/SearchableWrapper';
 // Minimal Card, CardHeader, CardTitle, CardContent, Button, Badge components
 
 const Card = ({ className = '', children }) => (
@@ -66,6 +67,7 @@ const ClubReports  = ({ club }) => {
   ];
 
   return (
+    <SearchableWrapper>
     <div className="space-y-8">
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Annual Reports</h2>
@@ -198,6 +200,7 @@ const ClubReports  = ({ club }) => {
         </CardContent>
       </Card>
     </div>
+    </SearchableWrapper>
   );
 };
 

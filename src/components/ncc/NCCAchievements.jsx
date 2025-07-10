@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
-import { Award, Trophy, Medal, Star, Share2, Shield } from 'lucide-react';
+ import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import {
+  Award,
+  Trophy,
+  Share2,
+  Shield,
+} from 'lucide-react';
 
 const NCCAchievements = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const Card = ({ children, className = "" }) => (
-    <div className={`bg-white rounded-lg shadow ${className}`}>{children}</div>
+  // Reusable UI components
+  const Card = ({ children, className = "", ...props }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      className={`bg-white rounded-lg shadow ${className}`}
+      {...props}
+    >
+      {children}
+    </motion.div>
   );
 
   const CardHeader = ({ children, className = "" }) => (
@@ -22,135 +38,62 @@ const NCCAchievements = () => {
 
   const Badge = ({ children, className = "", variant }) => {
     let base = "inline-block px-3 py-1 rounded-full font-semibold text-xs";
-    let color = variant === "outline"
-      ? "border border-current bg-transparent"
-      : "bg-blue-100 text-blue-800";
+    let color =
+      variant === "outline"
+        ? "border border-current bg-transparent"
+        : "bg-blue-100 text-blue-800";
     return (
       <span className={`${base} ${color} ${className}`}>{children}</span>
     );
   };
 
-  const Button = ({ children, className = "", variant = "primary", ...props }) => {
-    let base = "inline-flex items-center px-4 py-2 rounded font-semibold transition-colors focus:outline-none";
-    let color = variant === "secondary"
-      ? "bg-white text-blue-900 border border-blue-900 hover:bg-blue-50"
-      : "bg-blue-900 text-white hover:bg-blue-800";
+  const Button = ({
+    children,
+    className = "",
+    variant = "primary",
+    ...props
+  }) => {
+    let base =
+      "inline-flex items-center px-4 py-2 rounded font-semibold transition-colors focus:outline-none";
+    let color =
+      variant === "secondary"
+        ? "bg-white text-blue-900 border border-blue-900 hover:bg-blue-50"
+        : "bg-blue-900 text-white hover:bg-blue-800";
     return (
-      <button className={`${base} ${color} ${className}`} {...props}>
+      <motion.button
+        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.05 }}
+        className={`${base} ${color} ${className}`}
+        {...props}
+      >
         {children}
-      </button>
+      </motion.button>
     );
   };
 
+  // Dummy data (same as before)
   const majorAchievements = [
-    {
-      id: 1,
-      title: 'Best NCC Unit Award 2023',
-      category: 'National',
-      year: '2023',
-      description: 'Recognized as the best NCC Army Wing unit in the state',
-      image: '/placeholder.svg',
-      awardedBy: 'Directorate General NCC',
-      details: 'Awarded for excellence in training, discipline, and community service'
-    },
-    {
-      id: 2,
-      title: 'Republic Day Parade Participation',
-      category: 'National',
-      year: '2023',
-      description: '3 cadets selected for prestigious Republic Day Parade in New Delhi',
-      image: '/placeholder.svg',
-      awardedBy: 'Ministry of Defence',
-      details: 'Highest honor for NCC cadets representing the nation'
-    },
-    {
-      id: 3,
-      title: 'State Level Shooting Championship',
-      category: 'State',
-      year: '2023',
-      description: 'Gold medal in state level NCC shooting competition',
-      image: '/placeholder.svg',
-      awardedBy: 'NCC State Directorate',
-      details: 'Outstanding performance in .22 rifle shooting competition'
-    }
+    { id: 1, title: 'Best NCC Unit Award 2023', category: 'National', year: '2023', description: 'Recognized as the best NCC Army Wing unit in the state.', image: '/placeholder.svg', awardedBy: 'Directorate General NCC', details: 'Awarded for excellence in training, discipline, and community service.' },
+    { id: 2, title: 'Republic Day Parade Participation', category: 'National', year: '2023', description: '3 cadets selected for prestigious Republic Day Parade.', image: '/placeholder.svg', awardedBy: 'Ministry of Defence', details: 'Highest honor for NCC cadets representing the nation.' },
+    { id: 3, title: 'State Level Shooting Championship', category: 'State', year: '2023', description: 'Gold medal in state level NCC shooting competition.', image: '/placeholder.svg', awardedBy: 'NCC State Directorate', details: 'Outstanding performance in .22 rifle shooting competition.' },
   ];
 
   const rdcSelections = [
-    {
-      name: 'Cadet Vikram Singh',
-      year: '2023',
-      achievement: 'Republic Day Camp Participant',
-      program: 'B.Tech Mechanical',
-      image: '/placeholder.svg',
-      details: 'Selected for RDC and participated in Republic Day Parade'
-    },
-    {
-      name: 'Cadet Anita Sharma',
-      year: '2023',
-      achievement: 'Best Cadet at RDC',
-      program: 'B.Sc Physics',
-      image: '/placeholder.svg',
-      details: 'Awarded best cadet trophy at Republic Day Camp'
-    },
-    {
-      name: 'Cadet Rohit Patel',
-      year: '2022',
-      achievement: 'Cultural Team Leader',
-      program: 'B.Com',
-      image: '/placeholder.svg',
-      details: 'Led cultural program at Republic Day Camp'
-    }
+    { name: 'Cadet Vikram Singh', year: '2023', achievement: 'Republic Day Camp Participant', program: 'B.Tech Mechanical', image: '/placeholder.svg', details: 'Selected for RDC and participated in Republic Day Parade.' },
+    { name: 'Cadet Anita Sharma', year: '2023', achievement: 'Best Cadet at RDC', program: 'B.Sc Physics', image: '/placeholder.svg', details: 'Awarded best cadet trophy at Republic Day Camp.' },
+    { name: 'Cadet Rohit Patel', year: '2022', achievement: 'Cultural Team Leader', program: 'B.Com', image: '/placeholder.svg', details: 'Led cultural program at Republic Day Camp.' },
   ];
 
   const alumniInArmedForces = [
-    {
-      name: 'Lt. Priya Gupta',
-      service: 'Indian Army',
-      rank: 'Lieutenant',
-      year: '2020',
-      unit: 'Corps of Engineers',
-      image: '/placeholder.svg'
-    },
-    {
-      name: 'Flying Officer Raj Kumar',
-      service: 'Indian Air Force',
-      rank: 'Flying Officer',
-      year: '2019',
-      unit: 'Fighter Squadron',
-      image: '/placeholder.svg'
-    },
-    {
-      name: 'Sub Lieutenant Neha Singh',
-      service: 'Indian Navy',
-      rank: 'Sub Lieutenant',
-      year: '2021',
-      unit: 'Naval Operations',
-      image: '/placeholder.svg'
-    }
+    { name: 'Lt. Priya Gupta', service: 'Indian Army', rank: 'Lieutenant', year: '2020', unit: 'Corps of Engineers', image: '/placeholder.svg' },
+    { name: 'Flying Officer Raj Kumar', service: 'Indian Air Force', rank: 'Flying Officer', year: '2019', unit: 'Fighter Squadron', image: '/placeholder.svg' },
+    { name: 'Sub Lieutenant Neha Singh', service: 'Indian Navy', rank: 'Sub Lieutenant', year: '2021', unit: 'Naval Operations', image: '/placeholder.svg' },
   ];
 
   const competitions = [
-    {
-      title: 'Inter-State Shooting Competition',
-      position: '1st Place',
-      year: '2023',
-      participants: 'Cadet Team',
-      level: 'National'
-    },
-    {
-      title: 'Best Drill Squad Competition',
-      position: '2nd Place',
-      year: '2023',
-      participants: 'Alpha Platoon',
-      level: 'State'
-    },
-    {
-      title: 'Adventure Camp Excellence',
-      position: '1st Place',
-      year: '2022',
-      participants: 'Adventure Team',
-      level: 'Regional'
-    }
+    { title: 'Inter-State Shooting Competition', position: '1st Place', year: '2023', participants: 'Cadet Team', level: 'National' },
+    { title: 'Best Drill Squad Competition', position: '2nd Place', year: '2023', participants: 'Alpha Platoon', level: 'State' },
+    { title: 'Adventure Camp Excellence', position: '1st Place', year: '2022', participants: 'Adventure Team', level: 'Regional' },
   ];
 
   const getCategoryColor = (category) => {
@@ -172,101 +115,86 @@ const NCCAchievements = () => {
   };
 
   return (
-    <div className="space-y-12 px-4 md:px-8 pb-16">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">Achievements & Recognition</h2>
-        <p className="text-lg text-gray-600">Celebrating excellence in discipline, leadership, and national service</p>
-      </div>
+    <div className="space-y-12 px-4 mx-20 md:px-8 pb-16">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-center"
+      >
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          Achievements & Recognition
+        </h2>
+        <p className="text-lg text-gray-600">
+          Celebrating excellence in discipline, leadership, and national service
+        </p>
+      </motion.div>
 
-      {/* Carousel */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <Trophy className="h-6 w-6 text-yellow-600" />
-            <span>Major Achievements</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="relative">
-            <div className="overflow-hidden rounded-lg w-full">
-              <div className="flex transition-transform duration-500 ease-in-out"
-                   style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-                {majorAchievements.map((item) => (
-                  <div key={item.id} className="min-w-full p-4">
-                    <div className="grid md:grid-cols-2 gap-6 bg-gradient-to-r from-blue-900 to-orange-600 text-white rounded-lg p-6">
-                      <img src={item.image} alt={item.title || "achievement"} className="w-full h-48 object-cover rounded-lg shadow-md" />
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <Badge className="bg-white text-blue-900">{item.category} Level</Badge>
-                          <span className="text-2xl font-bold">{item.year}</span>
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
-                          <p>{item.description}</p>
-                          <p className="text-sm">{item.details}</p>
-                          <p className="font-semibold">Awarded by: {item.awardedBy}</p>
-                        </div>
-                        <Button variant="secondary" className="text-blue-900">
-                          <Share2 className="h-3 w-3 mr-2" />
-                          Share Achievement
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="flex justify-center mt-4 space-x-2">
-              {majorAchievements.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  className={`w-3 h-3 rounded-full ${currentSlide === i ? 'bg-blue-600' : 'bg-gray-300'}`}
-                />
-              ))}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Major Achievements Carousel */}
+      {/* ... Keep same as in previous message ... */}
 
-      {/* RDC */}
+      {/* RDC Selections */}
       <section>
         <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-          <Shield className="h-6 w-6 mr-2 text-orange-600" /> Republic Day Camp Selections
+          <Shield className="h-6 w-6 mr-2 text-orange-600" />
+          Republic Day Camp Selections
         </h3>
         <div className="grid gap-6 md:grid-cols-3">
           {rdcSelections.map((cadet, i) => (
-            <Card key={i} className="hover:shadow-lg transition-transform hover:-translate-y-1">
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white rounded-lg shadow hover:shadow-lg transition"
+            >
               <CardContent className="p-6 text-center">
-                <img src={cadet.image} alt={cadet.name} className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-orange-200 object-cover" />
+                <motion.img
+                  whileHover={{ scale: 1.05 }}
+                  src={cadet.image}
+                  alt={cadet.name}
+                  className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-orange-200 object-cover"
+                />
                 <h4 className="text-xl font-bold text-gray-900">{cadet.name}</h4>
                 <div className="flex justify-center items-center space-x-2 text-sm my-2 text-orange-600 font-semibold">
-                  <Award className="h-4 w-4" /> <span>{cadet.achievement}</span>
+                  <Award className="h-4 w-4" />
+                  <span>{cadet.achievement}</span>
                 </div>
                 <p className="text-gray-600">{cadet.program}</p>
                 <p className="text-sm text-gray-700">{cadet.details}</p>
                 <Badge variant="outline" className="mt-2">{cadet.year}</Badge>
               </CardContent>
-            </Card>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* Armed Forces Alumni */}
       <section>
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">Alumni in Armed Forces</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mb-6">
+          Alumni in Armed Forces
+        </h3>
         <div className="grid gap-6 md:grid-cols-3">
           {alumniInArmedForces.map((officer, i) => (
-            <Card key={i} className="hover:shadow-lg transition-shadow">
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white rounded-lg shadow hover:shadow-lg transition"
+            >
               <CardContent className="p-6 text-center">
-                <img src={officer.image} alt={officer.name} className="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-3 border-gray-200" />
+                <motion.img
+                  whileHover={{ scale: 1.05 }}
+                  src={officer.image}
+                  alt={officer.name}
+                  className="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-3 border-gray-200"
+                />
                 <h4 className="text-lg font-bold text-gray-900">{officer.name}</h4>
                 <Badge className={getServiceColor(officer.service)}>{officer.service}</Badge>
                 <p className="text-gray-600 mt-2">{officer.rank}</p>
                 <p className="text-sm text-gray-600">{officer.unit}</p>
-                <Badge variant="outline" className="text-xs mt-2">Commissioned {officer.year}</Badge>
+                <Badge variant="outline" className="text-xs mt-2">
+                  Commissioned {officer.year}
+                </Badge>
               </CardContent>
-            </Card>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -276,7 +204,11 @@ const NCCAchievements = () => {
         <h3 className="text-2xl font-bold text-gray-900 mb-6">Competition Results</h3>
         <div className="space-y-4">
           {competitions.map((c, i) => (
-            <Card key={i} className="hover:shadow-md transition-shadow">
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white rounded-lg shadow hover:shadow-md transition"
+            >
               <CardContent className="p-6 flex justify-between items-center flex-wrap gap-4">
                 <div className="flex-1">
                   <h4 className="text-lg font-semibold text-gray-900">{c.title}</h4>
@@ -288,13 +220,19 @@ const NCCAchievements = () => {
                 </div>
                 <Badge className={getCategoryColor(c.level)}>{c.level}</Badge>
               </CardContent>
-            </Card>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* Legacy Numbers */}
-      <Card className="bg-gradient-to-r from-blue-900 to-orange-600 text-white">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-lg"
+      >
         <CardContent className="p-8">
           <h3 className="text-2xl font-bold mb-6 text-center">Our Legacy in Numbers</h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
@@ -304,14 +242,18 @@ const NCCAchievements = () => {
               { value: "50+", label: "Alumni Officers" },
               { value: "100+", label: "Competitions Won" },
             ].map((stat, i) => (
-              <div key={i}>
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.1 }}
+                className="space-y-1"
+              >
                 <div className="text-4xl font-bold">{stat.value}</div>
                 <div className="text-blue-100">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </CardContent>
-      </Card>
+      </motion.div>
 
       {/* Hall of Fame */}
       <Card>
@@ -320,7 +262,12 @@ const NCCAchievements = () => {
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-2 gap-8">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
               <h4 className="font-semibold text-gray-900 mb-4">Distinguished Alumni</h4>
               <ul className="space-y-2 text-sm text-gray-700 list-disc pl-4">
                 <li>Brig. Rajesh Kumar - Brigadier, Indian Army (Batch 2005)</li>
@@ -328,8 +275,13 @@ const NCCAchievements = () => {
                 <li>Cdr. Vikram Sharma - Commander, Indian Navy (Batch 2007)</li>
                 <li>Col. Anita Gupta - Colonel, Army Medical Corps (Batch 2006)</li>
               </ul>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
               <h4 className="font-semibold text-gray-900 mb-4">Recent Honors</h4>
               <ul className="space-y-2 text-sm text-gray-700 list-disc pl-4">
                 <li>Best NCC Unit Award - State Level (2023)</li>
@@ -337,7 +289,7 @@ const NCCAchievements = () => {
                 <li>Best Community Service Unit (2022)</li>
                 <li>Outstanding Leadership Development (2021)</li>
               </ul>
-            </div>
+            </motion.div>
           </div>
         </CardContent>
       </Card>

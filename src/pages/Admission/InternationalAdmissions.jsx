@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React,{ useState }from 'react';
 
 import {
   Globe,
@@ -16,9 +16,9 @@ import {
   Mail
 } from 'lucide-react';
 const Card = ({ children, className }) => (
-  <div className={`rounded-lg shadow bg-white border ${className || ""}`}>{children}</div>
+  <div className={`rounded-lg shadow bg-white border-gray-300 ${className || ""}`}>{children}</div>
 );
-const CardHeader = ({ children }) => <div className="p-4 border-b">{children}</div>;
+const CardHeader = ({ children }) => <div className="p-4 border-b border-gray-300">{children}</div>;
 const CardTitle = ({ children, className }) => (
   <h3 className={`text-lg font-semibold ${className || ""}`}>{children}</h3>
 );
@@ -52,16 +52,44 @@ const Button = ({ children, size = "md", variant = "default", className }) => {
   );
 };
 
-const Tabs = ({ children }) => <div>{children}</div>;
-const TabsList = ({ children, className }) => (
-  <div className={`flex flex-wrap gap-2 ${className || ""}`}>{children}</div>
-);
-const TabsTrigger = ({ children, value }) => (
-  <button className="px-4 py-2 border rounded">{children}</button>
-);
-const TabsContent = ({ children, value, className }) => (
-  <div className={className || ""}>{children}</div>
-);
+ const Tabs = ({ value, onValueChange, children, className = '', ...props }) => {
+   // Pass value and onValueChange via context
+   const [active, setActive] = React.useState(value);
+   React.useEffect(() => setActive(value), [value]);
+   return (
+     <TabsContext.Provider value={{ active, setActive: onValueChange }}>
+       <div className={className} {...props}>{children}</div>
+     </TabsContext.Provider>
+   );
+ };
+ 
+ const TabsContext = React.createContext();
+ 
+ const TabsList = ({ children, className = '', ...props }) => (
+   <div className={className} {...props}>{children}</div>
+ );
+ 
+ const TabsTrigger = ({ value, children, className = '', ...props }) => {
+   const ctx = React.useContext(TabsContext);
+   const isActive = ctx.active === value;
+   return (
+     <button
+       className={`transition-colors pt-0.5 pb-0.5 ${isActive ? 'border-gray-600 text-white bg-gray-900' : ' bg-gray-100 text-gray-700 hover:bg-gray-200'} font-medium focus:outline-none ${className}`}
+       onClick={() => ctx.setActive(value)}
+       type="button"
+       {...props}
+     >
+       {children}
+     </button>
+   );
+ };
+ 
+ const TabsContent = ({ value, children, ...props }) => {
+   const ctx = React.useContext(TabsContext);
+   if (ctx.active !== value) return null;
+   return <div {...props}>{children}</div>;
+ };
+ 
 
 // Replace with real Lucide icons or your own
 const Icon = (name, className = "w-5 h-5") => <div className={className}>{name}</div>;
@@ -81,6 +109,7 @@ const icons = {
 };
 
 const InternationalAdmissions = () => {
+   const [activeTab, setActiveTab] = useState('eligibility');
   const eligibilityRequirements = [
     {
       level: "Undergraduate",
@@ -288,8 +317,8 @@ const InternationalAdmissions = () => {
           </Card>
         </div>
 
-        <Tabs defaultValue="eligibility" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} defaultValue="eligibility" className="w-full">
+          <TabsList className="grid w-full text-xl grid-cols-5 mb-8">
             <TabsTrigger value="eligibility">Eligibility</TabsTrigger>
             <TabsTrigger value="process">Process</TabsTrigger>
             <TabsTrigger value="fees">Fees</TabsTrigger>
@@ -503,20 +532,7 @@ const InternationalAdmissions = () => {
               ))}
             </div>
 
-            <Card className="bg-gradient-to-r from-blue-600 to-green-600 text-white">
-              <CardContent className="p-8 text-center">
-                <h3 className="text-2xl font-bold mb-4">Ready to Apply?</h3>
-                <p className="text-lg mb-6">Join our global community of learners and start your journey today!</p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                    Start Application
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-white border-[1px] border-solid text-white hover:bg-white hover:text-blue-600">
-                    Schedule Consultation
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            
           </TabsContent>
         </Tabs>
       </div>

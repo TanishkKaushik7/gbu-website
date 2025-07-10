@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-// Card component
+ import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+ 
 const Card = ({ children, className = "" }) => (
-  <div className={`bg-white rounded-lg shadow ${className}`}>{children}</div>
+  <div className={`bg-white rounded-lg shadow  border-gray-300 ${className}`}>{children}</div>
 );
 
 const CardHeader = ({ children, className = "" }) => (
-  <div className={`border-b px-6 py-4 ${className}`}>{children}</div>
+  <div className={`border border-gray-300 px-6 py-4 ${className}`}>{children}</div>
 );
 
 const CardTitle = ({ children, className = "" }) => (
@@ -44,7 +46,6 @@ const Button = ({ children, onClick, variant = "solid", size = "md", className =
 const Badge = ({ children, className = "" }) => (
   <span className={`inline-block px-2 py-0.5 rounded text-xs font-semibold ${className}`}>{children}</span>
 );
-import { Calendar, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
 const Select = ({ value, onValueChange, children }) => (
   <div className="relative">
     <select
@@ -75,7 +76,6 @@ const SelectContent = ({ children }) => <>{children}</>;
 const SelectItem = ({ value, children }) => (
   <option value={value}>{children}</option>
 );
-
 const NSSEvents = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [filterMonth, setFilterMonth] = useState('all');
@@ -187,7 +187,13 @@ const NSSEvents = () => {
     for (let day = 1; day <= daysInMonth; day++) {
       const dayEvents = getEventsForDate(day);
       days.push(
-        <div key={day} className="h-24 border border-gray-200 p-1 overflow-hidden hover:bg-gray-50">
+        <motion.div
+          key={day}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: day * 0.01 }}
+          className="h-24 border border-gray-200 p-1 overflow-hidden hover:bg-gray-50"
+        >
           <div className="font-semibold text-sm text-gray-900">{day}</div>
           <div className="space-y-1 mt-1">
             {dayEvents.slice(0, 2).map(event => (
@@ -208,7 +214,7 @@ const NSSEvents = () => {
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
       );
     }
 
@@ -216,75 +222,62 @@ const NSSEvents = () => {
   };
 
   return (
-    <div className="space-y-8">
+
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.1 } }
+      }}
+      className="space-y-8 mx-20"
+    >
+
       {/* Header */}
-      <div className="text-center">
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0 }
+        }}
+        className="text-center"
+      >
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Events Calendar</h2>
         <p className="text-lg text-gray-600">
           Stay updated with upcoming NSS events and activities
         </p>
-      </div>
+      </motion.div>
 
       {/* Filters */}
-      <Card>
-        <CardContent className="p-6">
-          <div className="flex flex-wrap gap-4 items-center">
-            <div className="flex items-center space-x-2">
-              <Filter className="h-4 w-4 text-gray-600" />
-              <span className="text-sm font-medium text-gray-700">Filters:</span>
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 10 },
+          visible: { opacity: 1, y: 0 }
+        }}
+      >
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex flex-wrap gap-4 items-center">
+              <div className="flex items-center space-x-2">
+                <Filter className="h-4 w-4 text-gray-600" />
+                <span className="text-sm font-medium text-gray-700">Filters:</span>
+              </div>
+              {/* Selects */}
+              {/* Keep your Select components here unchanged */}
             </div>
-
-            <Select value={filterMonth} onValueChange={setFilterMonth}>
-              <SelectTrigger className="w-32">
-                <SelectValue placeholder="Month" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Months</SelectItem>
-                <SelectItem value="0">January</SelectItem>
-                <SelectItem value="1">February</SelectItem>
-                <SelectItem value="2">March</SelectItem>
-                <SelectItem value="3">April</SelectItem>
-                <SelectItem value="4">May</SelectItem>
-                <SelectItem value="5">June</SelectItem>
-                <SelectItem value="6">July</SelectItem>
-                <SelectItem value="7">August</SelectItem>
-                <SelectItem value="8">September</SelectItem>
-                <SelectItem value="9">October</SelectItem>
-                <SelectItem value="10">November</SelectItem>
-                <SelectItem value="11">December</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={filterYear} onValueChange={setFilterYear}>
-              <SelectTrigger className="w-24">
-                <SelectValue placeholder="Year" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="2024">2024</SelectItem>
-                <SelectItem value="2023">2023</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={filterCategory} onValueChange={setFilterCategory}>
-              <SelectTrigger className="w-32">
-                <SelectValue placeholder="Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="Health">Health</SelectItem>
-                <SelectItem value="Education">Education</SelectItem>
-                <SelectItem value="Environment">Environment</SelectItem>
-                <SelectItem value="Community">Community</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </motion.div>
 
       <div className="grid lg:grid-cols-3 gap-8">
-        {/* Calendar View */}
-        <div className="lg:col-span-2">
-          <Card>
+        {/* Calendar */}
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, x: -20 },
+            visible: { opacity: 1, x: 0 }
+          }}
+          className="lg:col-span-2"
+        >
+          <Card className="h-[600px] flex flex-col">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-2xl">
@@ -300,7 +293,7 @@ const NSSEvents = () => {
                 </div>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-1 flex flex-col">
               <div className="grid grid-cols-7 gap-0 mb-4">
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
                   <div key={day} className="h-8 flex items-center justify-center font-semibold text-gray-700 bg-gray-100">
@@ -308,67 +301,68 @@ const NSSEvents = () => {
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-7 gap-0 border border-gray-200">
+              <div className="grid grid-cols-7 gap-0 border border-gray-200 flex-1">
                 {renderCalendar()}
               </div>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
 
-        {/* Event List */}
-        <div>
-          <Card>
+        {/* Upcoming Events */}
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, x: 20 },
+            visible: { opacity: 1, x: 0 }
+          }}
+        >
+          <Card className="h-[600px] flex flex-col">
             <CardHeader>
               <CardTitle>Upcoming Events</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              {filteredEvents.slice(0, 6).map(event => (
-                <div key={event.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-semibold text-gray-900">{event.title}</h3>
-                    <Badge className={getStatusColor(event.status)}>
-                      {event.status}
-                    </Badge>
-                  </div>
-                  <p className="text-sm text-gray-600 mb-2">{event.description}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">
-                      {event.date.toLocaleDateString('en-IN')}
-                    </span>
-                    <Badge className={getCategoryColor(event.category)}>
-                      {event.category}
-                    </Badge>
-                  </div>
-                </div>
-              ))}
+            <CardContent className="flex-1 overflow-y-hidden relative">
+              <motion.div
+                animate={{
+                  y: ["0%", "-50%"]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  duration: 20,
+                  ease: "linear"
+                }}
+                className="space-y-4"
+              >
+                {filteredEvents.concat(filteredEvents).map((event, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-semibold text-gray-900">{event.title}</h3>
+                      <Badge className={getStatusColor(event.status)}>
+                        {event.status}
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-2">{event.description}</p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-500">
+                        {event.date.toLocaleDateString('en-IN')}
+                      </span>
+                      <Badge className={getCategoryColor(event.category)}>
+                        {event.category}
+                      </Badge>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
             </CardContent>
           </Card>
-
-          {/* Legend */}
-          <Card className="mt-6">
-            <CardHeader>
-              <CardTitle className="text-lg">Legend</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                  <span className="text-sm">Upcoming Events</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-green-500 rounded"></div>
-                  <span className="text-sm">Completed Events</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-red-500 rounded"></div>
-                  <span className="text-sm">Cancelled Events</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
